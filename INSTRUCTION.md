@@ -39,7 +39,7 @@ After all tools are installed clone the repo
 git clone https://github.com/Iguana2024/Geocity-DevOps-Iguana.git
 ```
 
-### Navigate to src/main/resources/application.properties and change URL of the db and frontend to ip of your machine
+### Navigate to src/main/resources/application.properties and change URL of the db and frontend to ip of your machine anad your db
 ### Navigate to front-end/src/main.js and chnge URL of the backend to your machine ip
 
 Navigate into 'front-end' and run:
