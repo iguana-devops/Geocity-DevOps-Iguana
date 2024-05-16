@@ -7,7 +7,7 @@ if [ ! -f "$POM_FILE" ]; then
   exit 1
 fi
 
-sed -i 's|<springframework.social.facebook.version>2.0.0.M3</springframework.social.facebook.version>|<springframework.social.facebook.version>2.0.3.RELEASE</springframework.social.facebook.version>|' "$POM_FILE"
+sed -i 's|<springframework.social.facebook.version>3.0.0.M3</springframework.social.facebook.version>|<springframework.social.facebook.version>2.0.3.RELEASE</springframework.social.facebook.version>|' "$POM_FILE"
 
 sed -i 's|<artifactId>servlet-api</artifactId>|<artifactId>javax.servlet-api</artifactId>|' "$POM_FILE"
 
@@ -16,4 +16,3 @@ if grep -q '<springframework.social.facebook.version>2.0.3.RELEASE</springframew
 else
   echo "Failed to apply updates."
 fi
-
