@@ -70,8 +70,9 @@ sudo apt install -y postgresql-client-12
 sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
-#allow 8080
+#allow 8080 and 465
 sudo ufw allow 8080/tcp
+sudo ufw allow 465/tcp
 
 #delete provision
 rm -f /tmp/provision_backend.sh
