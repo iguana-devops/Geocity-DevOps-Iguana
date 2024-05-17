@@ -73,32 +73,5 @@ sudo apt-get install -y nodejs
 #allow 8080
 sudo ufw allow 8080/tcp
 
-
-### BUILD & DEPLOY PROJECT
-# Navigate vagrant home:
-cd /home/vagrant
-
-# git clone the project
-git clone https://github.com/Iguana2024/Geocity-DevOps-Iguana.git
-
-# Navigate home application folder:
-cd Geocity-DevOps-Iguana
-
-# Navigate into 'front-end' and run:
-cd front-end 
-npm install
-npm run build
-
-# Copy files from the dist dir to /src/main/webapp
-cp /dist/* /../src/main/webapp
-
-# Navigate to root and run
-cd ..
-mvn clean install
-sudo cp /target/citizen.war /opt/tomcat/apache-tomcat-9.0.89/webapps/
-/opt/tomcat/apache-tomcat-9.0.89/bin/startup.sh
-
-# Copy static files
-
 #delete provision
 rm -f /tmp/provision_backend.sh
