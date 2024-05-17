@@ -9,7 +9,6 @@ Vagrant.configure("2") do |config|
       vb.memory = "1024"
     end
     backend.vm.provision "shell", inline: <<-SHELL
-      sudo apt update
       
     SHELL
     backend.vm.provision "file", source: "./provision_backend.sh", destination: "/tmp/provision_backend.sh"
@@ -24,7 +23,7 @@ Vagrant.configure("2") do |config|
       vb.memory = "1024"
     end
     database.vm.provision "shell", inline: <<-SHELL
-  
+
     SHELL
     database.vm.provision "file", source: "./provision_database.sh", destination: "/tmp/provision_database.sh"
     database.vm.provision "file", source: "./../pg_password.txt", destination: "/tmp/pg_password.txt"
