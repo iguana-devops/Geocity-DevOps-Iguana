@@ -27,6 +27,7 @@ Vagrant.configure("2") do |config|
   
     SHELL
     database.vm.provision "file", source: "./provision_database.sh", destination: "/tmp/provision_database.sh"
+    database.vm.provision "file", source: "./../pg_password.txt", destination: "/tmp/pg_password.txt"
     database.vm.provision "shell", inline: "sudo chmod +x /tmp/provision_database.sh && sudo bash /tmp/provision_database.sh"
   end
 end

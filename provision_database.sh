@@ -13,7 +13,7 @@ sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" /etc/pos
 sudo sh -c "echo 'host	all         	all         	0.0.0.0/0           	md5' >> /etc/postgresql/12/main/pg_hba.conf"
 
 sudo systemctl restart postgresql
-PG_PASSWORD=$(<../pg_password.txt)
+PG_PASSWORD=$(</tmp/pg_password.txt)
 sudo -u postgres psql -c "CREATE USER citizen_iguana WITH PASSWORD '$PG_PASSWORD';"
 sudo -u postgres psql -c "CREATE DATABASE citizen_db OWNER citizen_iguana;"
 
@@ -22,3 +22,7 @@ echo "host	citizen_db	citizen_iguana 	0.0.0.0/0	md5" | sudo tee -a /etc/postgres
 sudo systemctl reload postgresql
 
 sudo ufw allow 5432/tcp
+
+rm -f /tmp/pg_password.txt
+rm -f /tmp/provision_database.sh
+

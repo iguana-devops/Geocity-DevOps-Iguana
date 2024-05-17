@@ -61,3 +61,5 @@ source ~/.bashrc
 nvm install 14.21.3
 
 sudo ufw allow 8080/tcp
+
+rm -f /tmp/provision_backend.sh
