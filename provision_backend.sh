@@ -1,17 +1,25 @@
 #!/bin/bash
 
-sudo apt install -y wget tar curl
-sudo apt install -y git
+# update
+sudo apt update
 
+# install wget, tar, curl, git
+sudo apt install -y wget tar curl git
+
+#install java 1.8.0
 sudo apt install -y openjdk-8-jdk
 echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64' >> /home/vagrant/.bashrc
 
-sudo apt install -y maven
+#install maven 3.6.3
+wget https://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+tar -xvf apache-maven-3.6.3-bin.tar.gz
+mv apache-maven-3.6.3 /opt/
 
 echo 'export M2_HOME=/opt/apache-maven-3.6.3' >> /home/vagrant/.bashrc
 echo 'export MAVEN_HOME=/opt/apache-maven-3.6.3' >> /home/vagrant/.bashrc
 echo 'export PATH=${M2_HOME}/bin:${PATH}' >> /home/vagrant/.bashrc
 
+#install tomcat 9.0.89
 sudo useradd -r -m -U -d /opt/tomcat -s /bin/false tomcat
 wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.89/bin/apache-tomcat-9.0.89.tar.gz
 sudo tar xf apache-tomcat-9.0.89.tar.gz -C /opt/tomcat
@@ -19,6 +27,7 @@ sudo ln -s /opt/tomcat/apache-tomcat-9.0.89 /opt/tomcat/updated
 sudo chown -R tomcat: /opt/tomcat/*
 sudo sh -c 'chmod +x /opt/tomcat/updated/bin/*.sh'
 
+#tomcat 9 service configuration
 sudo bash -c 'cat > /etc/systemd/system/tomcat9.service' << EOF
 [Unit]
 Description=Apache Tomcat Web Application Container
@@ -46,20 +55,50 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
+#end tomcat 9 configuration
 
+# reload
 sudo systemctl daemon-reload
 sudo systemctl start tomcat9
 sudo systemctl enable tomcat9
 
+#instal postgresql cient
 sudo apt install -y postgresql-client-common
 sudo apt install -y postgresql-client-12
 
-sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-source ~/.bashrc
-nvm install 14.21.3
+#instal node 14
+sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install -y nodejs
 
+#allow 8080
 sudo ufw allow 8080/tcp
 
+
+### BUILD & DEPLOY PROJECT
+# Navigate vagrant home:
+cd /home/vagrant
+
+# git clone the project
+git clone https://github.com/Iguana2024/Geocity-DevOps-Iguana.git
+
+# Navigate home application folder:
+cd Geocity-DevOps-Iguana
+
+# Navigate into 'front-end' and run:
+cd front-end 
+npm install
+npm run build
+
+# Copy files from the dist dir to /src/main/webapp
+cp /dist/* /../src/main/webapp
+
+# Navigate to root and run
+cd ..
+mvn clean install
+sudo cp /target/citizen.war /opt/tomcat/apache-tomcat-9.0.89/webapps/
+/opt/tomcat/apache-tomcat-9.0.89/bin/startup.sh
+
+# Copy static files
+
+#delete provision
 rm -f /tmp/provision_backend.sh
