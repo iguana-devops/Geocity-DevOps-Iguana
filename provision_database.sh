@@ -17,7 +17,7 @@ sudo sh -c "echo 'host	all         	all         	0.0.0.0/0           	md5' >> /e
 
 sudo systemctl restart postgresql
 PG_PASSWORD=$(</tmp/pg_password.txt)
-sudo -u postgres psql -c "CREATE USER postgres WITH PASSWORD '$PG_PASSWORD';"
+sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
 sudo -u postgres psql -c "CREATE DATABASE ss_demo_1 OWNER postgres;"
 
 echo "host	ss_demo_1	postgres 	0.0.0.0/0	md5" | sudo tee -a /etc/postgresql/12/main/pg_hba.conf

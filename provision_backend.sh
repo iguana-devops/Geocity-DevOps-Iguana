@@ -1,25 +1,30 @@
 #!/bin/bash
+set -e
 
-# update
+echo "Updating system packages..."
 sudo apt update
 
-# install wget, tar, curl, git
-sudo apt install -y wget tar curl git
+echo "Installing required packages..."
+sudo apt install -y wget tar curl git openjdk-8-jdk postgresql-client-common postgresql-client-12
 
-#install java 1.8.0
-sudo apt install -y openjdk-8-jdk
-echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64' >> /home/vagrant/.bashrc
+echo "Setting JAVA_HOME..."
+echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64' >> ~/.bashrc
+source ~/.bashrc
 
-#install maven 3.6.3
+echo "Installing Maven..."
 wget https://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
-tar -xvf apache-maven-3.6.3-bin.tar.gz
-mv apache-maven-3.6.3 /opt/
+tar -xvf apache-maven-3.6.3-bin.tar.gz -C /opt/
+export M2_HOME=/opt/apache-maven-3.6.3
+export MAVEN_HOME=/opt/apache-maven-3.6.3
+export PATH=${M2_HOME}/bin:${PATH}
+echo 'export M2_HOME=/opt/apache-maven-3.6.3' >> ~/.bashrc
+echo 'export MAVEN_HOME=/opt/apache-maven-3.6.3' >> ~/.bashrc
+echo 'export PATH=${M2_HOME}/bin:${PATH}' >> ~/.bashrc
 
-echo 'export M2_HOME=/opt/apache-maven-3.6.3' >> /home/vagrant/.bashrc
-echo 'export MAVEN_HOME=/opt/apache-maven-3.6.3' >> /home/vagrant/.bashrc
-echo 'export PATH=${M2_HOME}/bin:${PATH}' >> /home/vagrant/.bashrc
+echo "Verifying Maven installation..."
+mvn -v 
 
-#install tomcat 9.0.89
+echo "Setting up Tomcat..."
 sudo useradd -r -m -U -d /opt/tomcat -s /bin/false tomcat
 wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.89/bin/apache-tomcat-9.0.89.tar.gz
 sudo tar xf apache-tomcat-9.0.89.tar.gz -C /opt/tomcat
@@ -27,8 +32,8 @@ sudo ln -s /opt/tomcat/apache-tomcat-9.0.89 /opt/tomcat/updated
 sudo chown -R tomcat: /opt/tomcat/*
 sudo sh -c 'chmod +x /opt/tomcat/updated/bin/*.sh'
 
-#tomcat 9 service configuration
-sudo bash -c 'cat > /etc/systemd/system/tomcat9.service' << EOF
+echo "Configuring Tomcat service..."
+cat <<EOF | sudo tee /etc/systemd/system/tomcat9.service
 [Unit]
 Description=Apache Tomcat Web Application Container
 After=network.target
@@ -55,24 +60,25 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-#end tomcat 9 configuration
 
-# reload
+echo "Reloading and starting Tomcat..."
 sudo systemctl daemon-reload
 sudo systemctl start tomcat9
 sudo systemctl enable tomcat9
 
-#instal postgresql cient
-sudo apt install -y postgresql-client-common
-sudo apt install -y postgresql-client-12
+echo "Configuring firewall..."
+sudo ufw allow 8080
+sudo ufw allow 465
 
-#instal node 14
-sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt-get install -y nodejs
+echo "Cloning project repository..."
+git clone https://github.com/Iguana2024/Geocity-DevOps-Iguana.git
+cd Geocity-DevOps-Iguana
 
-#allow 8080 and 465
-sudo ufw allow 8080/tcp
-sudo ufw allow 465/tcp
+echo "Building project..."
+mvn install
 
-#delete provision
-rm -f /tmp/provision_backend.sh
+echo "Deploying application..."
+sudo cp target/citizen.war /opt/tomcat/apache-tomcat-9.0.89/webapps/
+sudo systemctl restart tomcat9
+
+echo "Setup completed successfully."
