@@ -15,6 +15,7 @@
 Welcome to the Geo citizen Application! This application was created to improve our lives. Here you can give reviews, leave feedback, write about a specific problem, or provide useful information about any point on the map. All you need to do is register as a user and start creating valuable content.
 
 ## Technologies Used
+
 - **Java 1.8:** A widely-used programming language known for its portability across platforms and extensive libraries.
 - **Maven 3.6.3:** A build automation tool primarily used for Java projects to manage dependencies and streamline the build process.
 - **Apache Tomcat 9.0.89** An open-source web server and servlet container used to deploy and serve Java web applications.
@@ -75,67 +76,48 @@ vagrant up
 
 [Get the guidelines](https://developer.hashicorp.com/vagrant/docs/cli) if you need some help with Vagrantfile.
 
-<!-- 4. Set up the front-end::
-
-- _Navigate into the 'front-end' directory:_
-
-```bash
-cd front-end
-```
-
-- _Install the necessary npm packages:_
-
-```bash
-npm install
-```
-
-- _Build the front-end application:_
-
-```bash
-npm run build
-```
-
-5. Set up the back-end::
-
-- _Navigate to the root directory of the project:_
-
-```bash
-cd ../..
-```
-
-- _Run the Maven clean install command:_
-
-```bash
-mvn clean install
-```
-
-- _Deploy the citizen.war file to Tomcat:_
-  #Copy the citizen.war file from the target directory to the Tomcat webapps directory:
-
-```bash
-sudo cp target/citizen.war /var/lib/tomcat9/webapps/
-``` -->
-
-5. Access the application in a web browser at `http://192.168.101.20:8080/citizen`
+4. Access the application in a web browser at `http://192.168.101.20:8080/citizen`
 
 [swagger](http://http://192.168.101.20:8080/citizen/swagger-ui.html)
 
 [heroku](https://geocitizen.herokuapp.com)
+
+## Troubleshooting Guide
+
+This section provides troubleshooting steps for common issues that may arise during setup or usage of the project.
+
+### VirtualBox setup issues
+
+- **Issue:** When launching virtual machines, the necessary software is not being installed.
+- **Solution:**
+
+````bash
+dos2unix provision_backend.sh
+```bash
+dos2unix provision_database.sh
+- **Issue:** The virtual machines are not launching, and the logs show the following message: "Create the password.txt file".
+- **Solution:** Check if you have created the password.txt file at the parent directory.
+
 
 ## Contributing
 
 1. Fork the repository.
 2. Create a new branch:
 
-```
+````
+
 git checkout -b new-feature
+
 ```
 
 3. Make your changes.
 4. Push your branch:
 
 ```
+
 git push origin new-feature
+
 ```
 
 5. Create a pull request.
+```
