@@ -105,15 +105,13 @@ dos2unix provision_database.sh
 1. Fork the repository.
 2. Create a new branch:
 
-````
+```bash
 git checkout -b new-feature
 ```
-
 3. Make your changes.
 4. Push your branch:
 
-```
+```bash
 git push origin new-feature
 ```
-
 5. Create a pull request.
