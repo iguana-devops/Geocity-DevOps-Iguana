@@ -1,5 +1,3 @@
-# Geo citizen -->
-
 # Geo citizen Application
 
 ## Table of contents
@@ -34,21 +32,21 @@ Geo citizen Application requires VirtualBox ([follow the link to install](https:
 - If you have an account choose **"Sign in"**, if not choose **"Sign up"**. If you forger your password choose **"Recover the password"** .
 - When you sign in - choose any point on map and leave you first review. <br>
 
-![image](https://github.com/Iguana2024/Geocity-DevOps-Iguana/resources/img/Home_page.png) -->
-![image](https://github.com/Iguana2024/Geocity-DevOps-Iguana/resources/img/sign_in.png) -->
-![image](https://github.com/Iguana2024/Geocity-DevOps-Iguana/resources/img/sign_up.png) -->
+![image](https://github.com/Iguana2024/Geocity-DevOps-Iguana/blob/IGD-94-Create-a-common-runbook/resources/img/Home_page.png) -->
+![image](https://github.com/Iguana2024/Geocity-DevOps-Iguana/blob/IGD-94-Create-a-common-runbook/resources/img/sign_in.png) -->
+![image](https://github.com/Iguana2024/Geocity-DevOps-Iguana/blob/IGD-94-Create-a-common-runbook/resources/img/sign_up.png) -->
 
 ## Setup Instructions
 
-1. Clone the repository:
+1. **Clone the repository:**
 
 ```
 git clone https://github.com/Iguana2024/Geocity-DevOps-Iguana.git
 ```
 
-2. Create 'password.txt' file
+2. **Create 'password.txt' file**
 
-- **Navigate to the parent directory**
+- Navigate to the parent directory
 
 ```bash
 cd ..
@@ -60,15 +58,15 @@ cd ..
 echo "YourPasswordHere" > password.txt
 ```
 
-3. Install virtual machines with all necessary software by using Vagrantfile:
+3. **Install virtual machines with all necessary software by using Vagrantfile:**
 
-- **Navigate to the project's directory** containing Vagrantfile:
+- Navigate to the project's directory containing Vagrantfile:
 
 ```bash
 cd Geocity-DevOps-Iguana
 ```
 
-- **Initialize the Vagrant environment** by running the following command:
+- Initialize the Vagrant environment by running the following command:
 
 ```bash
 vagrant up
@@ -76,7 +74,7 @@ vagrant up
 
 [Get the guidelines](https://developer.hashicorp.com/vagrant/docs/cli) if you need some help with Vagrantfile.
 
-4. Access the application in a web browser at `http://192.168.101.20:8080/citizen`
+4. Access the application in a web browser at (http://192.168.101.20:8080/citizen)
 
 [swagger](http://http://192.168.101.20:8080/citizen/swagger-ui.html)
 
