@@ -16,24 +16,24 @@ Welcome to the Geo citizen Application! This application was created to improve 
 
 - **Java 1.8:** A widely-used programming language known for its portability across platforms and extensive libraries.
 - **Maven 3.6.3:** A build automation tool primarily used for Java projects to manage dependencies and streamline the build process.
-- **Apache Tomcat 9.0.89** An open-source web server and servlet container used to deploy and serve Java web applications.
+- **Apache Tomcat 9.0.89:** An open-source web server and servlet container used to deploy and serve Java web applications.
 - **HTML and JavaScript:** Standard markup and scripting languages used for frontend development, providing interactivity and dynamic behavior.
 - **PostgreSQL:** A powerful, open-source relational database management system known for its robustness and performance.
 - **VirtualBox:** An open-source virtualization software that allows you to run multiple operating systems simultaneously on a single physical machine.
 
 ## Requirements
 
-Geo citizen Application requires VirtualBox ([follow the link to install](https://www.virtualbox.org/wiki/Downloads)), PostgreSQL ([follow to link to install](https://www.virtualbox.org/wiki/Downloads)).
+Geo citizen Application requires VirtualBox ([follow the link to install](https://www.virtualbox.org/wiki/Downloads)), PostgreSQL ([follow to link to install](https://www.postgresql.org/download/)).
 
 ## Usage
 
 - Visit the main page.
 - Choose **"Login"**.
-- If you have an account choose **"Sign in"**, if not choose **"Sign up"**. If you forger your password choose **"Recover the password"** .
+- If you have an account choose **"Sign in"**, if not choose **"Sign up"**. If you forget your password choose **"Recover the password"** .
 - When you sign in - choose any point on map and leave you first review. <br>
 
-![image](https://github.com/Iguana2024/Geocity-DevOps-Iguana/blob/IGD-94-Create-a-common-runbook/resources/img/Home_page.png) -->
-![image](https://github.com/Iguana2024/Geocity-DevOps-Iguana/blob/IGD-94-Create-a-common-runbook/resources/img/sign_in.png) -->
+![image](https://github.com/Iguana2024/Geocity-DevOps-Iguana/blob/IGD-94-Create-a-common-runbook/resources/img/Home_page.png)
+![image](https://github.com/Iguana2024/Geocity-DevOps-Iguana/blob/IGD-94-Create-a-common-runbook/resources/img/sign_in.png)
 ![image](https://github.com/Iguana2024/Geocity-DevOps-Iguana/blob/IGD-94-Create-a-common-runbook/resources/img/sign_up.png) -->
 
 ## Setup Instructions
@@ -89,10 +89,13 @@ This section provides troubleshooting steps for common issues that may arise dur
 - **Issue:** When launching virtual machines, the necessary software is not being installed.
 - **Solution:**
 
-````bash
+```bash
 dos2unix provision_backend.sh
+```
 ```bash
 dos2unix provision_database.sh
+```
+
 - **Issue:** The virtual machines are not launching, and the logs show the following message: "Create the password.txt file".
 - **Solution:** Check if you have created the password.txt file at the parent directory.
 
@@ -103,19 +106,14 @@ dos2unix provision_database.sh
 2. Create a new branch:
 
 ````
-
 git checkout -b new-feature
-
 ```
 
 3. Make your changes.
 4. Push your branch:
 
 ```
-
 git push origin new-feature
-
 ```
 
 5. Create a pull request.
-```
