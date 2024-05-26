@@ -33,7 +33,6 @@ resource "google_compute_autoscaler" "foobar" {
 }
 
 resource "google_compute_region_health_check" "backend" {
-  ##depends_on = [google_compute_firewall.fw4]
 
   name = "website-hc"
   http_health_check {
