@@ -5,4 +5,11 @@ output "db_user_pass" {
   sensitive = true
 }
 
+output "ssh_key_jenkins" {
+  value = tls_private_key.ssh_key_jenkins.private_key_openssh
+  sensitive = true
+}
 
+output "ssh_key_jenkins_pub" {
+  value = tls_private_key.ssh_key_jenkins.public_key_openssh
+}

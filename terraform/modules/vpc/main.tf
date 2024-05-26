@@ -1,10 +1,5 @@
 ################ VPC ################
 
-resource "google_project_service" "servicenetworking_service" {
-  service            = "servicenetworking.googleapis.com"
-  disable_on_destroy = false
-}
-
 resource "google_compute_network" "vpc_network" {
   name                            = var.network_name
   delete_default_routes_on_create = false
