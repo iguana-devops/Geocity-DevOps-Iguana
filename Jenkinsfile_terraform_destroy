@@ -1,0 +1,28 @@
+/* groovylint-disable CompileStatic, DuplicateStringLiteral, LineLength, NestedBlockDepth, SpaceBeforeClosingBrace */
+pipeline {
+    agent any
+    parameters {
+        booleanParam defaultValue: false, description: 'Do you really want to destroy infrastructure (By default "No" )?', name: 'DESTROY'
+    }
+    stages {
+        stage('Terraform destroy') {
+            when {
+                allOf {
+                    environment ignoreCase: true, name: 'DESTROY', value: 'true'
+                }
+            }
+            steps {
+                script {
+                    dir('/var/lib/jenkins/workspace/terraform_start') {
+                        echo 'Terraform destroy'
+                        sh 'terraform destroy -auto-approve'}
+                }
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

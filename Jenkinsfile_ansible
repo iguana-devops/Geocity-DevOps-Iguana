@@ -1,0 +1,12 @@
+/* groovylint-disable CompileStatic, DuplicateStringLiteral */
+pipeline {
+    agent any
+    stages {
+        stage('Ansible') {
+            steps {
+                echo 'Ansible'
+                sh 'ansible-playbook first_playbook.yml'
+            }
+        }
+    }
+}

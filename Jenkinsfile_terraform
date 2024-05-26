@@ -1,0 +1,30 @@
+/* groovylint-disable DuplicateStringLiteral, LineLength */
+pipeline {
+    agent any
+    stages {
+        stage('Terraform init') {
+            steps {
+                echo 'Terraform init'
+                sh 'terraform init'
+            }
+        }
+        stage('Terraform format') {
+            steps {
+                echo 'Terraform format'
+                sh 'terraform fmt && terraform validate'
+            }
+        }
+        stage('Terraform Plan') {
+            steps {
+                echo 'Terraform plan'
+                sh 'terraform plan'
+            }
+        }
+        stage('Terraform apply') {
+            steps {
+                echo 'Terraform apply'
+                sh 'terraform apply -auto-approve'
+            }
+        }
+    }
+}
