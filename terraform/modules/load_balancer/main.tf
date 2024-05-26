@@ -17,7 +17,7 @@ resource "google_compute_forwarding_rule" "default" {
 resource "google_compute_region_target_https_proxy" "default" {
   name             = "website-proxy"
   url_map          = google_compute_region_url_map.default.id
-  ssl_certificates = [google_compute_region_ssl_certificate.default.id]
+  ssl_certificates = [var.certificates_id]
 
 
 }
@@ -52,8 +52,4 @@ resource "google_compute_address" "default" {
   network_tier = "STANDARD"
 }
 
-resource "google_compute_region_ssl_certificate" "default" {
-  name        = "my-regional-certificate"
-  private_key = file("./privkey.pem")
-  certificate = file("./fullchain.pem")
-}
+

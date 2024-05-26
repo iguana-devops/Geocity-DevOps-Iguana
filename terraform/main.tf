@@ -55,6 +55,7 @@ module "load_balancer" {
   instance_group  = module.auto_scale.instance_group
   vpc_network_id  = module.vpc.vpc_network_id
   health_check_id = module.auto_scale.health_check_id
+  certificates_id = module.certificates.certificates_id 
 }
 
 module "nat" {
@@ -66,4 +67,8 @@ module "templates" {
   source    = "./modules/templates"
   vpc_id    = module.vpc.vpc_network_id
   subnet_id = module.vpc.sub_network
+}
+
+module "certificates" {
+  source = "./modules/certificates"
 }

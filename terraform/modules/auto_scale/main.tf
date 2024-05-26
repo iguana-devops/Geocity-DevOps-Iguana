@@ -1,4 +1,4 @@
-############## templates ##############
+################ AUTO_SCALE ################
 
 resource "google_compute_instance_group_manager" "rigm" {
 
