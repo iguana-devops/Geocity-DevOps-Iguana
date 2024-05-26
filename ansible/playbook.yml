@@ -1,0 +1,7 @@
+---
+- name: Deploy application Geo citizen
+  hosts: all
+  become: yes
+  roles:
+    - deploy_environment
+    - deploy_application
