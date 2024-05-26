@@ -3,11 +3,11 @@
 variable "services" {
   description = "A list of services to enable."
   type        = list(string)
-  default     = [
-    "compute.googleapis.com", 
+  default = [
+    "compute.googleapis.com",
     "servicenetworking.googleapis.com",
     "secretmanager.googleapis.com"
-    ]
+  ]
 }
 
 resource "google_project_service" "services" {

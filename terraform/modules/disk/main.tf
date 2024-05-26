@@ -21,7 +21,7 @@ resource "google_compute_resource_policy" "daily_snapshot_policy" {
     schedule {
       daily_schedule {
         days_in_cycle = 1
-        start_time = var.snapshot_start_time
+        start_time    = var.snapshot_start_time
       }
     }
     retention_policy {

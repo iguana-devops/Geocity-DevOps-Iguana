@@ -5,7 +5,7 @@ output "Jenkins_public_ip" {
 }
 
 output "db_user_pass" {
-  value = module.secret.db_user_pass
+  value     = module.secret.db_user_pass
   sensitive = true
 }
 

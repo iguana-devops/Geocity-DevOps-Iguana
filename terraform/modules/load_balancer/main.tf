@@ -1,7 +1,7 @@
 ############## LOAD_BALANCER ##############
 
 resource "google_compute_forwarding_rule" "default" {
-  name       = "website-forwarding-rule"
+  name = "website-forwarding-rule"
 
   ip_protocol           = "TCP"
   load_balancing_scheme = "EXTERNAL_MANAGED"
@@ -15,9 +15,9 @@ resource "google_compute_forwarding_rule" "default" {
 
 
 resource "google_compute_region_target_https_proxy" "default" {
-  name              = "website-proxy"
-  url_map           = google_compute_region_url_map.default.id
-  ssl_certificates  = [google_compute_region_ssl_certificate.default.id]
+  name             = "website-proxy"
+  url_map          = google_compute_region_url_map.default.id
+  ssl_certificates = [google_compute_region_ssl_certificate.default.id]
 
 
 }

@@ -48,6 +48,6 @@ resource "google_compute_firewall" "fw4" {
     protocol = "tcp"
     ports    = var.allowed_auto_scale
   }
-  
+
   direction = "INGRESS"
 }
