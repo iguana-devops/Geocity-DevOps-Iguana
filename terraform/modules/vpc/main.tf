@@ -1,5 +1,10 @@
 ################ VPC ################
 
+resource "google_project_service" "servicenetworking_service" {
+  service            = "servicenetworking.googleapis.com"
+  disable_on_destroy = false
+}
+
 resource "google_compute_network" "vpc_network" {
   name                            = var.network_name
   delete_default_routes_on_create = false
@@ -33,3 +38,19 @@ resource "google_compute_address" "public_ip" {
   project = var.project_id
   region  = var.region
 }
+
+
+resource "google_compute_subnetwork" "auto_scale" {
+  name          = "website-net-default"
+  ip_cidr_range = "10.1.2.0/24"
+  network       = google_compute_network.vpc_network.id
+}
+
+resource "google_compute_subnetwork" "proxy" {
+  name          = "website-net-proxy"
+  ip_cidr_range = "10.129.0.0/26"
+  network       = google_compute_network.vpc_network.id
+  purpose       = "REGIONAL_MANAGED_PROXY"
+  role          = "ACTIVE"
+}
+

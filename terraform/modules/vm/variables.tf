@@ -1,11 +1,5 @@
 ############## VM ##############
 
-variable "instance_name" {
-  description = "Name of the instance"
-  type        = string
-  default     = "jenkins-vm"
-}
-
 variable "instance_type" {
   description = "The instance type to be used for the Compute Engine instance"
   type        = string
@@ -24,20 +18,24 @@ variable "image_project" {
   default     = "ubuntu-os-cloud"
 }
 
-variable "disk_name" {
-  description = "Name of the attached disk"
+variable "instance_name" {
+  description = "Name of the instance"
   type        = string
-  default     = "disk_jenkis"
+  default     = "webserver"
+}
+
+variable "network_tags" {
+  description = "A list of network tags to be applied to the instance"
+  type        = list(string)
+  default     = ["web"]
 }
 
 variable "environment" {}
+
+variable "zone" {}
 
 variable "vpc_network" {}
 
 variable "sub_network" {}
 
 variable "public_ip" {}
-
-variable "disk_jenkins_id" {}
-
-variable "ssh_key_pub" {}
