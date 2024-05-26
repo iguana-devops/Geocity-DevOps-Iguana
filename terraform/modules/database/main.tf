@@ -16,19 +16,18 @@ resource "google_sql_database_instance" "master" {
     availability_type = "ZONAL"
     disk_autoresize   = true
     disk_size         = 10
+    edition = "ENTERPRISE"
 
     backup_configuration {
       enabled    = true
       start_time = "01:00"
     }
-
-    edition = "ENTERPRISE"
+    ip_configuration {
+      ipv4_enabled    = false
+      private_network = var.vpc_network_id
+    }
     user_labels = {
       environment = var.environment
-    }
-
-    ip_configuration {
-      private_network = var.vpc_network_id
     }
   }
 }

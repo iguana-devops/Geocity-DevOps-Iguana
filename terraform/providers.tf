@@ -1,5 +1,5 @@
 locals {
-  cred = file("keys.json")
+  cred = file("GCP_cred.json")
 }
 
 terraform {

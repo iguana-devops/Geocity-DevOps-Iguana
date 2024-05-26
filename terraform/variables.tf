@@ -3,7 +3,7 @@
 variable "project_id" {
   description = "Google cloud active project"
   type        = string
-  default     = "terrafarm-423310"
+  default     = "diesel-studio-423421-p9"
 }
 
 variable "region" {
