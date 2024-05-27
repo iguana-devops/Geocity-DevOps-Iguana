@@ -6,11 +6,10 @@ resource "google_project_service" "services" {
   disable_on_destroy = false
 }
 
-resource "google_compute_subnetwork" "sub_network" {
-  name          = "backend-subnet"
-  ip_cidr_range = "10.0.0.0/16"
-  network       = data.google_compute_network.vpc-dev.self_link
+data "google_compute_subnetwork" "sub_network" {
+  name          = "subnet-dev"
 }
+
 data "google_compute_network" "vpc-dev" {
   name = "vpc-dev"
 }
@@ -44,7 +43,7 @@ module "nat" {
 module "templates" {
   source    = "./modules/templates"
   vpc_id    = data.google_compute_network.vpc-dev.id
-  subnet_id = google_compute_subnetwork.sub_network.id
+  subnet_id = data.google_compute_subnetwork.sub_network.id
 }
 
 module "certificates" {
