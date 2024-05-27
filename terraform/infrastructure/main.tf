@@ -6,6 +6,14 @@ resource "google_project_service" "services" {
   disable_on_destroy = false
 }
 
+resource "google_compute_subnetwork" "proxy" {
+  name          = "website-net-proxy"
+  ip_cidr_range = "10.129.0.0/26"
+  network       = data.google_compute_network.vpc-dev.id
+  purpose       = "REGIONAL_MANAGED_PROXY"
+  role          = "ACTIVE"
+}
+
 data "google_compute_subnetwork" "sub_network" {
   name          = "subnet-dev"
 }
