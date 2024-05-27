@@ -5,9 +5,9 @@
         dest: /home/user/geocity
         
     - name: Generate application.properties
-      template: src=/home/user/ansible/roles/deploy_application/templates/application.j2 dest=/home/user/geocity/java-app/src/main/resources/application.properties mode=644
-      vars:
-        address: "{{ ansible_default_ipv4.address }}"  
+      template:
+        src: templates/application.j2
+        dest: /home/user/geocity/java-app/src/main/resources/application.properties 
            
     - name: Maven build
       shell: mvn install

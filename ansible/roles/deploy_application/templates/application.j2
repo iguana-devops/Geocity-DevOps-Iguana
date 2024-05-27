@@ -1,44 +1,44 @@
 #front
-front.url=http://{{ address }}:8080/citizen/#
-front-end.url=http://{{ address }}:8080/citizen/
+front.url=https://iguana-devops.pp.ua/#
+front-end.url=httsp://iguana-devops.pp.ua/
 #db
 db.driver=org.postgresql.Driver
-db.url=jdbc:postgresql://192.168.101.30:5432/ss_demo_1
-db.username=postgres
-db.password=postgres
+db.url=jdbc:postgresql://10.65.0.3:5432/citizen-db
+db.username={{ db_username }}
+db.password=
 #hibernate
 hibernate.dialect=org.hibernate.dialect.PostgreSQL92Dialect
 hibernate.show_sql=true
 entity_manager.packages.to.scan=com.softserveinc.geocitizen.entity
 #liquibase
 driver=org.postgresql.Driver
-url=jdbc:postgresql://192.168.101.30:5432/ss_demo_1
+url=jdbc:postgresql://192.168.101.30:5432/citizen-db
 username=postgres
 password=postgres
 changeLogFile=src/main/resources/liquibase/mainChangeLog.xml
 verbose=true
 dropFirst=false
 outputChangeLogFile=src/main/resources/liquibase/changeLog-NEW.postgresql.sql
-referenceUrl=jdbc:postgresql://192.168.101.30:5432/ss_demo_1_test
+referenceUrl=jdbc:postgresql://192.168.101.30:5432/citizen-db
 diffChangeLogFile=src/main/resources/liquibase/diffChangeLog.yaml
 referenceUsername=${db.username}
 referencePassword=${db.password}
 spring.liquibase.change-log=src/main/resources/liquibase/structure.yaml
 #smtp
-mail.smtps.host=smtp.gmail.com
+mail.smtps.host={{ mail_smtps_host }}
 mail.smtp.socketFactory.class=SSL_FACTORY
 mail.smtp.socketFactory.fallback=false
 mail.smtp.port=465
 mail.smtp.socketFactory.port=465
 mail.smtps.auth=true
 mail.smtps.quitwait=false
-email.username=ssgeocitizen@gmail.com
-email.password=softserve
+email.username={{ email_username }}
+email.password={{ email_password }}
 #google maps
-map.key=AIzaSyAHfXMw7b7POrZw9tGblzHBdFvQG9AX5oE
+map.key={{ map_key }}
 #fb
-facebook.appKey=300883283736784
-facebook.appSecret=e76dd647549085c4c16587e37629f89c
+facebook.appKey={{ facebook_appKey }}
+facebook.appSecret={{ facebook_appSecret }}
 #google
-google.appKey=1040577896732-mhc8k28pk7ovg0m3fkqib1p8k8fk8uib.apps.googleusercontent.com
-google.appSecret=DtuBukqZ6MCj_c8yylB9rlZK
+google.appKey={{ google_appKey }}
+google.appSecret={{ google_appSecret }}

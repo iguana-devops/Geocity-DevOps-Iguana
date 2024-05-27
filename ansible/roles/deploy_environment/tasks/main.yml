@@ -16,8 +16,6 @@
           - openjdk-8-jdk
           - maven
           - tomcat9
-          - postgresql-client-common
-          - postgresql-client-12
         state: present
         update_cache: yes
 
