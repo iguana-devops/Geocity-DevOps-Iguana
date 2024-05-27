@@ -13,12 +13,19 @@ variable "region" {
 }
 
 variable "zone" {
-  type        = string
   description = "The availability zone where the instance will be deployed"
+  type        = string
   default     = "europe-central2-a"
 }
 
 variable "environment" {
-  default = "dev"
-  type    = string
+  description = "Working environment"
+  type        = string
+  default     = "dev"
+}
+
+variable "deletion_protection" {
+  description = "The deletion protection policy"
+  type        = bool
+  default     = true
 }

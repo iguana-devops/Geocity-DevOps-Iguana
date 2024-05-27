@@ -17,12 +17,6 @@ variable "subnet_cidr" {
   type    = string
 }
 
-variable "network_tags" {
-  description = "A list of network tags to be applied to the instance"
-  type        = list(string)
-  default     = ["web"]
-}
-
 variable "region" {}
 
 variable "project_id" {}

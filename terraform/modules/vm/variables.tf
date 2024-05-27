@@ -41,3 +41,5 @@ variable "public_ip" {}
 variable "disk_jenkins_id" {}
 
 variable "ssh_key_pub" {}
+
+variable "instance_deletion_protection" {}

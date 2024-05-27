@@ -7,20 +7,23 @@ resource "random_id" "db_name_suffix" {
 resource "google_sql_database_instance" "master" {
 
   name                = "${var.db_instance_name}-${random_id.db_name_suffix.hex}"
-  database_version    = "POSTGRES_15"
+  database_version    = var.database_version
   region              = var.region
-  deletion_protection = false
+  deletion_protection = var.db_deletion_protection
 
   settings {
-    tier              = "db-custom-1-3840" # 1 CPU 3 RAM
-    availability_type = "ZONAL"
-    disk_autoresize   = true
+    edition           = var.db_edition
+    tier              = var.db_tier
+    availability_type = var.db_availability_type
     disk_size         = 10
-    edition = "ENTERPRISE"
+    disk_autoresize   = true
+    deletion_protection_enabled = var.db_deletion_protection
 
     backup_configuration {
-      enabled    = true
-      start_time = "01:00"
+      enabled                         = true
+      point_in_time_recovery_enabled  = true
+      start_time                      = "01:00"
+      transaction_log_retention_days  = var.db_retention_days
     }
     ip_configuration {
       ipv4_enabled    = false

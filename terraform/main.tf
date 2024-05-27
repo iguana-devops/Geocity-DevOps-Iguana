@@ -21,14 +21,15 @@ module "disk" {
 }
 
 module "vm" {
-  source          = "./modules/vm"
-  vpc_network     = module.vpc.vpc_network
-  sub_network     = module.vpc.sub_network
-  public_ip       = module.vpc.public_ip
-  disk_jenkins_id = module.disk.disk_jenkins_id
-  ssh_key_pub     = module.secret.ssh_key_jenkins_pub
-  environment     = var.environment
-  depends_on      = [ module.disk ]
+  source                        = "./modules/vm"
+  vpc_network                   = module.vpc.vpc_network
+  sub_network                   = module.vpc.sub_network
+  public_ip                     = module.vpc.public_ip
+  disk_jenkins_id               = module.disk.disk_jenkins_id
+  ssh_key_pub                   = module.secret.ssh_key_jenkins_pub
+  instance_deletion_protection  = var.deletion_protection
+  environment                   = var.environment
+  depends_on                    = [ module.disk ]
 }
 
 module "secret" {
@@ -37,10 +38,11 @@ module "secret" {
 }
 
 module "database" {
-  source          = "./modules/database"
-  region          = var.region
-  vpc_network_id  = module.vpc.vpc_network_id
-  db_user_pass    = module.secret.db_user_pass
-  environment     = var.environment
-  depends_on      = [ module.vpc ]
+  source                  = "./modules/database"
+  region                  = var.region
+  vpc_network_id          = module.vpc.vpc_network_id
+  db_user_pass            = module.secret.db_user_pass
+  db_deletion_protection  = var.deletion_protection
+  environment             = var.environment
+  depends_on              = [ module.vpc ]
 }

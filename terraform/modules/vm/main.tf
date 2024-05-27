@@ -1,8 +1,9 @@
 ############## VM ##############
 
 resource "google_compute_instance" "vm_instance" {
-  name         = var.instance_name
-  machine_type = var.instance_type
+  name                = var.instance_name
+  machine_type        = var.instance_type
+  deletion_protection = var.instance_deletion_protection
 
   boot_disk {
     initialize_params {
