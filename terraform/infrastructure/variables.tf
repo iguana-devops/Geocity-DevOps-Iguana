@@ -24,8 +24,12 @@ variable "environment" {
   default     = "dev"
 }
 
-variable "deletion_protection" {
-  description = "The deletion protection policy"
-  type        = bool
-  default     = true
+variable "services" {
+  description = "A list of services to enable."
+  type        = list(string)
+  default = [
+    "compute.googleapis.com",
+    "servicenetworking.googleapis.com",
+    "secretmanager.googleapis.com"
+  ]
 }

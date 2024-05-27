@@ -1,11 +1,5 @@
 ################ DATABASE ################
 
-variable "db_instance_name" {
-  description = "Name of Instance DB"
-  type        = string
-  default     = "db-postgres"
-}
-
 variable "database_version" {
   description = "Version of DB"
   type        = string
@@ -59,7 +53,5 @@ variable "region" {}
 variable "vpc_network_id" {}
 
 variable "environment" {}
-
-variable "db_user_pass" {}
 
 variable "db_deletion_protection" {}
