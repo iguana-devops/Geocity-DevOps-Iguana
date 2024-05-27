@@ -24,7 +24,7 @@ resource "google_compute_region_target_https_proxy" "geo" {
 
 resource "google_compute_region_url_map" "geo" {
   name            = "website-map"
-  default_service = google_compute_region_backend_service.default.id
+  default_service = google_compute_region_backend_service.citizen.id
 
   host_rule {
     hosts        = ["*"]
@@ -33,7 +33,7 @@ resource "google_compute_region_url_map" "geo" {
 
   path_matcher {
     name            = "allpaths"
-    default_service = google_compute_region_backend_service.default.id
+    default_service = google_compute_region_backend_service.citizen.id
 
     path_rule {
       paths   = ["/citizen*"]
