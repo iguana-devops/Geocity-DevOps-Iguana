@@ -1,4 +1,4 @@
-/* groovylint-disable CompileStatic, DuplicateStringLiteral, LineLength, NestedBlockDepth, SpaceBeforeClosingBrace */
+/* groovylint-disable CompileStatic, DuplicateStringLiteral, LineLength, NestedBlockDepth */
 pipeline {
     agent any
     parameters {
@@ -13,7 +13,7 @@ pipeline {
             }
             steps {
                 script {
-                    dir('/var/lib/jenkins/workspace/terraform_start') {
+                    dir('/var/lib/jenkins/workspace/terraform_start/terraform') {
                         echo 'Terraform destroy'
                         sh 'terraform destroy -auto-approve'}
                 }
