@@ -23,14 +23,30 @@ resource "google_compute_region_target_https_proxy" "geo" {
 }
 
 resource "google_compute_region_url_map" "geo" {
-
   name            = "website-map"
   default_service = google_compute_region_backend_service.default.id
+
+  host_rule {
+    hosts        = ["*"]
+    path_matcher = "allpaths"
+  }
+
+  path_matcher {
+    name            = "allpaths"
+    default_service = google_compute_region_backend_service.default.id
+
+    path_rule {
+      paths   = ["/citizen*"]
+      service = google_compute_region_backend_service.citizen.id
+    }
+  }
 }
 
-resource "google_compute_region_backend_service" "default" {
-
-  load_balancing_scheme = "EXTERNAL_MANAGED"
+resource "google_compute_region_backend_service" "citizen" {
+  name                    = "citizen-backend"
+  protocol                = "HTTP"
+  timeout_sec             = 10
+  load_balancing_scheme   = "EXTERNAL_MANAGED"
 
   backend {
     group           = var.instance_group
@@ -38,13 +54,8 @@ resource "google_compute_region_backend_service" "default" {
     capacity_scaler = 1.0
   }
 
-
-  name        = "website-backend"
-  protocol    = "HTTP"
-  timeout_sec = 10
-
   health_checks = [var.health_check_id]
-  port_name     = "http"
+  port_name     = "http-8080"  
 }
 
 resource "google_compute_address" "load_balancer" {
