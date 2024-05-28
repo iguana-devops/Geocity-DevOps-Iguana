@@ -35,12 +35,12 @@ resource "google_sql_database_instance" "master" {
 }
 
 resource "google_sql_database" "database" {
-  name     = var.db_name
+  name     = "citizen-db"
   instance = google_sql_database_instance.master.name
 }
 
 resource "google_sql_user" "users" {
-  name     = var.db_user
+  name     = "citizen-user"
   instance = google_sql_database_instance.master.name
   password = random_password.db_user_pass.result
 }

@@ -36,18 +36,6 @@ variable "db_retention_days" {
   default     = 7
 }
 
-variable "db_name" {
-  description = "Name of DB"
-  type        = string
-  default     = "citizen-db"
-}
-
-variable "db_user" {
-  description = "Username of DB"
-  type        = string
-  default     = "citizen-user"
-}
-
 variable "region" {}
 
 variable "vpc_network_id" {}
