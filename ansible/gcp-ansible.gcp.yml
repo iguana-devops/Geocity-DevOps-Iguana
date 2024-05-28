@@ -10,4 +10,4 @@ scopes:
   - https://www.googleapis.com/auth/compute
 service_account_file: keys.json
 projects:
-  - terrafarm-423310
+  - amplified-grail-423921-n7
