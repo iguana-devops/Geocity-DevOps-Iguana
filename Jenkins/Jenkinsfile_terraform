@@ -1,32 +1,49 @@
-/* groovylint-disable DuplicateStringLiteral, LineLength */
+/* groovylint-disable DuplicateStringLiteral, LineLength, NestedBlockDepth */
 pipeline {
     agent any
     stages {
-        stage('Terraform init') {
-            steps {
-                echo 'Terraform init'
-                sh '''cd ./terraform
-                terraform init'''
-            }
-        }
         stage('Terraform format') {
             steps {
                 echo 'Terraform format'
-                sh '''cd ./terraform
-                terraform fmt && terraform validate'''
+                dir('/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure') {
+                        sh 'terraform fmt'}
+            }
+        }
+        stage('Terraform init') {
+            steps {
+                echo 'Terraform init'
+                dir('/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure') {
+                        sh 'terraform init'}
+            }
+        }
+        stage('Terraform validate') {
+            steps {
+                echo 'Terraform validate'
+                dir('/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure') {
+                          sh 'terraform validate'}
             }
         }
         stage('Terraform Plan') {
             steps {
                 echo 'Terraform plan'
-                sh '''cd ./terraform
-                terraform plan'''
+                dir('/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure') {
+                        sh 'terraform plan'}
             }
         }
         stage('Terraform apply') {
+            input {
+                message 'Do you want to apply infrastructure?'
+                ok 'Yes'
+                parameters {
+                    booleanParam defaultValue: false, description: 'Do you really want to apply infrastructure (By default "No" )?', name: 'APPLY'
+                }
+            }
             steps {
-                sh '''cd ./terraform
-                terraform apply -auto-approve'''
+                script {
+                    echo 'Terraform apply'
+                    dir('/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure') {
+                        sh 'terraform apply -auto-approve'}
+                }
             }
         }
     }
