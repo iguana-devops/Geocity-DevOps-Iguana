@@ -1,0 +1,24 @@
+--- 
+    - name: Clone Remote Git Repository
+      git:
+        repo: https://github.com/iguana-devops/geocity
+        dest: /home/user/geocity
+        
+    - name: Generate application.properties
+      template:
+        src: templates/application.j2
+        dest: /home/user/geocity/java-app/src/main/resources/application.properties 
+           
+    - name: Maven build
+      shell: mvn install
+      args:
+        chdir: /home/user/geocity/java-app/
+        
+    - name: Copy WAR file to Tomcat webapps directory
+      shell: cp /home/user/geocity/java-app/target/citizen.war /var/lib/tomcat9/webapps/citizen.war
+
+    - name: Start and enable Tomcat service
+      service:
+        name: tomcat9
+        state: started
+        enabled: yes

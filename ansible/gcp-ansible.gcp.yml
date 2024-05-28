@@ -1,0 +1,13 @@
+# TODO - For some reason, this file cannot use variables, manually override for now but don't commit secrets.
+
+plugin: gcp_compute
+regions:
+  - europe-central2
+zones:
+  - europe-central2-a
+auth_kind: serviceaccount
+scopes:
+  - https://www.googleapis.com/auth/compute
+service_account_file: "{{ lookup('env','GOOGLE_APPLICATION_CREDENTIALS') }}"
+projects:
+  - amplified-grail-423921-n7

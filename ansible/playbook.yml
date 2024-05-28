@@ -1,0 +1,9 @@
+---
+- name: Deploy application Geo citizen
+  hosts: server3
+  become: yes
+  vars_files:
+    - data.yml
+  roles:
+    - deploy_environment
+    - deploy_application
