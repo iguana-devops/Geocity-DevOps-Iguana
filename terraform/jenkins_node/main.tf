@@ -7,18 +7,15 @@ resource "google_project_service" "services" {
 }
 
 module "network" {
-  source     = "./modules/network"
-  region     = var.region
-  project_id = var.project_id
+  source = "./modules/network"
 }
 
-module "vm" {
-  source                       = "./modules/vm"
-  instance_name                = "jenkins-vm"
-  disk_size                    = 20
-  vpc_network                  = module.network.vpc_network
-  sub_network                  = module.network.sub_network
-  public_ip                    = module.network.public_ip
-  environment                  = var.environment
-  instance_deletion_protection = false
+module "jenkins_vm" {
+  source              = "./modules/jenkins_vm"
+  instance_name       = "jenkins-vm"
+  disk_size           = 20
+  vpc_network         = module.network.vpc_network
+  sub_network         = module.network.sub_network
+  environment         = var.environment
+  deletion_protection = false
 }

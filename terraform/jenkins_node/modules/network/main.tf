@@ -23,14 +23,7 @@ resource "google_service_networking_connection" "private_vpc_connection" {
 resource "google_compute_subnetwork" "sub_network" {
   name          = "subnet-dev"
   ip_cidr_range = var.subnet_cidr
-  region        = var.region
   network       = google_compute_network.vpc_network.self_link
-}
-
-resource "google_compute_address" "public_ip" {
-  name    = "vm-public-address"
-  project = var.project_id
-  region  = var.region
 }
 
 ############## FIREWALL ##############

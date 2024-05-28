@@ -34,6 +34,4 @@ variable "vpc_network" {}
 
 variable "sub_network" {}
 
-variable "public_ip" {}
-
-variable "instance_deletion_protection" {}
+variable "deletion_protection" {}

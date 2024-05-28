@@ -2,13 +2,14 @@
 
 ## Overview
 
-This Terraform module sets up a Google Cloud Compute Engine VM instance with a disk, daily snapshot policy, and an SSH key stored in Secret Manager.
+This Terraform module sets up a Google Cloud Compute Engine VM instance with a disk, a public IP address, daily snapshot policy, and an SSH key stored in Secret Manager.
 
 ## Resources
 
 The module creates the following resources:
 
 - **google_compute_instance**: Manages a Compute Engine VM instance
+- **google_compute_address**: Allocates a public IP address
 - **google_compute_disk**: Manages a persistent disk
 - **google_compute_resource_policy**: Manages a resource policy for daily snapshots
 - **google_compute_disk_resource_policy_attachment**: Attaches the resource policy to the disk
@@ -34,5 +35,4 @@ The module creates the following resources:
 | `environment`                | The environment label to be applied                                | string       | n/a                 | yes      |
 | `vpc_network`                | The VPC network for the instance                                   | string       | n/a                 | yes      |
 | `sub_network`                | The subnetwork for the instance                                    | string       | n/a                 | yes      |
-| `public_ip`                  | The public IP address for the instance                             | string       | n/a                 | yes      |
-| `instance_deletion_protection`| Whether to enable deletion protection for the instance             | bool        | n/a                 | yes      |
+| `instance_deletion_protection`| Whether to enable deletion protection for the instance            | bool         | n/a                 | yes      |
