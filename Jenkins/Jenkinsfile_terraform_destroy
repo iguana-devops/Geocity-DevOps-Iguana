@@ -1,0 +1,32 @@
+/* groovylint-disable CompileStatic, DuplicateStringLiteral, LineLength, NestedBlockDepth */
+pipeline {
+    agent any
+    environment {
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('GOOGLE_CREDENTIALS_ID')
+        WORKING_DIR = '/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure'
+    }
+    parameters {
+        booleanParam defaultValue: false, description: 'Do you really want to destroy infrastructure (By default "No" )?', name: 'DESTROY'
+    }
+    stages {
+        stage('Terraform destroy') {
+            when {
+                allOf {
+                    environment ignoreCase: true, name: 'DESTROY', value: 'true'
+                }
+            }
+            steps {
+                script {
+                    dir("${WORKING_DIR }") {
+                        echo 'Terraform destroy'
+                        sh 'terraform destroy -auto-approve'}
+                }
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
