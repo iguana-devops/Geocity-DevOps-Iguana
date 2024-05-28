@@ -8,8 +8,8 @@ This Terraform module sets up the Google Cloud project services, VPC network, an
 
 The imported modules:
 
-- **vm**: Google Cloud Compute Engine VM, Disk, and Secrets Setup
-- **network**: Google Cloud VPC and Firewall Setup
+- **vm**: This Terraform module sets up a Google Cloud Compute Engine VM instance with a disk, a public IP address, daily snapshot policy, and an SSH key stored in Secret Manager.
+- **network**: This Terraform module sets up a Google Cloud Virtual Private Cloud (VPC) network, including a subnet, global address for VPC peering, a VPC peering connection, and a firewall rule to allow web traffic.
 
 ## Input Variables
 

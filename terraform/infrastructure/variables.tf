@@ -3,7 +3,7 @@
 variable "project_id" {
   description = "Google cloud active project"
   type        = string
-  default     = "terrafarm-423310"
+  default     = "amplified-grail-423921-n7"
 }
 
 variable "region" {

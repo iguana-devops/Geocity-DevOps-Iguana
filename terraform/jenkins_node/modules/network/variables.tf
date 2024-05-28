@@ -10,7 +10,3 @@ variable "allowed_ports" {
   type        = list(any)
   default     = ["80", "443", "22", "8080"]
 }
-
-variable "region" {}
-
-variable "project_id" {}
