@@ -1,12 +1,17 @@
-/* groovylint-disable CompileStatic, DuplicateStringLiteral */
+/* groovylint-disable CompileStatic, DuplicateStringLiteral, LineLength */
 pipeline {
     agent any
+    environment {
+        ANSIBLE_VAULT_PASSWORD_FILE = credentials('ANSIBLE_VAULT_PASSWORD')
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('GOOGLE_CREDENTIALS_ID')
+        WORKING_DIR = '/var/lib/jenkins/workspace/Ansible/ansible'
+    }
     stages {
         stage('Ansible') {
             steps {
                 echo 'Ansible'
-                sh '''cd ./ansible
-                ansible-playbook playbook.yml'''
+                dir("${WORKING_DIR }") {
+                        sh "ansible-playbook -i gcp-ansible.gcp.yml --vault-password-file ${ANSIBLE_VAULT_PASSWORD_FILE} playbook.yml"}
             }
         }
     }

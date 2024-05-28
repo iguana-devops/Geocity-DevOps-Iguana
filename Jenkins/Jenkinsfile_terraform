@@ -1,34 +1,38 @@
 /* groovylint-disable DuplicateStringLiteral, LineLength, NestedBlockDepth */
 pipeline {
     agent any
+    environment {
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('GOOGLE_CREDENTIALS_ID')
+        WORKING_DIR = '/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure'
+    }
     stages {
         stage('Terraform format') {
             steps {
                 echo 'Terraform format'
-                dir('/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure') {
+                dir("${WORKING_DIR }") {
                         sh 'terraform fmt'}
-            }
         }
+    }
         stage('Terraform init') {
             steps {
                 echo 'Terraform init'
-                dir('/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure') {
+                dir("${WORKING_DIR }") {
                         sh 'terraform init'}
-            }
         }
+}
         stage('Terraform validate') {
             steps {
                 echo 'Terraform validate'
-                dir('/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure') {
+                dir("${WORKING_DIR }") {
                           sh 'terraform validate'}
-            }
+        }
         }
         stage('Terraform Plan') {
             steps {
                 echo 'Terraform plan'
-                dir('/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure') {
+                dir("${WORKING_DIR }") {
                         sh 'terraform plan'}
-            }
+        }
         }
         stage('Terraform apply') {
             input {
@@ -41,10 +45,10 @@ pipeline {
             steps {
                 script {
                     echo 'Terraform apply'
-                    dir('/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure') {
+                    dir("${WORKING_DIR }") {
                         sh 'terraform apply -auto-approve'}
-                }
             }
+        }
         }
     }
 }
