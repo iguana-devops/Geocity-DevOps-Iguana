@@ -1,6 +1,6 @@
-locals {
-  cred = file("../GCP_cred.json")
-}
+#locals {
+#  cred = file("../GCP_cred.json")
+#}
 
 terraform {
   required_providers {
@@ -12,7 +12,7 @@ terraform {
 }
 
 provider "google" {
-  credentials = local.cred
+#  credentials = local.cred
   project     = var.project_id
   region      = var.region
   zone        = var.zone
