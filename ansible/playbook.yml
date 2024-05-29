@@ -1,6 +1,6 @@
 ---
 - name: Deploy application Geo citizen
-  hosts: server3
+  hosts: all
   become: yes
   vars_files:
     - data.yml
