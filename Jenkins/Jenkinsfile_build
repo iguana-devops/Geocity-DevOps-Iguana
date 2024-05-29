@@ -1,0 +1,54 @@
+/* groovylint-disable DuplicateStringLiteral, LineLength, NestedBlockDepth */
+pipeline {
+    agent any
+    environment {
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('GOOGLE_CREDENTIALS_ID')
+        WORKING_DIR = '/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure'
+    }
+    stages {
+        stage('Build ') {
+            steps {
+                echo 'Terraform format'
+                dir("${WORKING_DIR }") {
+                        sh 'terraform fmt'}
+        }
+    }
+        stage('Push ') {
+            steps {
+                echo 'Terraform init'
+                dir("${WORKING_DIR }") {
+                        sh 'terraform init'}
+        }
+}
+        stage('Terraform validate') {
+            steps {
+                echo 'Terraform validate'
+                dir("${WORKING_DIR }") {
+                          sh 'terraform validate'}
+        }
+        }
+        stage('Terraform Plan') {
+            steps {
+                echo 'Terraform plan'
+                dir("${WORKING_DIR }") {
+                        sh 'terraform plan'}
+        }
+        }
+        stage('Terraform apply') {
+            input {
+                message 'Do you want to apply infrastructure?'
+                ok 'Yes'
+                parameters {
+                    booleanParam defaultValue: false, description: 'Do you really want to apply infrastructure (By default "No" )?', name: 'APPLY'
+                }
+            }
+            steps {
+                script {
+                    echo 'Terraform apply'
+                    dir("${WORKING_DIR }") {
+                        sh 'terraform apply -auto-approve'}
+            }
+        }
+        }
+    }
+}
