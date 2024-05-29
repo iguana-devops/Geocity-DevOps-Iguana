@@ -3,7 +3,7 @@
 variable "project_id" {
   description = "Google cloud active project"
   type        = string
-  default     = "amplified-grail-423921-n7"
+  default     = "diesel-studio-423421-p9"
 }
 
 variable "region" {
