@@ -43,10 +43,10 @@ resource "google_compute_region_url_map" "geo" {
 }
 
 resource "google_compute_region_backend_service" "citizen" {
-  name                    = "citizen-backend"
-  protocol                = "HTTP"
-  timeout_sec             = 10
-  load_balancing_scheme   = "EXTERNAL_MANAGED"
+  name                  = "citizen-backend"
+  protocol              = "HTTP"
+  timeout_sec           = 10
+  load_balancing_scheme = "EXTERNAL_MANAGED"
 
   backend {
     group           = var.instance_group
@@ -55,7 +55,7 @@ resource "google_compute_region_backend_service" "citizen" {
   }
 
   health_checks = [var.health_check_id]
-  port_name     = "http-8080"  
+  port_name     = "http-8080"
 }
 
 resource "google_compute_address" "load_balancer" {

@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "google" {
-  project     = "terrafarm-423310"
-  region      = "eu-central2"
-  zone        = "eu-central2-a"
+  project = "terrafarm-423310"
+  region  = "eu-central2"
+  zone    = "eu-central2-a"
 }

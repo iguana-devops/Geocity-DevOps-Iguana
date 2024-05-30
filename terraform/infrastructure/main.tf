@@ -15,7 +15,7 @@ resource "google_compute_subnetwork" "proxy" {
 }
 
 data "google_compute_subnetwork" "sub_network" {
-  name          = "subnet-dev"
+  name = "subnet-dev"
 }
 
 data "google_compute_network" "vpc-dev" {
