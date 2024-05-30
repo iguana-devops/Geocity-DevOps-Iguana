@@ -3,5 +3,5 @@ resource "local_file" "database_output" {
     database_private_ip = module.database.database_private_ip,
     database_pass       = module.database.database_pass
   })
-  filename = "${path.module}/../vars_output.json"
+  filename = "${path.module}/../../ansible/vars_output.json"
 }
