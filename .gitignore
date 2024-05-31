@@ -18,5 +18,5 @@
 *.tfstate
 *.tfstate.*
 
-# GCP key json
-*/*cred.json
+# Exception
+!**/terraform.tfstate.d/**/*.tfstate

@@ -1,0 +1,6 @@
+{
+    "env": "prod-01",
+    "app": "geo",
+    "region": "europe-west1",
+    "zone": "europe-west1-a"
+}
