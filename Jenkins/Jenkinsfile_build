@@ -7,7 +7,7 @@ pipeline {
     environment {
         // CI = 'true'
         ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
-        // WORKING_DIR = '/var/lib/jenkins/workspace/'
+    // WORKING_DIR = '/var/lib/jenkins/workspace/' --access-token ${ARTIFACTORY_ACCESS_TOKEN}
     }
     stages {
         stage('Build ') {
@@ -18,7 +18,7 @@ pipeline {
                 jf 'c show'
                 jf 'rt ping'
                 sh 'touch test_file'
-                jf 'rt u --url=http://http://34.136.166.54:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} test_file generic-local/'
+                jf 'rt u --url=http://http://34.136.166.54:8082/artifactory/ test_file generic-local/'
                 jf 'rt bp'
             //         dir("${WORKING_DIR }") {
             //                 sh 'terraform fmt'}
