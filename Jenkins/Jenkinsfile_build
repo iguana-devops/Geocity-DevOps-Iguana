@@ -1,40 +1,50 @@
 /* groovylint-disable DuplicateStringLiteral, LineLength, NestedBlockDepth */
 pipeline {
     agent any
+    tools {
+        jfrog 'jfrog-cli'
+    }
     environment {
-        ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
-        // WORKING_DIR = '/var/lib/jenkins/workspace/'
+    // CI = 'true'
+    // ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
+    // WORKING_DIR = '/var/lib/jenkins/workspace/'
     }
     stages {
         stage('Build ') {
             steps {
                 echo 'Maven build'
                 sh 'pwd'
-        //         dir("${WORKING_DIR }") {
-        //                 sh 'terraform fmt'}
+                jf '-v'
+                jf 'c show'
+                jf 'rt ping'
+                sh 'touch test_file'
+                jf 'rt u test-file generic-local/'
+                jf 'rt bp'
+            //         dir("${WORKING_DIR }") {
+            //                 sh 'terraform fmt'}
+            }
         }
-    }
-//         stage('Push ') {
-//             steps {
-//                 echo 'Terraform init'
-//                 dir("${WORKING_DIR }") {
-//                         sh 'terraform init'}
-//         }
-// }
-        // stage('Terraform validate') {
-        //     steps {
-        //         echo 'Terraform validate'
-        //         dir("${WORKING_DIR }") {
-        //                   sh 'terraform validate'}
-        // }
-        // }
-        // stage('Terraform Plan') {
-        //     steps {
-        //         echo 'Terraform plan'
-        //         dir("${WORKING_DIR }") {
-        //                 sh 'terraform plan'}
-        // }
-        // }
+    //         stage('Push ') {
+    //             steps {
+    //                 echo 'Terraform init'
+    //                 dir("${WORKING_DIR }") {
+    //                         sh 'terraform init'}
+    //         }
+    // }
+    // stage('Terraform validate') {
+    //     steps {
+    //         echo 'Terraform validate'
+    //         dir("${WORKING_DIR }") {
+    //                   sh 'terraform validate'}
+    // }
+    // }
+    // stage('Terraform Plan') {
+    //     steps {
+    //         echo 'Terraform plan'
+    //         dir("${WORKING_DIR }") {
+    //                 sh 'terraform plan'}
+    // }
+    // }
     //     stage('Terraform apply') {
     //         input {
     //             message 'Do you want to apply infrastructure?'
