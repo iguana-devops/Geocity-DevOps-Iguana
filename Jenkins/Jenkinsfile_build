@@ -18,7 +18,7 @@ pipeline {
                 jf 'c show'
                 jf 'rt ping'
                 sh 'touch test_file'
-                jf 'rt u test-file --url=http://http://34.136.166.54:8082/artifactory'
+                jf 'rt u test_file --url=http://http://34.136.166.54:8082/artifactory'
                 jf 'rt bp'
             //         dir("${WORKING_DIR }") {
             //                 sh 'terraform fmt'}
