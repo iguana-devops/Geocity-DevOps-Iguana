@@ -5,9 +5,9 @@ pipeline {
         jfrog 'jfrog-cli'
     }
     environment {
-    // CI = 'true'
-    // ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
-    // WORKING_DIR = '/var/lib/jenkins/workspace/'
+        // CI = 'true'
+        // ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
+        WORKING_DIR = '/var/lib/jenkins/workspace/'
     }
     stages {
         stage('Build ') {
