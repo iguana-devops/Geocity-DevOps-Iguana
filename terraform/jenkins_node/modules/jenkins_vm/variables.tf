@@ -5,7 +5,7 @@ variable "instance_name" {}
 variable "instance_type" {
   description = "The instance type to be used for the Compute Engine instance"
   type        = string
-  default     = "e2-small"
+  default     = "e2-medium"
 }
 
 variable "image_family" {

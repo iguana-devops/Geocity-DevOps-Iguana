@@ -10,20 +10,20 @@ module "network" {
   source = "./modules/network"
 }
 
-# module "jenkins_vm" {
-#   source              = "./modules/jenkins_vm"
-#   instance_name       = "jenkins-vm"
-#   disk_size           = 20
-#   vpc_network         = module.network.vpc_network
-#   sub_network         = module.network.sub_network
-#   environment         = var.environment
-#   deletion_protection = false
-# }
+module "jenkins_vm" {
+  source              = "./modules/jenkins_vm"
+  instance_name       = "jenkins-vm"
+  disk_size           = 20
+  vpc_network         = module.network.vpc_network
+  sub_network         = module.network.sub_network
+  environment         = var.environment
+  deletion_protection = false
+}
 
 module "jfrog_vm" {
-  source              = "./modules/jfrog_vm"
-  instance_name       = "jfrog-vm"
-  disk_size           = 20
+  source        = "./modules/jfrog_vm"
+  instance_name = "jfrog-vm"
+  # disk_size           = 20
   vpc_network         = module.network.vpc_network
   sub_network         = module.network.sub_network
   environment         = var.environment

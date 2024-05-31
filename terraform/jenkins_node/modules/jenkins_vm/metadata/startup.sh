@@ -50,6 +50,24 @@ sudo chown -R jenkins:jenkins /var/lib/jenkins
 sudo systemctl start jenkins
 sudo systemctl enable jenkins
 
+################## Terraform ##################
+
+wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install terraform -y
+
+################## Ansible ##################
+
+sudo apt install software-properties-common
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible -y
+
+################## Maven ##################
+
+sudo apt-get install openjdk-8-jdk -y
+wget https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz -P /tmp
+sudo tar xzvf /tmp/apache-maven-3.9.6-bin.tar.gz -C /opt
+
 ################## Create Script for Disk Restore ##################
 
 sudo mkdir -p /scripts

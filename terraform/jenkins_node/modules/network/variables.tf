@@ -8,5 +8,5 @@ variable "subnet_cidr" {
 variable "allowed_ports" {
   description = "List of allowed ports"
   type        = list(any)
-  default     = ["80", "443", "22", "8080"]
+  default     = ["80", "443", "22", "8080", "8443", "8082", "8081"]
 }

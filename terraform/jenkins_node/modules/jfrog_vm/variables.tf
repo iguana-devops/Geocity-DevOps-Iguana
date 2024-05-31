@@ -5,7 +5,7 @@ variable "instance_name" {}
 variable "instance_type" {
   description = "The instance type to be used for the Compute Engine instance"
   type        = string
-  default     = "e2-small"
+  default     = "e2-medium"
 }
 
 variable "image_family" {
@@ -20,13 +20,13 @@ variable "image_project" {
   default     = "ubuntu-os-cloud"
 }
 
-variable "disk_type" {
-  description = "The type of disk"
-  type        = string
-  default     = "pd-ssd"
-}
+# variable "disk_type" {
+#   description = "The type of disk"
+#   type        = string
+#   default     = "pd-ssd"
+# }
 
-variable "disk_size" {}
+# variable "disk_size" {}
 
 variable "environment" {}
 

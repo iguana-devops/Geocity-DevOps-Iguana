@@ -58,5 +58,5 @@ resource "google_secret_manager_secret" "ssh_key_jfrog" {
 
 resource "google_secret_manager_secret_version" "ssh_key_jfrog_version" {
   secret      = google_secret_manager_secret.ssh_key_jfrog.id
-  secret_data = tls_private_key.sssh_key_jfrog.private_key_openssh
+  secret_data = tls_private_key.ssh_key_jfrog.private_key_openssh
 }

@@ -51,33 +51,33 @@ resource "google_compute_disk" "disk_jenkins" {
   }
 }
 
-resource "google_compute_resource_policy" "daily_snapshot_policy" {
-  name        = "daily-snapshot-policy"
-  description = "Snapshot policy once per day"
-  snapshot_schedule_policy {
-    schedule {
-      daily_schedule {
-        days_in_cycle = 1
-        start_time    = "00:00"
-      }
-    }
-    retention_policy {
-      max_retention_days    = 7
-      on_source_disk_delete = "KEEP_AUTO_SNAPSHOTS"
-    }
-    snapshot_properties {
-      labels = {
-        environment = var.environment
-        snapshot    = "jenkins"
-      }
-    }
-  }
-}
+# resource "google_compute_resource_policy" "daily_snapshot_policy" {
+#   name        = "daily-snapshot-policy"
+#   description = "Snapshot policy once per day"
+#   snapshot_schedule_policy {
+#     schedule {
+#       daily_schedule {
+#         days_in_cycle = 1
+#         start_time    = "00:00"
+#       }
+#     }
+#     retention_policy {
+#       max_retention_days    = 7
+#       on_source_disk_delete = "KEEP_AUTO_SNAPSHOTS"
+#     }
+#     snapshot_properties {
+#       labels = {
+#         environment = var.environment
+#         snapshot    = "jenkins"
+#       }
+#     }
+#   }
+# }
 
-resource "google_compute_disk_resource_policy_attachment" "attachment" {
-  name = google_compute_resource_policy.daily_snapshot_policy.name
-  disk = google_compute_disk.disk_jenkins.name
-}
+# resource "google_compute_disk_resource_policy_attachment" "attachment" {
+#   name = google_compute_resource_policy.daily_snapshot_policy.name
+#   disk = google_compute_disk.disk_jenkins.name
+# }
 
 ############# SECRET ##############
 resource "tls_private_key" "ssh_key_jenkins" {
@@ -85,20 +85,20 @@ resource "tls_private_key" "ssh_key_jenkins" {
   rsa_bits  = 2048
 }
 
-resource "google_secret_manager_secret" "ssh_key_jenkins" {
-  secret_id = "ssh_key_jenkins"
+# resource "google_secret_manager_secret" "ssh_key_jenkins" {
+#   secret_id = "ssh_key_jenkins"
 
-  labels = {
-    environment = var.environment
-    resource    = "jenkins_vm"
-  }
+#   labels = {
+#     environment = var.environment
+#     resource    = "jenkins_vm"
+#   }
 
-  replication {
-    auto {}
-  }
-}
+#   replication {
+#     auto {}
+#   }
+# }
 
-resource "google_secret_manager_secret_version" "ssh_key_jenkins_version" {
-  secret      = google_secret_manager_secret.ssh_key_jenkins.id
-  secret_data = tls_private_key.ssh_key_jenkins.private_key_openssh
-}
+# resource "google_secret_manager_secret_version" "ssh_key_jenkins_version" {
+#   secret      = google_secret_manager_secret.ssh_key_jenkins.id
+#   secret_data = tls_private_key.ssh_key_jenkins.private_key_openssh
+# }

@@ -9,13 +9,13 @@ variable "project_id" {
 variable "region" {
   description = "default region to deploy infrastructure"
   type        = string
-  default     = "europe-central2"
+  default     = "us-central1"
 }
 
 variable "zone" {
   description = "The availability zone where the instance will be deployed"
   type        = string
-  default     = "europe-central2-a"
+  default     = "us-central1-a"
 }
 
 variable "environment" {
