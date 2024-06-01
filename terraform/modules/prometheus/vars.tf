@@ -23,7 +23,6 @@ variable "region" {
   type        = string
 }
 
-
 variable "disk_size" {
   description = "The size of th disk"
   type        = string

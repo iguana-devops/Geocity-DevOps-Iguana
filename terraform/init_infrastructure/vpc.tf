@@ -10,3 +10,12 @@ resource "google_compute_subnetwork" "sub_network" {
   ip_cidr_range = "10.0.0.0/29"
   network       = google_compute_network.vpc_network.self_link
 }
+
+resource "google_compute_subnetwork" "geocitizen-proxy" {
+  name          = "${var.env}-${var.region}-${var.app}-website-net-proxy"
+  ip_cidr_range = "10.129.0.0/26"
+  network       = google_compute_network.vpc_network.id
+  purpose       = "REGIONAL_MANAGED_PROXY"
+  role          = "ACTIVE"
+}
+

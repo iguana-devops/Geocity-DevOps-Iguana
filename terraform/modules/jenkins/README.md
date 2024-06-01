@@ -17,6 +17,7 @@ The module creates the following resources:
 - **google_secret_manager_secret**: Manages secrets in Google Cloud Secret Manager
 - **google_secret_manager_secret_version**: Manages secret versions in Google Cloud Secret Manager
 
+
 ## Input Variables
 
 | Name                          | Description                                | Type    |
@@ -30,3 +31,4 @@ The module creates the following resources:
 | `env`                         | The working environment                    | string  |
 | `app`                         | The application name                       | string  |
 | `region`                      | The default region to deploy infrastructure| string  |
+

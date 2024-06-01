@@ -3,7 +3,7 @@ terraform {
     bucket = "dev-01-us-central1-geo-tf-state"
     prefix = "terraform/main"
   }
-  required_version = "= 1.8.4"
+  required_version = "1.8.4"
   required_providers {
     google = {
       source  = "hashicorp/google"
