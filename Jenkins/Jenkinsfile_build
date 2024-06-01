@@ -13,25 +13,19 @@ pipeline {
         stage('Build ') {
             steps {
                 echo 'Maven build'
-                sh 'pwd'
+                sh 'pwd && ls'
                 jf '-v'
                 jf 'c show'
                 jf 'rt ping --url=http://34.136.166.54:8082/artifactory'
                 sh 'touch test_file'
                 jf 'rt u  test_file generic-local/'
                 jf 'rt bp'
-                jf 'rt dl generic-local/test_file '
+                // jf 'rt dl generic-local/test_file '
             //         dir("${WORKING_DIR }") {
             //                 sh 'terraform fmt'}
             }
         }
-    //         stage('Push ') {
-    //             steps {
-    //                 echo 'Terraform init'
-    //                 dir("${WORKING_DIR }") {
-    //                         sh 'terraform init'}
-    //         }
-    // }
+     /
     // stage('Terraform validate') {
     //     steps {
     //         echo 'Terraform validate'
