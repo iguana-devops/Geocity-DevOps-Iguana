@@ -1,18 +1,18 @@
---- 
-    - name: Download artifact from JFrog
-      uri:
-        url: "https://your.jfrog.url/path/to/artifact"
-        method: GET
-        user: "username"
-        password: "password"
-        force_basic_auth: yes
-        dest: "/tmp/jfrog-distribution-artifact/"
-               
-    - name: Copy WAR file to Tomcat webapps directory
-      shell: cp /tmp/jfrog-distribution-artifact/citizen.war /var/lib/tomcat9/webapps/citizen.war
+---
+- name: Download artifact from JFrog
+  uri:
+    url: "https://your.jfrog.url/path/to/artifact"
+    method: GET
+    user: "username"
+    password: "password"
+    force_basic_auth: yes
+    dest: "/tmp/jfrog-distribution-artifact/"
 
-    - name: Start and enable Tomcat service
-      service:
-        name: tomcat9
-        state: started
-        enabled: yes
+- name: Copy WAR file to Tomcat webapps directory
+  shell: cp /tmp/jfrog-distribution-artifact/citizen.war /var/lib/tomcat9/webapps/citizen.war
+
+- name: Start and enable Tomcat service
+  service:
+    name: tomcat9
+    state: started
+    enabled: yes
