@@ -26,3 +26,11 @@ resource "google_compute_router_nat" "nat_template" {
     filter = "ERRORS_ONLY"
   }
 }
+
+resource "google_compute_route" "template_route" {
+  name               = "${var.env}-${var.region}-${var.app}-route-to-template_subnetwork"
+  network            = data.google_compute_network.vpc_network.self_link
+  dest_range         = "10.2.2.0/29"
+  next_hop_network   = google_compute_subnetwork.template_subnetwork.id
+}
+
