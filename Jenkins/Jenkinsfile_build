@@ -16,7 +16,7 @@ pipeline {
                 sh 'pwd'
                 jf '-v'
                 jf 'c show'
-                jf 'rt ping --url=http://http://34.136.166.54:8082/artifactory'
+                jf 'rt ping --url=http://34.136.166.54:8082/artifactory'
                 sh 'touch test_file'
                 jf 'rt u  test_file generic-local/'
                 jf 'rt bp'
