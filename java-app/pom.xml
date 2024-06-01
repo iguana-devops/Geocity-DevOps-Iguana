@@ -187,11 +187,11 @@
             <version>${postgresql.connector.version}</version>
         </dependency>
 
-	<dependency>
+	<!-- <dependency>
     	    <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.2.5</version>
-        </dependency>
+        </dependency> -->
 
         <!--Servlet API-->
         <dependency>
@@ -347,7 +347,8 @@
             <artifactId>dbunit</artifactId>
             <version>${dbunit.version}</version>
             <scope>test</scope>
-            <exclusions>
+            <exclusions>export MAVEN_HOME=/opt/maven
+export PATH=$PATH:$MAVEN_HOME/bin
                 <exclusion>
                     <artifactId>junit</artifactId>
                     <groupId>junit</groupId>
@@ -520,13 +521,13 @@
                 </configuration>
             </plugin>
 
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
-            </plugin>
+            </plugin> -->
 
             <plugin>
                 <groupId>org.liquibase</groupId>
