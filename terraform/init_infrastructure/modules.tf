@@ -9,6 +9,7 @@ module "jenkins_vm" {
   env                 = var.env
   region              = var.region
   deletion_protection = false
+}
 
 module "jfrog_vm" {
   source              = "../modules/jfrog"
@@ -23,7 +24,7 @@ module "jfrog_vm" {
   deletion_protection = false
 }
 
-module "prometheus" {
+module "prometheus_vm" {
   source              = "../modules/prometheus"
   instance_type       = var.instance_type
   image_type          = var.image_type
