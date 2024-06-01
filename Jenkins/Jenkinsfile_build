@@ -6,62 +6,29 @@ pipeline {
     }
     environment {
         // CI = 'true'
-        ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
-    // WORKING_DIR = '/var/lib/jenkins/workspace/' --access-token ${ARTIFACTORY_ACCESS_TOKEN}
+        // ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
+        WORKING_DIR = '/var/lib/jenkins/workspace/build_and_push_artifact/java-app'
     }
     stages {
-        stage('Build ') {
+        stage('Build artifac') {
             steps {
                 echo 'Maven build'
-                sh 'pwd && ls java-app'
-                jf '-v'
-                jf 'c show'
-                jf 'rt ping --url=http://34.136.166.54:8082/artifactory'
-                sh 'touch test_file'
-                jf 'rt u  test_file generic-local/'
-                jf 'rt bp'
-                // jf 'rt dl generic-local/test_file '
-            //         dir("${WORKING_DIR }") {
-            //                 sh 'terraform fmt'}
-            }
+                dir("${WORKING_DIR }") {
+                        sh 'mvn clean install'}
+           }
         }
-    //         stage('Push ') {
-    //             steps {
-    //                 echo 'Terraform init'
-    //                 dir("${WORKING_DIR }") {
-    //                     jf 'rt u  test_file generic-local/'
-    //                     jf 'rt b' }
-    //         }
-    // }
-    // stage('Terraform validate') {
-    //     steps {
-    //         echo 'Terraform validate'
-    //         dir("${WORKING_DIR }") {
-    //                   sh 'terraform validate'}
-    // }
-    // }
-    // stage('Terraform Plan') {
-    //     steps {
-    //         echo 'Terraform plan'
-    //         dir("${WORKING_DIR }") {
-    //                 sh 'terraform plan'}
-    // }
-    // }
-    //     stage('Terraform apply') {
-    //         input {
-    //             message 'Do you want to apply infrastructure?'
-    //             ok 'Yes'
-    //             parameters {
-    //                 booleanParam defaultValue: false, description: 'Do you really want to apply infrastructure (By default "No" )?', name: 'APPLY'
-    //             }
-    //         }
-    //         steps {
-    //             script {
-    //                 echo 'Terraform apply'
-    //                 dir("${WORKING_DIR }") {
-    //                     sh 'terraform apply -auto-approve'}
-    //         }
-    //     }
-    //     }
+            stage('Push') {
+                steps {
+                    echo 'Push to jfrog repository'
+                    dir("${WORKING_DIR }") {
+                        jf 'rt u  target/citizen.war geocitizen/'
+                        jf 'rt bp' }
+                }
+            }
+    }
+    post {
+        always {
+            cleanWs()
+        }
     }
 }
