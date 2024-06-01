@@ -15,7 +15,7 @@ pipeline {
             steps {
                 echo 'Maven build'
                 dir("${WORKING_DIR }") {
-                        sh 'mvn clean install'}
+                        sh 'mvn clean install -U'}
             }
         }
             stage('Push') {
