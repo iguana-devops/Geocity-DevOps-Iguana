@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "geocity-dev-01-europe-west1-tf-state"
+    bucket = "dev-01-us-central1-geo-tf-state"
     prefix = "terraform/init"
   }
   required_version = "= 1.8.4"

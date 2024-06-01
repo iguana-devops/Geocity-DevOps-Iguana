@@ -1,5 +1,5 @@
-module "database_geo" {
-  source              = "../modules/database_geo"
+module "database" {
+  source              = "../modules/database"
   vpc_id              = data.google_compute_network.vpc.id
   db_disk_size        = 10
   app                 = var.app

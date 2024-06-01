@@ -1,4 +1,4 @@
-GEO_ENV ?= dev-01-eu-west3-geo
+GEO_ENV ?= dev-01-us-central1-geo
 
 init:
 	terraform init

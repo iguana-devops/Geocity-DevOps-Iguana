@@ -1,7 +1,7 @@
 variable "project" {
   description = "Google cloud active project"
   type        = string
-  default     = "diesel-studio-423421-p9"
+  default     = "amplified-grail-423921-n7"
 }
 
 variable "image_type" {

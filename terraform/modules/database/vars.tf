@@ -1,7 +1,16 @@
-variable "project" {
-  description = "Google cloud active project"
+variable "db_disk_size" {
+  description = "The size of data disk, in GB."
+  type        = number
+}
+
+variable "vpc_id" {
+  description = "The VPC id"
   type        = string
-  default     = "amplified-grail-423921-n7"
+}
+
+variable "deletion_protection" {
+  description = "The deletion protection policy"
+  type        = bool
 }
 
 variable "env" {
@@ -18,4 +27,3 @@ variable "region" {
   description = "The default region to deploy infrastructure"
   type        = string
 }
-

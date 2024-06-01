@@ -18,11 +18,11 @@ resource "google_compute_instance" "vm_instance" {
   }
 
   attached_disk {
-    device_name = "${var.env}-${var.region}-${var.app}-disk-jenkins"
+    device_name = "${var.env}-${var.region}-${var.app}-disk-jenkis"
     source      = google_compute_disk.disk_jenkins.id
   }
 
-  metadata_startup_script = file("${path.module}/jenkins_startup.sh")
+  metadata_startup_script = file("${path.module}/startup.sh")
 
   metadata = {
     ssh-keys = "${var.env}-${var.region}-${var.app}-jenkins:${tls_private_key.ssh_key_jenkins.public_key_openssh}"
