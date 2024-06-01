@@ -347,8 +347,7 @@
             <artifactId>dbunit</artifactId>
             <version>${dbunit.version}</version>
             <scope>test</scope>
-            <exclusions>export MAVEN_HOME=/opt/maven
-export PATH=$PATH:$MAVEN_HOME/bin
+            <exclusions>
                 <exclusion>
                     <artifactId>junit</artifactId>
                     <groupId>junit</groupId>
