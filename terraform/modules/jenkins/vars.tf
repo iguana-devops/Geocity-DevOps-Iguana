@@ -14,18 +14,18 @@ variable "disk_size" {
 }
 
 variable "vpc_network" {
-  description = "The name of VPC"
+  description = "The VPC network for the instance"
   type        = string
 }
 
 variable "sub_network" {
-  description = "The name of subnetwork"
+  description = "The subnetwork for the instance"
   type        = string
 }
 
 variable "deletion_protection" {
   description = "The deletion protection policy"
-  type        = string
+  type        = bool
 }
 
 variable "env" {

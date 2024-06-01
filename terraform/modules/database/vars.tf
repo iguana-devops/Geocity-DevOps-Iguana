@@ -10,7 +10,7 @@ variable "vpc_id" {
 
 variable "deletion_protection" {
   description = "The deletion protection policy"
-  type        = string
+  type        = bool
 }
 
 variable "env" {

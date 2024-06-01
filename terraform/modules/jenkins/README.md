@@ -17,22 +17,16 @@ The module creates the following resources:
 - **google_secret_manager_secret**: Manages secrets in Google Cloud Secret Manager
 - **google_secret_manager_secret_version**: Manages secret versions in Google Cloud Secret Manager
 
-## Script
-
- - Mount attached disk
- - Install and configure Jenkins
-
 ## Input Variables
 
-| Name                         | Description                                                        | Type         | Default             | Required |
-|------------------------------|--------------------------------------------------------------------|--------------|---------------------|----------|
-| `instance_name`              | Name of the Compute Engine instance                                | string       | n/a                 | yes      |
-| `instance_type`              | The instance type to be used for the Compute Engine instance       | string       | "e2-small"          | no       |
-| `image_family`               | The family of the VM image for the instance to be launched         | string       | "ubuntu-2204-lts"   | no       |
-| `image_project`              | The project of the VM image for the instance to be launched        | string       | "ubuntu-os-cloud"   | no       |
-| `disk_type`                  | The type of disk                                                   | string       | "pd-ssd"            | no       |
-| `disk_size`                  | The size of the disk in GB                                         | number       | n/a                 | yes      |
-| `environment`                | The environment label to be applied                                | string       | n/a                 | yes      |
-| `vpc_network`                | The VPC network for the instance                                   | string       | n/a                 | yes      |
-| `sub_network`                | The subnetwork for the instance                                    | string       | n/a                 | yes      |
-| `instance_deletion_protection`| Whether to enable deletion protection for the instance            | bool         | n/a                 | yes      |
+| Name                          | Description                                | Type    |
+|-------------------------------|--------------------------------------------|---------|
+| `instance_type`               | The instance OS                            | string  |
+| `image_type`                  | The instance type                          | string  |
+| `disk_size`                   | The size of Jenkins disk                   | number  |
+| `vpc_network`                 | The VPC network for the instance           | string  |
+| `sub_network`                 | The subnetwork for the instance            | string  |
+| `instance_deletion_protection`| The deletion protection policy             | bool    |
+| `env`                         | The working environment                    | string  |
+| `app`                         | The application name                       | string  |
+| `region`                      | The default region to deploy infrastructure| string  |
