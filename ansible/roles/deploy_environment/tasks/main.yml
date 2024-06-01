@@ -2,22 +2,12 @@
     - name: Update apt packages
       apt:
         upgrade: yes
-        update_cache: yes
-
-    - name: Install git
-      apt:
-        name: git
-        state: present
-        
+        update_cache: yes      
 
     - name: Install packages
       apt:
         name:
           - openjdk-8-jdk
-          - maven
           - tomcat9
         state: present
-        update_cache: yes
-
-
-        
+        update_cache: yes        
