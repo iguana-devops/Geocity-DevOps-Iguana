@@ -3,6 +3,7 @@ pipeline {
     agent any
     tools {
         jfrog 'jfrog-cli'
+        maven 'maven'
     }
     environment {
         // CI = 'true'
@@ -13,18 +14,19 @@ pipeline {
         stage('Build artifac') {
             steps {
                 echo 'Maven build'
-                dir("${WORKING_DIR }") {
-                        sh 'mvn clean install'}
-           }
-        }
-            stage('Push') {
-                steps {
-                    echo 'Push to jfrog repository'
-                    dir("${WORKING_DIR }") {
-                        jf 'rt u  target/citizen.war geocitizen/'
-                        jf 'rt bp' }
-                }
+                sh 'mvn --version'
+                // dir("${WORKING_DIR }") {
+                //         sh 'mvn clean install'}
             }
+        }
+            // stage('Push') {
+            //     steps {
+            //         echo 'Push to jfrog repository'
+            //         dir("${WORKING_DIR }") {
+            //             jf 'rt u  target/citizen.war geocitizen/'
+            //             jf 'rt bp' }
+            //     }
+            // }
     }
     post {
         always {
