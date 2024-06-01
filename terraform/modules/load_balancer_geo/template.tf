@@ -13,6 +13,8 @@ resource "google_compute_instance_template" "geo_template" {
     boot         = true
   }
 
+  
+
   tags = ["allow-ssh", "load-balanced-backend"]
 
   metadata = {
