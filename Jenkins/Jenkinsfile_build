@@ -25,7 +25,14 @@ pipeline {
             //                 sh 'terraform fmt'}
             }
         }
-     /
+    //         stage('Push ') {
+    //             steps {
+    //                 echo 'Terraform init'
+    //                 dir("${WORKING_DIR }") {
+    //                     jf 'rt u  test_file generic-local/'
+    //                     jf 'rt b' }
+    //         }
+    // }
     // stage('Terraform validate') {
     //     steps {
     //         echo 'Terraform validate'
