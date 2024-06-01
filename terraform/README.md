@@ -22,6 +22,11 @@ This folder contains initialized Terraform modules.
 
 ## Instructions
 
+### Add GCP Service Account Credentials File to Your Shell PATH as an Environment Variable
+```
+$env:GOOGLE_APPLICATION_CREDENTIALS = "path/to/file.json"
+```
+
 ### Setting Up S3 Buckets for Backend
 To start the project, you need to create an S3 bucket for each environment: dev, stage, prod. 
 
