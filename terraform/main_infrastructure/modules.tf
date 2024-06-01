@@ -1,6 +1,6 @@
 module "database" {
   source              = "../modules/database"
-  vpc_id              = data.google_compute_network.vpc_netowork.id
+  vpc_id              = data.google_compute_network.vpc_network.id
   db_disk_size        = 10
   app                 = var.app
   env                 = var.env
@@ -11,7 +11,7 @@ module "database" {
 module "load_balancer_geo" {
   source        = "../modules/load_balancer_geo"
   app           = var.app
-  vpc_network   = data.google_compute_network.vpc_netowork.id
+  vpc_network   = data.google_compute_network.vpc_network.id
   sub_network   = data.google_compute_subnetwork.sub_network.id
   env           = var.env
   region        = var.region
