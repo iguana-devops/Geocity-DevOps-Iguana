@@ -13,7 +13,7 @@ pipeline {
         stage('Build ') {
             steps {
                 echo 'Maven build'
-                sh 'pwd && ls'
+                sh 'pwd && ls java-app'
                 jf '-v'
                 jf 'c show'
                 jf 'rt ping --url=http://34.136.166.54:8082/artifactory'
