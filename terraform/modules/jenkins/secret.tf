@@ -4,10 +4,11 @@ resource "tls_private_key" "ssh_key_jenkins" {
 }
 
 resource "google_secret_manager_secret" "ssh_key_jenkins" {
-  secret_id = "${var.app}-${var.env}-${var.region}-ssh_jenkins"
+  secret_id = "${var.env}-${var.region}-${var.app}-ssh_jenkins"
   labels = {
-    env = var.env
-    app = var.app
+    env      = var.env
+    app      = var.app
+    resource = "jenkins"
   }
   replication {
     auto {}

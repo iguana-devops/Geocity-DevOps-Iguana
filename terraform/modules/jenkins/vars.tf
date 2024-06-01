@@ -1,17 +1,44 @@
-variable "instance_type" {}
+variable "instance_type" {
+  description = "The instance OS"
+  type        = string
+}
 
-variable "image_type" {}
+variable "image_type" {
+  description = "The instance type"
+  type        = string
+}
 
-variable "disk_size" {}
+variable "disk_size" {
+  description = "The size of jenkins disk"
+  type        = number
+}
 
-variable "vpc_network" {}
+variable "vpc_network" {
+  description = "The name of VPC"
+  type        = string
+}
 
-variable "sub_network" {}
+variable "sub_network" {
+  description = "The name of subnetwork"
+  type        = string
+}
 
-variable "deletion_protection" {}
+variable "deletion_protection" {
+  description = "The deletion protection policy"
+  type        = string
+}
 
-variable "region" {}
+variable "env" {
+  description = "The Working environment"
+  type        = string
+}
 
-variable "app" {}
+variable "app" {
+  description = "The application name"
+  type        = string
+}
 
-variable "env" {}
+variable "region" {
+  description = "The default region to deploy infrastructure"
+  type        = string
+}

@@ -1,6 +1,6 @@
 resource "google_sql_database_instance" "postgres" {
 
-  name                = "${var.app}-${var.env}-${var.region}-postgres"
+  name                = "${var.env}-${var.region}-${var.app}-postgres"
   database_version    = "POSTGRES_15"
   deletion_protection = var.deletion_protection
 

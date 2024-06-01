@@ -18,5 +18,5 @@
 *.tfstate
 *.tfstate.*
 
-# Exception
-!**/terraform.tfstate.d/**/*.tfstate
+# Ignore hcl file
+.terraform.lock.hcl

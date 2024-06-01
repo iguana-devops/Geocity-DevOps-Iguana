@@ -5,11 +5,12 @@ resource "random_password" "db_user_pass" {
 }
 
 resource "google_secret_manager_secret" "database_credentials" {
-  secret_id = "${var.app}-${var.env}-${var.region}-db-cred"
+  secret_id = "${var.env}-${var.region}-${var.app}-db-cred"
 
   labels = {
-    env = var.env
-    app = var.app
+    env      = var.env
+    app      = var.app
+    resource = "db"
   }
 
   replication {

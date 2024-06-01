@@ -1,14 +1,29 @@
 variable "db_disk_size" {
-  description = "The size of data disk, in GB. Size of a running instance cannot be reduced but can be increased"
+  description = "The size of data disk, in GB."
   type        = number
 }
 
-variable "vpc_id" {}
+variable "vpc_id" {
+  description = "The VPC id"
+  type        = string
+}
 
-variable "deletion_protection" {}
+variable "deletion_protection" {
+  description = "The deletion protection policy"
+  type        = string
+}
 
-variable "region" {}
+variable "env" {
+  description = "The Working environment"
+  type        = string
+}
 
-variable "app" {}
+variable "app" {
+  description = "The application name"
+  type        = string
+}
 
-variable "env" {}
+variable "region" {
+  description = "The default region to deploy infrastructure"
+  type        = string
+}

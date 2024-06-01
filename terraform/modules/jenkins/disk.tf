@@ -1,5 +1,5 @@
 resource "google_compute_disk" "disk_jenkins" {
-  name        = "${var.app}-${var.env}-${var.region}-disk-jenkins"
+  name        = "${var.env}-${var.region}-${var.app}-disk-jenkins"
   description = "Disk for Jenkins config"
   type        = "pd-ssd"
   size        = var.disk_size
@@ -10,7 +10,7 @@ resource "google_compute_disk" "disk_jenkins" {
 }
 
 resource "google_compute_resource_policy" "daily_snapshot_policy" {
-  name        = "${var.app}-${var.env}-${var.region}-daily-snapshot-policy"
+  name        = "${var.env}-${var.region}-${var.app}-daily-snapshot-policy"
   description = "Snapshot policy once per day"
   snapshot_schedule_policy {
     schedule {

@@ -1,5 +1,5 @@
 resource "google_compute_instance" "vm_instance" {
-  name                = "${var.app}-${var.env}-${var.region}-jenkins"
+  name                = "${var.env}-${var.region}-${var.app}-jenkins"
   machine_type        = var.instance_type
   deletion_protection = var.deletion_protection
 
@@ -18,14 +18,14 @@ resource "google_compute_instance" "vm_instance" {
   }
 
   attached_disk {
-    device_name = "${var.app}-${var.env}-${var.region}-disk-jenkis"
+    device_name = "${var.env}-${var.region}-${var.app}-disk-jenkis"
     source      = google_compute_disk.disk_jenkins.id
   }
 
   metadata_startup_script = file("${path.module}/startup.sh")
 
   metadata = {
-    ssh-keys = "${var.app}-${var.env}-${var.region}-jenkins:${tls_private_key.ssh_key_jenkins.public_key_openssh}"
+    ssh-keys = "${var.env}-${var.region}-${var.app}-jenkins:${tls_private_key.ssh_key_jenkins.public_key_openssh}"
   }
 
   labels = {
@@ -35,5 +35,5 @@ resource "google_compute_instance" "vm_instance" {
 }
 
 resource "google_compute_address" "public_ip" {
-  name = "${var.app}-${var.env}-${var.region}-jenkins-ip"
+  name = "${var.env}-${var.region}-${var.app}-jenkins-ip"
 }

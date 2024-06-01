@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "bucket_tfstate" {
-  name          = "${var.app}-${var.env}-${var.region}-tf-state"
+  name          = "${var.env}-${var.region}-${var.app}-tf-state"
   force_destroy = false
   location      = "EU"
   storage_class = "STANDARD"
