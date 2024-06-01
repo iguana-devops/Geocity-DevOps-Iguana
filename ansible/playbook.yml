@@ -7,3 +7,4 @@
   roles:
     - deploy_environment
     - deploy_application
+    - deploy_monitoring_application
