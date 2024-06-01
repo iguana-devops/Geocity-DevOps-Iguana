@@ -5,7 +5,7 @@ resource "google_compute_subnetwork" "template_subnetwork" {
 }
 
 resource "google_compute_router" "router_template" {
-  name    = "my-router"
+  name    = "${var.env}-${var.region}-${var.app}-template-router"
   region  = google_compute_subnetwork.template_subnetwork.region
   network = data.google_compute_network.vpc_network.id
 
@@ -15,7 +15,7 @@ resource "google_compute_router" "router_template" {
 }
 
 resource "google_compute_router_nat" "nat_template" {
-  name                               = "my-router-nat"
+  name                               = "${var.env}-${var.region}-${var.app}-template-router-nat"
   router                             = google_compute_router.router_template.name
   region                             = google_compute_router.router_template.region
   nat_ip_allocate_option             = "AUTO_ONLY"
