@@ -28,9 +28,16 @@ resource "google_compute_router_nat" "nat_template" {
 }
 
 resource "google_compute_route" "template_route" {
-  name               = "${var.env}-${var.region}-${var.app}-route-to-template-subnetwork"
+  name               = "${var.env}-${var.region}-${var.app}-route-to-template-subnetwork1"
   network            = data.google_compute_network.vpc_network.self_link
   dest_range         = "10.3.3.0/29"
   next_hop_ip        = "10.2.2.1"
+}
+
+resource "google_compute_route" "template_route1" {
+  name               = "${var.env}-${var.region}-${var.app}-route-to-template-subnetwork"
+  network            = data.google_compute_network.vpc_network.self_link
+  dest_range         = "10.2.2.0/29"
+  next_hop_ip        = "10.3.3.1"
 }
 
