@@ -1,0 +1,6 @@
+{
+    "env": "dev-01",
+    "app": "geocity",
+    "region": "us-central1",
+    "zone": "us-central1-a"
+}
