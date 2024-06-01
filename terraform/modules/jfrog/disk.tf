@@ -10,7 +10,7 @@ resource "google_compute_disk" "disk_jfrog" {
 }
 
 resource "google_compute_resource_policy" "daily_snapshot_policy" {
-  name        = "${var.env}-${var.region}-${var.app}-daily-snapshot-policy"
+  name        = "${var.env}-${var.region}-${var.app}-daily-snapshot-policy-jfrog"
   description = "Snapshot policy once per day"
   snapshot_schedule_policy {
     schedule {

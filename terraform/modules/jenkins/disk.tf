@@ -10,7 +10,7 @@ resource "google_compute_disk" "disk_jenkins" {
 }
 
 resource "google_compute_resource_policy" "daily_snapshot_policy" {
-  name        = "${var.env}-${var.region}-${var.app}-daily-snapshot-policy"
+  name        = "${var.env}-${var.region}-${var.app}-daily-snapshot-policy-jenkins"
   description = "Snapshot policy once per day"
   snapshot_schedule_policy {
     schedule {
