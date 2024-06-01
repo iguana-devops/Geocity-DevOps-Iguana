@@ -195,7 +195,7 @@
 
         <!--Servlet API-->
         <dependency>
-            <groupId>javax.servlet-api</groupId>
+            <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${servlet-api.version}</version>
             <scope>provided</scope>
