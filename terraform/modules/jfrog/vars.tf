@@ -23,7 +23,6 @@ variable "region" {
   type        = string
 }
 
-
 variable "disk_size" {
   description = "The size of th disk"
   type        = string
@@ -36,6 +35,11 @@ variable "vpc_network" {
 
 variable "sub_network" {
   description = "Subnetwork network for resources"
+  type        = string
+}
+
+variable "daily_snapshot_policy" {
+  description = "The Snapshot policy for making disk backup"
   type        = string
 }
 
