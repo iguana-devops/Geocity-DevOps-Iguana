@@ -20,6 +20,7 @@ pipeline {
                 sh 'touch test_file'
                 jf 'rt u  test_file generic-local/'
                 jf 'rt bp'
+                jf 'rt dl generic-local/test_file '
             //         dir("${WORKING_DIR }") {
             //                 sh 'terraform fmt'}
             }
