@@ -14,16 +14,17 @@ pipeline {
         stage('Build artifac') {
             steps {
                 echo 'Maven build'
-                dir("${WORKING_DIR }") {
-                        sh 'mvn clean install -U'}
+                sh "pwd ${WORKSPACE}"
+                // dir("${WORKING_DIR }") {
+                //         sh 'mvn clean install -U'}
             }
         }
-            stage('Push') {
-                steps {
-                    echo 'Push to jfrog repository'
-                    dir("${WORKING_DIR }/target") {
-                        jf "rt u  citizen-${JOB_NAME}-${BUILD_NUMBER}.war maven-repository/"}
-                }
+            // stage('Push') {
+            //     steps {
+            //         echo 'Push to jfrog repository'
+            //         dir("${WORKING_DIR }/target") {
+            //             jf "rt u  citizen-${JOB_NAME}-${BUILD_NUMBER}.war maven-repository/"}
+            //     }
             }
     }
     post {
