@@ -11,7 +11,8 @@ pipeline {
     }
     stages {
         stage('add credentials') {
-            script {
+            steps {
+                script {
                     dir("${WORKING_DIR }") {
                         withCredentials([
                         file(
@@ -21,6 +22,7 @@ pipeline {
                             sh 'cp "\$test" src/main/resources/application.properties'
                         }
                     }
+            }
             }
         }
         stage('Build artifact') {
