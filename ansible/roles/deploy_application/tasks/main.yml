@@ -1,10 +1,10 @@
 ---
 - name: Download artifact from JFrog
   uri:
-    url: "https://your.jfrog.url/path/to/artifact"
+    url: "http://34.133.155.101:8081/"
     method: GET
-    user: "username"
-    password: "password"
+    user: "{{ jfrog_username }}"
+    password: "{{ jfrog_password }}"
     force_basic_auth: yes
     dest: "/tmp/jfrog-distribution-artifact/"
 

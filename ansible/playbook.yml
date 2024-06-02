@@ -2,6 +2,8 @@
 - name: Deploy application Geo citizen
   hosts: all
   become: yes
+  vars_files:
+    - data_jfrog.yml
   roles:
     - deploy_environment
     - deploy_application
