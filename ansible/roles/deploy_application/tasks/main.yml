@@ -1,18 +1,31 @@
 ---
+- name: Ensure the directory exists
+  file:
+    path: /tmp/jfrog-distribution-artifact
+    state: directory
+    mode: "0755"
+
 - name: Download artifact from JFrog
   uri:
-    url: "http://34.133.155.101:8081/"
+    url: "https://jfrog.iguana-devops.pp.ua/artifactory/maven-repository/citizen-jenkins-artifact-56.war"
     method: GET
     user: "{{ jfrog_username }}"
     password: "{{ jfrog_password }}"
     force_basic_auth: yes
-    dest: "/tmp/jfrog-distribution-artifact/"
+    dest: "/tmp/jfrog-distribution-artifact/citizen-jenkins-artifact-56.war"
 
 - name: Copy WAR file to Tomcat webapps directory
-  shell: cp /tmp/jfrog-distribution-artifact/citizen.war /var/lib/tomcat9/webapps/citizen.war
+  shell: cp /tmp/jfrog-distribution-artifact/citizen-jenkins-artifact-56.war /var/lib/tomcat9/webapps/citizen.war
 
 - name: Start and enable Tomcat service
   service:
     name: tomcat9
     state: started
     enabled: yes
+
+- name: Remove the JFrog artifact directory
+  file:
+    path: /tmp/jfrog-distribution-artifact
+    state: absent
+    force: yes
+
