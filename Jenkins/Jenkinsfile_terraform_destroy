@@ -19,7 +19,7 @@ pipeline {
                 script {
                     dir("${WORKING_DIR }") {
                         echo 'Terraform destroy'
-                        sh 'terraform destroy -auto-approve'}
+                        sh 'make destroy'}
                 }
             }
         }
