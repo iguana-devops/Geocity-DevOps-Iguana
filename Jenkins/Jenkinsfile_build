@@ -23,7 +23,7 @@ pipeline {
                     echo 'Push to jfrog repository'
                     dir("${WORKING_DIR }/target") {
                         jf 'rt u  citizen.war maven-repository/'
-                        jf 'rt bp'
+                        // jf 'rt bp'
                         jf 'rt dl maven-repository/citizen.war'}
                 }
             }
