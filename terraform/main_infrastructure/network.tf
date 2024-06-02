@@ -1,12 +1,6 @@
-resource "google_compute_subnetwork" "template_subnetwork" {
-  name          = "${var.env}-${var.region}-${var.app}-subnet-templates"
-  ip_cidr_range = "10.3.3.0/29"
-  network       = data.google_compute_network.vpc_network.self_link
-}
-
 resource "google_compute_router" "router_template" {
   name    = "${var.env}-${var.region}-${var.app}-template-router"
-  region  = google_compute_subnetwork.template_subnetwork.region
+  region  = data.google_compute_subnetwork.sub_network.region
   network = data.google_compute_network.vpc_network.id
 
   bgp {
