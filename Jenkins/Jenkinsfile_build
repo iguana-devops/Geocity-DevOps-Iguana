@@ -25,7 +25,7 @@ pipeline {
             //         dir("${WORKING_DIR }/target") {
             //             jf "rt u  citizen-${JOB_NAME}-${BUILD_NUMBER}.war maven-repository/"}
             //     }
-            }
+            // }
     }
     post {
         always {
