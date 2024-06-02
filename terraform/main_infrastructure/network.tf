@@ -22,3 +22,8 @@ resource "google_compute_router_nat" "nat_template" {
 }
 
 
+
+
+
+
+
