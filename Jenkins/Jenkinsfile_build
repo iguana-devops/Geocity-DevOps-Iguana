@@ -22,8 +22,13 @@ pipeline {
                 steps {
                     echo 'Push to jfrog repository'
                     dir("${WORKING_DIR }") {
-                        jf 'rt u  target/citizen.war maven-repository/'
-                        jf 'rt bp' }
+                        jf 'c show'
+                        jf 'rt ping'
+                        sh 'touch test-file'
+                        jf 'rt u test-file maven-repository/'
+                        // jf 'rt u  target/citizen.war maven-repository/'
+                        jf 'rt bp'
+                        jf 'rt dl maven-repository/test-file'}
                 }
             }
     }
