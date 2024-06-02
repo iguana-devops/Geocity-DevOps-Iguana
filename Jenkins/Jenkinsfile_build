@@ -20,7 +20,7 @@ pipeline {
             steps {
                 echo 'Push to jfrog repository'
                 dir("${WORKING_DIR }/target") {
-                    jf "rt u  citizen.war maven-repository/citizen-${JOB_NAME}-${BUILD_NUMBER}.war"}
+                    jf "rt u  citizen.war maven-repository/citizen-${BUILD_TAG}.war"}
             }
         }
     }
