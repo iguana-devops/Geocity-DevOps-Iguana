@@ -7,13 +7,27 @@ pipeline {
     }
     environment {
         WORKING_DIR = "${WORKSPACE}/java-app"
+    // PROPERTIES_APP = credentials('properties')
     }
     stages {
-        stage('Build artifac') {
+        stage('add credentials') {
+            script {
+                    dir("${WORKING_DIR }") {
+                        withCredentials([
+                        file(
+                            credentialsId: 'properties',
+                            variable: 'test')
+                        ]) {
+                            sh 'cp "\$test" src/main/resources/application.properties'
+                        }
+                    }
+            }
+        }
+        stage('Build artifact') {
             steps {
                 echo 'Maven build'
                 dir("${WORKING_DIR }") {
-                        sh 'mvn clean install -U'}
+                        sh 'mvn clean install'}
             }
         }
         stage('Push') {
