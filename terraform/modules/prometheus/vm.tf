@@ -22,7 +22,7 @@ resource "google_compute_instance" "prometheus_instance" {
     source      = google_compute_disk.disk_prometheus.id
   }
 
-  metadata_startup_script = file("${path.module}/mon_prom_startup.sh")
+  metadata_startup_script = file("${path.module}/prom_startup.sh")
 
   metadata = {
     ssh-keys = "${var.env}-${var.region}-${var.app}-prometheus:${tls_private_key.ssh_key_prometheus.public_key_openssh}"

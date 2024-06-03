@@ -10,7 +10,7 @@ resource "google_compute_instance_group_manager" "geo" {
 
   named_port {
     name = "http"
-    port = 80
+    port = 8080
   }
 
 }

@@ -4,7 +4,7 @@ resource "tls_private_key" "ssh_key_jfrog" {
 }
 
 resource "google_secret_manager_secret" "ssh_key_jfrog" {
-  secret_id = "${var.env}-${var.region}-${var.app}-ssh_jenkins"
+  secret_id = "${var.env}-${var.region}-${var.app}-ssh_jfrog"
   labels = {
     env = var.env
     app = var.app
