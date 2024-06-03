@@ -19,6 +19,7 @@ pipeline {
                             credentialsId: 'properties',
                             variable: 'test')
                         ]) {
+                            sh 'pwd'
                             sh 'bash ../Jenkins/env.sh'
                             sh 'cp "\$test" application.properties'
                         }
