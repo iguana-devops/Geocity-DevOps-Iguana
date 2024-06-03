@@ -1,6 +1,6 @@
 #! /bin/bash
 
-sudo apt-get install jq -y
+# sudo apt-get install jq -y
 DB="$(jq -r '.database_pass' /var/lib/jenkins/workspace/terraform_start/ansible/vars_output.json)"
 IP="$(jq -r '.database_private_ip' /var/lib/jenkins/workspace/terraform_start/ansible/vars_output.json )"
 sed -i -e "s|192.168.101.30|$IP|g" application.properties
