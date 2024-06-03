@@ -19,8 +19,8 @@ pipeline {
                             credentialsId: 'properties',
                             variable: 'test')
                         ]) {
-                            sh "bash ${WORKSPACE}/Jenkins/env.sh"
                             sh 'cp "\$test" application.properties'
+                            sh "bash ${WORKSPACE}/Jenkins/env.sh"
                         }
                     }
             }
