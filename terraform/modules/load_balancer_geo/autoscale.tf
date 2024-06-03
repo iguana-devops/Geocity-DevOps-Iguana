@@ -8,7 +8,7 @@ resource "google_compute_autoscaler" "geo" {
     cooldown_period = 60
 
     cpu_utilization {
-      target = 0.9
+      target = 0.5
     }
   }
 }
