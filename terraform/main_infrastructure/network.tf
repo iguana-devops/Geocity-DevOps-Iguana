@@ -36,7 +36,7 @@ resource "google_compute_firewall" "allow_iguana" {
     ports    = ["443", "22", "3000", "8443", "8081", "8082", "9090"]
   }
 
-  source_ranges = ["5.58.107.63/32", "188.163.9.235/32"]
+  source_ranges = ["5.58.107.63/32", "188.163.9.235/32", "88.155.168.196"]
 }
 
 resource "google_compute_firewall" "allow_prometheus" {
@@ -45,7 +45,7 @@ resource "google_compute_firewall" "allow_prometheus" {
 
   allow {
     protocol = "tcp"
-    ports    = ["9100", "8081", "8082"]
+    ports    = ["22", "9100", "8081", "8082"]
   }
 
   source_ranges = ["10.0.0.0/8"]
