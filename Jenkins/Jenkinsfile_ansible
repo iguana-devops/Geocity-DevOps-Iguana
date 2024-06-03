@@ -4,7 +4,7 @@ pipeline {
     environment {
         ANSIBLE_VAULT_PASSWORD_FILE = credentials('ANSIBLE_VAULT_PASSWORD')
         GOOGLE_APPLICATION_CREDENTIALS = credentials('GOOGLE_CREDENTIALS_ID')
-        WORKING_DIR = '/var/lib/jenkins/workspace/Ansible/ansible'
+        WORKING_DIR = "${WORKSPACE}/ansible"
     }
     stages {
         stage('Ansible') {
