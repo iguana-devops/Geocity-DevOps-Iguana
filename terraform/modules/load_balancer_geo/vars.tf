@@ -23,11 +23,6 @@ variable "sub_network" {
   type        = string
 }
 
-variable "instance_type" {
-  description = "The instance type"
-  type        = string
-}
-
 variable "image_type" {
   description = "The instance OS"
   type        = string
