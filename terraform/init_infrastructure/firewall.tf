@@ -7,5 +7,5 @@ resource "google_compute_firewall" "web_firewall" {
     ports    = ["8080"]
   }
 
-  source_ranges = ["0.0.0.0/0"]
+  source_ranges = ["10.129.0.0/26"]
 }
