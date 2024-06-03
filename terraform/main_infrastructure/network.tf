@@ -52,7 +52,7 @@ resource "google_compute_firewall" "allow_prometheus" {
 }
 
 resource "google_compute_firewall" "allow_google" {
-  name    = "${var.env}-${var.region}-${var.app}-allow-prometheus-traffic"
+  name    = "${var.env}-${var.region}-${var.app}-allow-google-traffic"
   network = data.google_compute_network.vpc_network.name
 
   allow {
