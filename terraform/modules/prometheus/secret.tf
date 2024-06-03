@@ -4,7 +4,7 @@ resource "tls_private_key" "ssh_key_prometheus" {
 }
 
 resource "google_secret_manager_secret" "ssh_key_prometheus" {
-  secret_id = "${var.env}-${var.region}-${var.app}-ssh_jenkins"
+  secret_id = "${var.env}-${var.region}-${var.app}-ssh_prometheus"
   labels = {
     env = var.env
     app = var.app

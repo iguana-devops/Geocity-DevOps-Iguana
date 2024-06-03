@@ -3,7 +3,7 @@ pipeline {
     agent any
     environment {
         GOOGLE_APPLICATION_CREDENTIALS = credentials('GOOGLE_CREDENTIALS_ID')
-        WORKING_DIR = '/var/lib/jenkins/workspace/terraform_start/terraform/infrastructure'
+        WORKING_DIR = '/var/lib/jenkins/workspace/terraform_start/terraform/main_infrastructure'
     }
     stages {
         stage('Terraform format') {
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo 'Terraform init'
                 dir("${WORKING_DIR }") {
-                        sh 'terraform init'}
+                        sh 'make init'}
         }
 }
         stage('Terraform validate') {
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 echo 'Terraform plan'
                 dir("${WORKING_DIR }") {
-                        sh 'terraform plan'}
+                        sh 'make plan'}
         }
         }
         stage('Terraform apply') {
@@ -46,7 +46,7 @@ pipeline {
                 script {
                     echo 'Terraform apply'
                     dir("${WORKING_DIR }") {
-                        sh 'terraform apply -auto-approve'}
+                        sh 'make apply'}
             }
         }
         }

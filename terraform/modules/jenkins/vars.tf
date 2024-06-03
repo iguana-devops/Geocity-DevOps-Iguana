@@ -48,6 +48,11 @@ variable "sub_network" {
   type        = string
 }
 
+variable "daily_snapshot_policy" {
+  description = "The Snapshot policy for making disk backup"
+  type        = string
+}
+
 variable "deletion_protection" {
   description = "Deletion protection for instances"
   type        = string
