@@ -7,15 +7,15 @@
 
 - name: Download artifact from JFrog
   uri:
-    url: "https://jfrog.iguana-devops.pp.ua/artifactory/maven-repository/citizen-jenkins-artifact-69.war"
+    url: "https://jfrog.iguana-devops.pp.ua/artifactory/maven-repository/citizen-jenkins-artifact-71.war"
     method: GET
     user: "{{ jfrog_username }}"
     password: "{{ jfrog_password }}"
     force_basic_auth: yes
-    dest: "/tmp/jfrog-distribution-artifact/citizen-jenkins-artifact-69.war"
+    dest: "/tmp/jfrog-distribution-artifact/citizen-jenkins-artifact-71.war"
 
 - name: Copy WAR file to Tomcat webapps directory
-  shell: cp /tmp/jfrog-distribution-artifact/citizen-jenkins-artifact-69.war /var/lib/tomcat9/webapps/citizen.war
+  shell: cp /tmp/jfrog-distribution-artifact/citizen-jenkins-artifact-71.war /var/lib/tomcat9/webapps/citizen.war
 
 - name: Start and enable Tomcat service
   service:
