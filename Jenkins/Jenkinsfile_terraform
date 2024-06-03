@@ -3,7 +3,7 @@ pipeline {
     agent any
     environment {
         GOOGLE_APPLICATION_CREDENTIALS = credentials('GOOGLE_CREDENTIALS_ID')
-        WORKING_DIR = "${WORKSPACE}/terraform/infrastructure"
+        WORKING_DIR = "${WORKSPACE}/terraform/main_infrastructure"
     }
     stages {
         stage('Terraform format') {
