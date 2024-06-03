@@ -8,7 +8,7 @@ plan: init
 	terraform plan -var-file ../workspace_vars/$(GEO_ENV).json
 
 apply:
-	terraform apply -var-file ../workspace_vars/$(GEO_ENV).json
+	terraform apply -var-file ../workspace_vars/$(GEO_ENV).json --auto-approve
 
 destroy:
-	terraform destroy -var-file ../workspace_vars/$(GEO_ENV).json
+	terraform destroy -var-file ../workspace_vars/$(GEO_ENV).json --auto-approve
