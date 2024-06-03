@@ -2,7 +2,7 @@
 - name: Update apt packages
   apt:
     upgrade: yes
-    update_cache: yes      
+    update_cache: yes
 
 - name: Install packages
   apt:
