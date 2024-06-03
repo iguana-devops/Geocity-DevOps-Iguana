@@ -8,6 +8,8 @@ module "jenkins_vm" {
   app                 = var.app
   env                 = var.env
   region              = var.region
+  project             = var.project
+  disk_snapshot       = "jenkins-snapshot-1"
   deletion_protection = false
 }
 
