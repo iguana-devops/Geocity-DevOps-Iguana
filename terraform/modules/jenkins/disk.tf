@@ -7,6 +7,7 @@ resource "google_compute_disk" "disk_jenkins" {
     env = var.env
     app = var.app
   }
+  snapshot = "https://www.googleapis.com/compute/v1/projects/${var.project}/global/snapshots/${var.disk_snapshot}"
 }
 
 resource "google_compute_disk_resource_policy_attachment" "disk_attach" {

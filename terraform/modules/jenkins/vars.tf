@@ -23,8 +23,18 @@ variable "region" {
   type        = string
 }
 
+variable "project" {
+  description = "Google cloud active project"
+  type        = string
+}
+
 variable "disk_size" {
   description = "The size of th disk"
+  type        = string
+}
+
+variable "disk_snapshot" {
+  description = "The snapshot from which the disk will be created"
   type        = string
 }
 

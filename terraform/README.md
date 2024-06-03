@@ -88,7 +88,30 @@ The main cloud infrastructure runs by Jenkins, but for testing purposes, you can
 
 ## Backup restore
 
-### Restoring Instance from Snapshot Disk
+### Restoring Instance from Snapshot Disk via Terraform.
+
+1. **Select the snapshot from which the disk will be created**
+    - Navigate to Compute Engine > Snapshots.
+    - Copy the name of snapshot.
+
+2. **Change name of snapshot in Terraform**:
+    - In the Terraform file of certain disk resource, change the value `disk_snapshot` with the name of the snapshot:
+      ```
+      disk_snapshot = "snapshot name"
+      ```
+3. **Recreate disk via Terraform**
+    - Recreate the disk and attach it to the VM:
+      ```
+      make plan
+      make apply
+      ```
+4. **Remount disk via script**:
+    - Login via SSH to instance and run the following script:
+      ```bash
+      sudo bash -e /scripts/disk_remount.sh
+      ```
+
+### Restoring Instance from Snapshot Disk Manually. Use this option if creating the disk via Terraform is not possible.
 
 1. **Remove attached disk from VM**:
     - Navigate to Compute Engine > VM instances.
@@ -98,31 +121,50 @@ The main cloud infrastructure runs by Jenkins, but for testing purposes, you can
 2. **Delete the disk**:
     - Navigate to Compute Engine > Disks.
     - Select the disk `disk` and delete it.
-
+ 
+ 
+ 
 3. **Create disk from snapshot**:
     - Navigate to Compute Engine > Snapshots.
     - Select the snapshot and click `Create disk`.
     - Set the following values:
-        - Name: `disk` (it should be the same name of deleted disk)
+        - **The Disk configuration should be the same as described in GCP console or terraform file disk resource**
+        - Name: `disk`
+        - Description: `Description`
         - Region: Region of the VM
         - Disk type: SSD persistent disk
         - Select or create a snapshot schedule: `daily-snapshot-policy`
     - Click `Create`.
 
-4. **Attach the disk to VM**:
-    - Navigate to Compute Engine > VM instances.
-    - Select the `instance` and click `Edit`.
-    - Under `Additional disks`, attach the existing disk `disk` and save.
-
-5. **Login via SSH to Jenkins instance**:
-    - Run the following script:
-      ```bash
-      sudo bash -e /scripts/disk_remount.sh
+5. **Change name of snapshot in Terraform**:
+    - In the Terraform file of certain disk resource, change the value `disk_snapshot` with the name of the snapshot:
       ```
-
+      disk_snapshot = "snapshot name"
+      ```
 6. **Refresh Terraform state**:
     - Run the following commands:
       ```
+      terraform state rm [resource]
+      terraform import -var-file ../workspace_vars/dev-01-us-central1-geo.json [resource] [zone]/[disk_name]
+      ```
+      Example:
+      ```
       terraform state rm module.jenkins_vm.google_compute_disk.disk_jenkins
-      terraform import module.jenkins_vm.google_compute_disk.disk_jenkins europe-central2-a/disk-jenkins
+      terraform import -var-file ../workspace_vars/dev-01-us-central1-geo.json module.jenkins_vm.google_compute_disk.disk_jenkins us-central1-a/dev-01-us-central1-geo-disk-jenkins
+      ```
+7. **Attach disk via Terraform**
+    - Check if the disk was created correctly and if Terraform will not destroy it:
+      ```
+      make plan
+      ```
+    - If Terraform will not destroy the disk resource, then everything is good. Write `make apply` to attach the disk to the VM:
+      ```
+      make apply
+      ```
+    - If Terraform mentions destroying the disk then try again from step 1.
+
+8. **Remount disk via script**:
+    - Login via SSH to instance and run the following script:
+      ```bash
+      sudo bash -e /scripts/disk_remount.sh
       ```
