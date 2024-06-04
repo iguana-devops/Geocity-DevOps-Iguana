@@ -19,7 +19,7 @@ resource "google_compute_firewall" "allow_iguana" {
     ports    = ["443", "22", "3000", "8443", "8081", "8082", "9090"]
   }
 
-  source_ranges = ["5.58.107.63/32", "188.163.9.235/32", "88.155.168.196"]
+  source_ranges = ["5.58.107.63/32", "188.163.9.235/32", "88.155.168.196/32", "188.191.234.164/32"]
 }
 
 resource "google_compute_firewall" "allow_google" {
