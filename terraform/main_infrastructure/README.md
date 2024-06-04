@@ -1,21 +1,31 @@
-# Terraform Module: Google Cloud Main Setup
+# Terraform Module: Google Cloud Network and Compute Resources Setup
 
 ## Overview
 
-This Terraform module sets up the Google Cloud project services and a Cloud SQL database instance. It enables required Google Cloud services and deploys a PostgreSQL database with specified configurations.
+This Terraform module sets up a Google Cloud Network with multiple subnets, firewall rules, routers, and NAT configurations. It also provisions a load balancer and a database with specified configurations.
 
 ## Resources
 
+The module creates the following resources:
+
+- **google_compute_router**: Manages a Cloud Router
+- **google_compute_router_nat**: Manages a Cloud NAT
+- **google_compute_subnetwork**: Manages subnets within the VPC network
+- **google_compute_firewall**: Manages firewall rules
+- **local_file**: Manages local file creation for outputs
+
 The imported modules:
 
-- **vm**: This Terraform module sets up a Google Cloud SQL database instance with specified configurations, including PostgreSQL version, backup configurations, and users. It also manages secrets in Google Cloud Secret Manager.
+- **database**
+- **load_balancer_geo**
 
 ## Input Variables
 
-| Name           | Description                                                      | Type         | Default                     | Required |
-|----------------|------------------------------------------------------------------|--------------|-----------------------------|----------|
-| `project_id`   | Google Cloud active project                                      | string       | "diesel-studio-423421-p9"   | no       |
-| `region`       | Default region to deploy infrastructure                          | string       | "europe-central2"           | no       |
-| `zone`         | The availability zone where the instance will be deployed        | string       | "europe-central2-a"         | no       |
-| `environment`  | Working environment                                              | string       | "dev"                       | no       |
-| `services`     | A list of services to enable                                     | list(string) | ["compute.googleapis.com", "servicenetworking.googleapis.com", "secretmanager.googleapis.com"] | no       |
+| Name             | Description                                                  | Type    | Default                         |
+|------------------|--------------------------------------------------------------|---------|---------------------------------|
+| `project`        | Google cloud active project                                  | string  |                                 |
+| `env`            | The working environment                                      | string  |                                 |
+| `app`            | The application name                                         | string  |                                 |
+| `region`         | The default region to deploy infrastructure                  | string  |                                 |
+| `zone`           | The availability zone where the resource will be deployed    | string  |                                 |
+| `image_type`     | The instance OS                                              | string  | "ubuntu-os-cloud/ubuntu-2204-lts" |
