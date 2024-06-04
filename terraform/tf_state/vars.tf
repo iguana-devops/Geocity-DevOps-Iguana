@@ -1,7 +1,6 @@
 variable "project" {
   description = "Google cloud active project"
   type        = string
-  default     = "amplified-grail-423921-n7"
 }
 
 variable "env" {

@@ -23,9 +23,18 @@ variable "region" {
   type        = string
 }
 
+variable "project" {
+  description = "Google cloud active project"
+  type        = string
+}
 
 variable "disk_size" {
   description = "The size of th disk"
+  type        = string
+}
+
+variable "disk_snapshot" {
+  description = "The snapshot from which the disk will be created"
   type        = string
 }
 
@@ -36,6 +45,11 @@ variable "vpc_network" {
 
 variable "sub_network" {
   description = "Subnetwork network for resources"
+  type        = string
+}
+
+variable "daily_snapshot_policy" {
+  description = "The Snapshot policy for making disk backup"
   type        = string
 }
 
