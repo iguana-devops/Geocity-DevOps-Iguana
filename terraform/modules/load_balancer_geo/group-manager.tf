@@ -5,7 +5,7 @@ resource "google_compute_instance_group_manager" "geo" {
     instance_template = google_compute_instance_template.geo_template.id
     name              = "primary"
   }
-  base_instance_name = "internal-glb"
+  base_instance_name = "${var.env}-${var.region}-${var.app}-webapp-application"
   target_size        = 1
 
   named_port {
