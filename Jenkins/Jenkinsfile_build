@@ -7,7 +7,6 @@ pipeline {
     }
     environment {
         WORKING_DIR = "${WORKSPACE}/java-app"
-    // PROPERTIES_APP = credentials('properties')
     }
     stages {
         stage('add credentials') {
@@ -37,7 +36,7 @@ pipeline {
             steps {
                 echo 'Push to jfrog repository'
                 dir("${WORKING_DIR }/target") {
-                    jf "rt u  citizen.war maven-repository/citizen-${BUILD_TAG}.war"}
+                    jf "rt u  citizen.war maven-repository/citizen-${GIT_BRANCH}-${BUILD_TAG}-${GIT_HASH}.war"}
             }
         }
     }
