@@ -7,7 +7,7 @@ pipeline {
     }
     environment {
         WORKING_DIR = "${WORKSPACE}/java-app"
-        NAME_ARTIFACT = "citizen-${GIT_BRANCH}-${BUILD_TAG}-${GIT_HASH}.war"
+        NAME_ARTIFACT = "citizen-${GIT_BRANCH}-${GIT_HASH}.war"
     }
     stages {
         stage('add credentials') {
