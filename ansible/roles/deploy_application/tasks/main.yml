@@ -7,7 +7,7 @@
 
 - name: Download artifact from JFrog
   uri:
-    url: "https://jfrog.iguana-devops.pp.ua/artifactory/maven-repository/citizen-jenkins-artifact-71.war"
+    url: "https://jfrog.iguana-devops.pp.ua/artifactory/maven-repository/citizen-jenkins-artifact-73.war"
     method: GET
     user: "{{ jfrog_username }}"
     password: "{{ jfrog_password }}"
