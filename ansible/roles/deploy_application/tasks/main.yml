@@ -4,7 +4,7 @@
     path: /tmp/jfrog-distribution-artifact
     state: directory
     mode: "0755"
-
+    
 - name: Get the list of artifacts
   uri:
     url: "https://jfrog.iguana-devops.pp.ua/artifactory/api/storage/maven-repository"
