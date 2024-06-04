@@ -6,6 +6,7 @@ resource "google_compute_region_backend_service" "geo" {
     group           = google_compute_instance_group_manager.geo.instance_group
     balancing_mode  = "UTILIZATION"
     capacity_scaler = 1.0
+    max_utilization = 0.8
   }
 
 

@@ -15,6 +15,6 @@ module "load_balancer_geo" {
   sub_network   = google_compute_subnetwork.template_sub_network.id
   env           = var.env
   region        = var.region
-  instance_type = var.instance_type
+  instance_type = "e2-micro"
   image_type    = var.image_type
 }

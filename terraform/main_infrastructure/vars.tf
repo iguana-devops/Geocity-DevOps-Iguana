@@ -23,12 +23,6 @@ variable "zone" {
   type        = string
 }
 
-variable "instance_type" {
-  description = "The instance type"
-  type        = string
-  default     = "e2-medium"
-}
-
 variable "image_type" {
   description = "The instance OS"
   type        = string
