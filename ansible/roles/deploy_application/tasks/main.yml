@@ -1,24 +1,62 @@
---- 
-    - name: Clone Remote Git Repository
-      git:
-        repo: https://github.com/iguana-devops/geocity
-        dest: /home/user/geocity
-        
-    - name: Generate application.properties
-      template:
-        src: templates/application.j2
-        dest: /home/user/geocity/java-app/src/main/resources/application.properties 
-           
-    - name: Maven build
-      shell: mvn install
-      args:
-        chdir: /home/user/geocity/java-app/
-        
-    - name: Copy WAR file to Tomcat webapps directory
-      shell: cp /home/user/geocity/java-app/target/citizen.war /var/lib/tomcat9/webapps/citizen.war
+---
+- name: Check the directory exists
+  file:
+    path: /tmp/jfrog-distribution-artifact
+    state: directory
+    mode: "0755"
+    
+- name: Get the list of artifacts
+  uri:
+    url: "https://jfrog.iguana-devops.pp.ua/artifactory/api/storage/maven-repository"
+    method: GET
+    user: "{{ jfrog_username }}"
+    password: "{{ jfrog_password }}"
+    force_basic_auth: yes
+    return_content: yes
+  register: artifacts_list
 
-    - name: Start and enable Tomcat service
-      service:
-        name: tomcat9
-        state: started
-        enabled: yes
+- name: Extract artifact URIs
+  set_fact:
+    artifact_uris: "{{ artifacts_list.json.children | selectattr('folder', 'equalto', false) | map(attribute='uri') | list }}"
+
+- name: Extract version numbers and URIs
+  set_fact:
+    artifacts_with_versions: >-
+      {{
+        artifact_uris | map('regex_search', '(?<=citizen-jenkins-artifact-)(\\d+)(?=\\.war)') | zip(artifact_uris) | list
+      }}
+
+- name: Find the latest artifact
+  set_fact:
+    latest_artifact_uri: >-
+      {{
+        artifacts_with_versions | map('first') | map('int') | zip(artifact_uris) | sort(reverse=True) | first | last
+      }}
+
+- name: Construct latest artifact URL
+  set_fact:
+    latest_artifact_url: "https://jfrog.iguana-devops.pp.ua/artifactory/maven-repository{{ latest_artifact_uri }}"
+
+- name: Download the latest artifact
+  uri:
+    url: "{{ latest_artifact_url }}"
+    method: GET
+    user: "{{ jfrog_username }}"
+    password: "{{ jfrog_password }}"
+    force_basic_auth: yes
+    dest: "/tmp/jfrog-distribution-artifact/latest-artifact.war"
+
+- name: Copy WAR file to Tomcat webapps directory
+  shell: cp /tmp/jfrog-distribution-artifact/latest-artifact.war /var/lib/tomcat9/webapps/citizen.war
+
+- name: Start and enable Tomcat service
+  service:
+    name: tomcat9
+    state: started
+    enabled: yes
+
+- name: Remove the JFrog artifact directory
+  file:
+    path: /tmp/jfrog-distribution-artifact
+    state: absent
+    force: yes

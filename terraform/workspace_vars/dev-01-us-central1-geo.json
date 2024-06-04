@@ -1,0 +1,7 @@
+{
+    "env": "dev-01",
+    "app": "geo",
+    "project": "amplified-grail-423921-n7",
+    "region": "us-central1",
+    "zone": "us-central1-a"
+}

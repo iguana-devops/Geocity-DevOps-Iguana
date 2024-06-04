@@ -1,0 +1,7 @@
+---
+- name: Deploy monitoring group
+  hosts: all
+  become: yes
+  roles:
+    - deploy_grafana
+    - deploy_prometheus

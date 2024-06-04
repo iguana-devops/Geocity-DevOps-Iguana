@@ -3,7 +3,8 @@
   hosts: all
   become: yes
   vars_files:
-    - data.yml
+    - data_jfrog.yml
   roles:
     - deploy_environment
     - deploy_application
+    - deploy_monitoring_application
