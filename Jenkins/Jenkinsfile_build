@@ -7,6 +7,7 @@ pipeline {
     }
     environment {
         WORKING_DIR = "${WORKSPACE}/java-app"
+        NAME_ARTIFACT = "citizen-${GIT_BRANCH}-${BUILD_TAG}-${GIT_HASH}.war"
     }
     stages {
         stage('add credentials') {
@@ -22,7 +23,7 @@ pipeline {
                             sh "bash ${WORKSPACE}/Jenkins/env.sh"
                         }
                     }
-            }
+                }
             }
         }
         stage('Build artifact') {
@@ -36,7 +37,7 @@ pipeline {
             steps {
                 echo 'Push to jfrog repository'
                 dir("${WORKING_DIR }/target") {
-                    jf "rt u  citizen.war maven-repository/citizen-${GIT_BRANCH}-${BUILD_TAG}-${GIT_HASH}.war"}
+                    jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"}
             }
         }
     }
