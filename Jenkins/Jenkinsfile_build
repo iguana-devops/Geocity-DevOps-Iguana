@@ -27,20 +27,20 @@ pipeline {
                 }
             }
         }
-        // stage('Build artifact') {
-        //     steps {
-        //         echo 'Maven build'
-        //         dir("${WORKING_DIR }") {
-        //                 sh 'mvn clean install'}
-        //     }
-        // }
-        // stage('Push') {
-        //     steps {
-        //         echo 'Push to jfrog repository'
-        //         dir("${WORKING_DIR }/target") {
-        //             jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"}
-        //     }
-        // }
+        stage('Build artifact') {
+            steps {
+                echo 'Maven build'
+                dir("${WORKING_DIR }") {
+                        sh 'mvn clean install'}
+            }
+        }
+        stage('Push') {
+            steps {
+                echo 'Push to jfrog repository'
+                dir("${WORKING_DIR }/target") {
+                    jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"}
+            }
+        }
     }
     post {
         always {
