@@ -27,3 +27,9 @@ variable "image_type" {
   description = "The instance OS"
   type        = string
 }
+
+variable "instance_type" {
+  description = "The type of instance"
+  type        = string
+}
+
