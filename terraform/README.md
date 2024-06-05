@@ -36,30 +36,31 @@ To start the project, you need to create an S3 bucket for each environment: dev,
 ```
 GEO_ENV ?= {env}-01-us-central1-geo
 ```
-3. Run the following commands:
-```
-   make plan
-   make apply
-```
-4. In `main.tf`, uncomment the lines and change the environment:
-```
-# backend "gcs" {
-#   bucket = "{env}-01-us-central1-geo-tf-state"
-#   prefix = "terraform/s3-tfstate"
-# }
-```
-5. Run `make plan`.When prompted with 
-```
-"Do you want to migrate all workspaces to 'gcs'?"
-```
-**answer** "yes".
-6. Comment out the backend configuration again: 
+4. In `main.tf`, comment the lines:
 ```
 backend "gcs" {
   bucket = "{env}-01-us-central1-geo-tf-state"
   prefix = "terraform/s3-tfstate"
 }
 ```
+4. Run the following commands:
+```
+   make plan
+   make apply
+```
+5. In `main.tf`, uncomment the lines and change the environment on the relevant:
+```
+# backend "gcs" {
+#   bucket = "{env}-01-us-central1-geo-tf-state"
+#   prefix = "terraform/s3-tfstate"
+# }
+```
+6. Run `make plan`.When prompted with 
+```
+"Do you want to migrate all workspaces to 'gcs'?"
+```
+**answer** "yes".
+
 7. **Delete**: the `.terraform/terraform.tfstate` file.
 
 ### Initial Infrastructure Setup
