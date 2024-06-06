@@ -4,7 +4,8 @@ pipeline {
         jfrog 'jfrog-cli'
     }
     environment {
-        DOCKER_IMAGE_NAME = "iguana.jfrog.io/gitea-docker-local/gitea:1.0.0"
+        NAME_ARTIFACT = sh(script: 'echo "citizen-${GIT_BRANCH}-${HASH_COMMIT}.war"', returnStdout: true)
+        DOCKER_IMAGE_NAME = "iguana.jfrog.io/gitea-docker-local/dev-gitea:${NAME_ARTIFAC}"
     }
     stages {
         stage('Clone') {
