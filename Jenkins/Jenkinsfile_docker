@@ -50,7 +50,7 @@ pipeline {
             script {
                 // Clean up the workspace
                 cleanWs()             
-                sh 'docker system prune -f'
+                sh 'docker system prune -a -f'
             }
         }
     }
