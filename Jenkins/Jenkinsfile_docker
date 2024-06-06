@@ -4,7 +4,8 @@ pipeline {
         jfrog 'jfrog-cli'
     }
     environment {
-        DOCKER_IMAGE_NAME = "iguana.jfrog.io/gitea-docker-local/dev-gitea:${${HASH_COMMIT}}"
+        HASH_COMMIT = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+        DOCKER_IMAGE_NAME = "iguana.jfrog.io/gitea-docker-local/dev-gitea:${HASH_COMMIT}"
     }
     stages {
         stage('Clone') {
