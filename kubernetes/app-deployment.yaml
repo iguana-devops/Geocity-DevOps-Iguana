@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitea-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitea
+  template:
+    metadata:
+      labels:
+        app: gitea
+    spec:
+      containers:
+      - name: gitea
+        image: gitea/gitea:1.22
+        env:
+          - name: GITEA__database__DB_TYPE
+            value: postgres
+          - name: GITEA__database__HOST
+            value: 10.86.100.78:5432
+          - name: GITEA__database__NAME
+            value: db
+          - name: GITEA__database__USER
+            value: db
+          - name: GITEA__database__PASSWD
+            value: db
+        ports:
+        - containerPort: 3000
+        - containerPort: 2222
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1600Mi"
+            cpu: "500m"
