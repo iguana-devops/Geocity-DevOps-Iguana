@@ -27,10 +27,10 @@ pipeline {
                 dir('docker-oci-examples/docker-example') {
                     script {
                         // Scan Docker image for vulnerabilities
-                        sh "jf docker scan $DOCKER_IMAGE_NAME"
+                        jf "docker scan $DOCKER_IMAGE_NAME"
 
                         // Push image to Artifactory
-                        sh "jf docker push $DOCKER_IMAGE_NAME"
+                        jf "docker push $DOCKER_IMAGE_NAME"
                     }
                 }
             }
@@ -39,7 +39,7 @@ pipeline {
         stage('Publish build info') {
             steps {
                 script {
-                    sh "jf rt build-publish"
+                    jf "rt build-publish"
                 }
             }
         }
