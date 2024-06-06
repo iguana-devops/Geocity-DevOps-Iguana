@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = "yurabel1/gitea:${GIT_BRANCH}-${HASH_COMMIT}"
+        DOCKER_IMAGE = "gitea-${HASH_COMMIT}"
     }
     stages {
         stage('Checkout') {
