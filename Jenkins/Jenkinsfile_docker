@@ -21,10 +21,8 @@ pipeline {
                 }
             }
         }
-
         stage('Scan and push image') {
             steps {
-                dir('docker-oci-examples/docker-example') {
                     script {
                         // Scan Docker image for vulnerabilities
                         jf "docker scan $DOCKER_IMAGE_NAME"
@@ -34,8 +32,6 @@ pipeline {
                     }
                 }
             }
-        }
-
         stage('Publish build info') {
             steps {
                 script {
@@ -44,7 +40,6 @@ pipeline {
             }
         }
     }
-
     post {
         always {
             script {
