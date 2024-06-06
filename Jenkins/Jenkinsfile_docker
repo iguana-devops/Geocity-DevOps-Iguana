@@ -16,7 +16,7 @@ pipeline {
         stage('Build Docker image') {
             steps {
                 script {
-                    docker.build("$DOCKER_IMAGE_NAME", 'docker-oci-examples/docker-example')
+                    docker.build("$DOCKER_IMAGE_NAME", '.')
                 }
             }
         }
@@ -46,7 +46,11 @@ pipeline {
 
     post {
         always {
-            cleanWs()
+            script {
+                // Clean up the workspace
+                cleanWs()             
+                sh 'docker system prune -f'
+            }
         }
     }
 }
