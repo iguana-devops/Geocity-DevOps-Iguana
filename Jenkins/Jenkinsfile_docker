@@ -1,7 +1,9 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = "gitea-${HASH_COMMIT}"
+        DOCKERHUB_REPO = "yurabel1/gitea"
+        HASH_COMMIT = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+        DOCKER_IMAGE = "${DOCKERHUB_REPO}:${HASH_COMMIT}"
     }
     stages {
         stage('Checkout') {
