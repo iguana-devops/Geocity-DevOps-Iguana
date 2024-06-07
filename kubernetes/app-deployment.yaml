@@ -16,16 +16,20 @@ spec:
       - name: gitea
         image: gitea/gitea:1.22
         env:
+          - name: USER_UID
+            value: "1000"
+          - name: USER_GID
+            value: "1000"
           - name: GITEA__database__DB_TYPE
             value: postgres
           - name: GITEA__database__HOST
-            value: 10.86.100.78:5432
+            value: 34.172.174.63:5432
           - name: GITEA__database__NAME
-            value: db
+            value: gitea
           - name: GITEA__database__USER
-            value: db
+            value: gitea
           - name: GITEA__database__PASSWD
-            value: db
+            value: gitea
         ports:
         - containerPort: 3000
         - containerPort: 2222
