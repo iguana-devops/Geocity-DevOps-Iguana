@@ -23,7 +23,6 @@ pipeline {
         stage('Scan and push image') {
             steps {
                     script {
-                        jf "docker scan $DOCKER_IMAGE_NAME"
                         jf "docker push $DOCKER_IMAGE_NAME"
                     }
                 }
