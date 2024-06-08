@@ -5,7 +5,7 @@ pipeline {
     }
     environment {
         HASH_COMMIT = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-        DOCKER_IMAGE_NAME = "iguana.jfrog.io/gitea-docker-local/dev-gitea:${HASH_COMMIT}"
+        DOCKER_IMAGE_NAME = "registry.iguana-devops.pp.ua/docker-local/dev-gitea/gitea:${HASH_COMMIT}"
     }
     stages {
         stage('Clone') {
