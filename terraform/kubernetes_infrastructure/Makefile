@@ -1,4 +1,4 @@
-GEO_ENV ?= dev-01-us-central-gitea
+GEO_ENV ?= dev-01-us-west1-gitea
 init:
 	terraform init
 	terraform workspace select ${GEO_ENV} || terraform workspace new ${GEO_ENV}
