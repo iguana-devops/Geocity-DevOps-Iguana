@@ -23,7 +23,10 @@ pipeline {
         stage('Push image') {
             steps {
                 script {
-                    jf "docker push $DOCKER_IMAGE_NAME"
+                    withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD registry.iguana-devops.pp.ua"
+                        sh "docker push $DOCKER_IMAGE_NAME"
+                    }
                 }
             }
         }
@@ -31,7 +34,7 @@ pipeline {
     post {
         always {
             script {
-                cleanWs()             
+                cleanWs()
                 sh 'docker system prune -a -f'
             }
         }
