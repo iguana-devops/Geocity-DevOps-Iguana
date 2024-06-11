@@ -34,3 +34,7 @@ variable "gke_disk_size" {
   type        = number
   description = "disk size in GB for each node"
 }
+
+locals{
+  full_name_of_project = "${var.project}-${var.region}-${var.zone}"
+}
