@@ -36,5 +36,5 @@ variable "gke_disk_size" {
 }
 
 locals{
-  full_name_of_project = "${var.project}-${var.region}-${var.zone}"
+  full_name = "${var.env}-${var.region}-${var.app}"
 }
