@@ -26,9 +26,10 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD'),
-                                     string(credentialsId: 'docker-registry-url', variable: 'DOCKER_REGISTRY_URL')]) {
+                                     string(credentialsId: 'docker-registry-url', variable: 'DOCKER_REGISTRY_URL'),
+                                     string(credentialsId: 'docker-registry-domain', variable: 'DOCKER_REGISTRY_DOMAIN')])]) {
                         def dockerImageName = "${DOCKER_REGISTRY_URL}:${HASH_COMMIT}"
-                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD registry.iguana-devops.pp.ua"
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ${DOCKER_REGISTRY_DOMAIN}"
                         sh "docker push $dockerImageName"
                     }
                 }
