@@ -1,8 +1,3 @@
-data "google_container_engine_versions" "gke_version" {
-  location = var.region
-  version_prefix = "1.27."
-}
-
 resource "google_container_cluster" "primary" {
   name     = "${local.full_name_of_project}-gke"
   location = var.zone
@@ -23,7 +18,6 @@ resource "google_container_node_pool" "primary_nodes" {
     preemptible  = true
     machine_type = "e2-medium"
     disk_size_gb = var.gke_disk_size
-    version      = data.google_container_engine_versions.gke_version.release_channel_latest_version["STABLE"]
 
     oauth_scopes    = [
       "https://www.googleapis.com/auth/cloud-platform"
