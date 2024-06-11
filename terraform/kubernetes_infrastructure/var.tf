@@ -25,10 +25,12 @@ variable "zone" {
 
 variable "gke_num_nodes" {
   default     = 3
+  type        = number
   description = "number of gke nodes"
 }
 
 variable "gke_disk_size" {
   default     = 10
+  type        = number
   description = "disk size in GB for each node"
 }
