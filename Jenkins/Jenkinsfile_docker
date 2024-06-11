@@ -5,7 +5,6 @@ pipeline {
     }
     environment {
         HASH_COMMIT = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-        DOCKER_IMAGE_NAME = "registry.iguana-devops.pp.ua/docker-local/dev-gitea/gitea:${HASH_COMMIT}"
     }
     stages {
         stage('Clone') {
@@ -16,16 +15,21 @@ pipeline {
         stage('Build Docker image') {
             steps {
                 script {
-                    docker.build("$DOCKER_IMAGE_NAME", '.')
+                    withCredentials([string(credentialsId: 'docker-registry-url', variable: 'DOCKER_REGISTRY_URL')]) {
+                        def dockerImageName = "${DOCKER_REGISTRY_URL}:${HASH_COMMIT}"
+                        docker.build(dockerImageName, '.')
+                    }
                 }
             }
         }
         stage('Push image') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD'),
+                                     string(credentialsId: 'docker-registry-url', variable: 'DOCKER_REGISTRY_URL')]) {
+                        def dockerImageName = "${DOCKER_REGISTRY_URL}:${HASH_COMMIT}"
                         sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD registry.iguana-devops.pp.ua"
-                        sh "docker push $DOCKER_IMAGE_NAME"
+                        sh "docker push $dockerImageName"
                     }
                 }
             }
