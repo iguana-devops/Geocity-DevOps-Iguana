@@ -3,18 +3,18 @@ config:
   RUN_MODE: dev
   
   database:
-    DB_TYPE: postgres
-    HOST: "34.71.31.150:5432"
-    NAME: gitea
-    USER: gitea
-    PASSWD: gitea
+    DB_TYPE: 
+    HOST: 
+    NAME: 
+    USER: 
+    PASSWD: 
 
 gitea:
   admin:
     existingSecret:
-    username: awesome_me
-    password: "kdsajg3428fab"
-    email: "awesome_me@local.domain"
+    username: 
+    password: 
+    email: 
 
 
 persistence:
