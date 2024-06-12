@@ -1,0 +1,29 @@
+config:
+  APP_NAME: "Gitea: Git with a cup of tea"
+  RUN_MODE: dev
+  
+  database:
+    DB_TYPE: postgres
+    HOST: "34.71.31.150:5432"
+    NAME: gitea
+    USER: gitea
+    PASSWD: gitea
+
+gitea:
+  admin:
+    existingSecret:
+    username: awesome_me
+    password: "kdsajg3428fab"
+    email: "awesome_me@local.domain"
+
+
+persistence:
+  size: 20Gi
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 500Mi
+  requests:
+    cpu: 250m
+    memory: 250Mi
