@@ -402,11 +402,11 @@ gitea:
       SSH_LISTEN_PORT: 2222 # rootless image
     
     # database:
-    #   DB_TYPE: postgres
-    #   HOST: "34.71.31.150:5432"
-    #   NAME: gitea
-    #   USER: gitea
-    #   PASSWD: gitea
+    #   DB_TYPE: 
+    #   HOST: 
+    #   NAME: 
+    #   USER: 
+    #   PASSWD: 
   #
   #  security:
   #    PASSWORD_COMPLEXITY: spec
