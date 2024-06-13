@@ -1,5 +1,4 @@
 gitea:
-  
   admin:
     existingSecret:
     username: awesome_admin
@@ -12,11 +11,10 @@ gitea:
     
     database:
       DB_TYPE: postgres
-      HOST: "34.71.31.150:5432"
-      NAME: gitea
-      USER: gitea
-      PASSWD: gitea
-
+      HOST: "IP:PORT"
+      NAME: DB_NAME
+      USER: DB_USER
+      PASSWD: DB_PASS
 image:
   registry: ""
   repository: gitea/gitea
