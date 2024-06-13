@@ -15,6 +15,9 @@ gitea:
       NAME: DB_NAME
       USER: DB_USER
       PASSWD: DB_PASS
+
+imagePullSecrets: []
+
 image:
   registry: ""
   repository: gitea/gitea
