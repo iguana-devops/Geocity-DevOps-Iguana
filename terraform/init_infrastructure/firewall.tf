@@ -12,7 +12,7 @@ resource "google_compute_firewall" "web_firewall" {
 
 resource "google_compute_firewall" "allow_iguana" {
   name    = "${var.env}-${var.region}-${var.app}-allow-iguana-traffic"
-  network = data.google_compute_network.vpc_network.name
+  network = google_compute_network.vpc_network.name
 
   allow {
     protocol = "tcp"
@@ -24,7 +24,7 @@ resource "google_compute_firewall" "allow_iguana" {
 
 resource "google_compute_firewall" "allow_google" {
   name    = "${var.env}-${var.region}-${var.app}-allow-google-traffic"
-  network = data.google_compute_network.vpc_network.name
+  network = google_compute_network.vpc_network.name
 
   allow {
     protocol = "tcp"
