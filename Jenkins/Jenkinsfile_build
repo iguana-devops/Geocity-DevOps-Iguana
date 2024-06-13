@@ -9,7 +9,7 @@ pipeline {
         WORKING_DIR = "${WORKSPACE}/java-app"
         COMMIT_HASH = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
         // NAME_ARTIFACT = sh(script: 'echo "citizen-${GIT_BRANCH}-${COMMIT_HASH}.war"', returnStdout: true)
-        NAME_ARTIFACT = "citizen-${GIT_BRANCH, fullName=false}-${COMMIT_HASH}.war"
+        NAME_ARTIFACT = "citizen-${GIT_BRANCH,fullName=false}-${COMMIT_HASH}.war"
     }
     stages {
         stage('add credentials') {
