@@ -23,13 +23,14 @@ dependencies:
 
 ### Replace the Database Values in Workspace Vars with Actual Ones
 ```
-config:
-  database:
-    DB_TYPE: postgres
-    HOST: "IP:PORT"
-    NAME: DB_NAME
-    USER: DB_USER
-    PASSWD: DB_PASS
+gitea:
+  config:
+    database:
+      DB_TYPE: postgres
+      HOST: "IP:PORT"
+      NAME: DB_NAME
+      USER: DB_USER
+      PASSWD: DB_PASS
 ```
 
 ### Set Admin Account
