@@ -11,3 +11,19 @@ resource "google_compute_subnetwork" "subnet" {
   network       = google_compute_network.vpc.name
   ip_cidr_range = "10.10.0.0/24"
 }
+
+data "google_compute_network" "vpc_network" {
+  name = "${var.env}-{var.region_additional}-{var.app_additional}-vpc"
+}
+
+resource "google_compute_network_peering" "peering-gitea-geo" {
+  name         = "peering1"
+  network      = google_compute_network.vpc.self_link
+  peer_network = data.google_compute_network.vpc_network.self_link
+}
+
+resource "google_compute_network_peering" "peering-geo-gitea"" {
+  name         = "peering2"
+  network      = data.google_compute_network.vpc_network.self_link
+  peer_network = google_compute_network.vpc.self_link
+}
