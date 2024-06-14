@@ -30,11 +30,22 @@ variable "gke_num_nodes" {
 }
 
 variable "gke_disk_size" {
-  default     = 10
+  default     = 20
   type        = number
   description = "disk size in GB for each node"
 }
 
+variable "app_additional" {
+  description = "The name of additional application"
+  type        = string
+}
+
+variable "region_additional" {
+  description = "The region that used in additional application"
+  type        = string
+}
+
 locals{
   full_name = "${var.env}-${var.region}-${var.app}"
+  name_of_vpc_additional_app = "${var.env}-${var.region_additional}-${var.app_additional}"
 }
