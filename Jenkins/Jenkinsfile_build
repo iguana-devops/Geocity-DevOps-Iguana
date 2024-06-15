@@ -50,7 +50,7 @@ pipeline {
                     tee('search_output.txt') {
                         jf 'rt s maven-repository/'
                     }
-                    sh "cat search_output.txt | grep '*origin*' "
+                    sh "cat search_output.txt | | grep '.war' | cut -d: -f 2 "
                 }
             }
         }
