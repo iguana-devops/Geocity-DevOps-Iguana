@@ -1,11 +1,11 @@
 resource "google_container_cluster" "primary" {
-  name     = "${local.full_name}-gke"
-  location = var.zone
+  name                     = "${local.full_name}-gke"
+  location                 = var.zone
   remove_default_node_pool = true
   initial_node_count       = 1
-  deletion_protection = false
-  network    = google_compute_network.vpc.name
-  subnetwork = google_compute_subnetwork.subnet.name
+  deletion_protection      = false
+  network                  = google_compute_network.vpc.name
+  subnetwork               = google_compute_subnetwork.subnet.name
 }
 
 resource "google_container_node_pool" "primary_nodes" {
@@ -19,7 +19,7 @@ resource "google_container_node_pool" "primary_nodes" {
     machine_type = "e2-medium"
     disk_size_gb = var.gke_disk_size
 
-    oauth_scopes    = [
+    oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
     labels = {
