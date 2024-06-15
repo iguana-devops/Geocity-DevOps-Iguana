@@ -57,19 +57,19 @@ pipeline {
                 }
             }
         }
-        stage('Active choice') {
-            input {
-                message 'What is your choice?'
-                parameters {
-                    choice(name: 'CHOICE', choices: fileContents, description: 'Pick something')
-                }
-            }
-            steps {
-                script {
-                    echo "${CHOICE}"
-                }
-            }
-        }
+        // stage('Active choice') {
+        //     input {
+        //         message 'What is your choice?'
+        //         parameters {
+        //             choice(name: 'CHOICE', choices: fileContents, description: 'Pick something')
+        //         }
+        //     }
+        //     steps {
+        //         script {
+        //             echo "${CHOICE}"
+        //         }
+        //     }
+        // }
     }
 
     post {
