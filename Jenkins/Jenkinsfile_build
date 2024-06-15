@@ -40,12 +40,22 @@ pipeline {
                 echo 'Push to jfrog repository'
                 dir("${WORKING_DIR }/target") {
                     sh "echo ${NAME_ARTIFACT}"
-                    jf "rt s 'path' maven-repository/"
+                // jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"
+                }
+            }
+        }
+        stage('Pipeline Step') {
+            steps {
+                script {
+                    tee('search_output.txt') {
+                        jf 'rt s maven-repository/'
                     }
-        // jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"}
+                    sh 'cat search_output.txt'
+                }
+            }
         }
     }
-}
+
     post {
         always {
             cleanWs()
