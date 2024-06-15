@@ -1,0 +1,111 @@
+pipeline {
+    agent any
+    environment {
+        KUBECONFIG = credentials('kubeconfig')
+        HELM_PATH = credentials('path-helm-id')
+    }
+    parameters {
+        choice(name: 'ACTION', choices: ['install', 'upgrade', 'delete'], description: 'Choose the Helm action to perform')
+    }
+    stages {
+        stage('Test kubectl') {
+            steps {
+                script {
+                    sh '''
+                        export PATH=$PATH:$HELM_PATH
+                        gcloud container clusters get-credentials dev-01-us-east1-gitea-gke --zone us-east1-b --project amplified-grail-423921-n7
+                        kubectl get nodes
+                    '''
+                }
+            }
+        }
+        stage('Clone Repo') {
+            steps {
+                script {
+                    sh '''
+                        echo "Cloning repository..."
+                        git clone https://github.com/iguana-devops/geocity.git
+                    '''
+                }
+            }
+        }
+        stage('Prepare Secret File') {
+            steps {
+                withCredentials([file(credentialsId: 'helm-secret-file-id', variable: 'SECRET_FILE')]) {
+                    sh '''
+                        echo "Copying secret file to workspace_vars..."
+                        cp $SECRET_FILE geocity/kubernetes/workspace_vars/dev-01-gitea.yaml
+                    '''
+                }
+            }
+        }
+        stage('Create Namespace and Secret') {
+            steps {
+                withCredentials([string(credentialsId: 'docker-username', variable: 'DOCKER_USERNAME'),
+                                 string(credentialsId: 'docker-password', variable: 'DOCKER_PASSWORD'),
+                                 string(credentialsId: 'docker-email', variable: 'DOCKER_EMAIL')]) {
+                    sh '''
+                        export PATH=$PATH:$HELM_PATH
+                        kubectl create namespace gitea || echo "Namespace 'gitea' already exists"
+                        kubectl config set-context --current --namespace=gitea
+                        if kubectl get secret regcred --namespace=gitea > /dev/null 2>&1; then
+                            echo "Secret 'regcred' already exists in namespace 'gitea'"
+                        else
+                            kubectl create secret docker-registry regcred \
+                              --docker-server=registry.iguana-devops.pp.ua \
+                              --docker-username=$DOCKER_USERNAME \
+                              --docker-password=$DOCKER_PASSWORD \
+                              --docker-email=$DOCKER_EMAIL \
+                              --namespace=gitea
+                        fi
+                    '''
+                }
+            }
+        }
+        stage('Helm Action') {
+            steps {
+                script {
+                    def action = params.ACTION
+
+                    if (action == 'install') {
+                        sh '''
+                            export PATH=$PATH:$HELM_PATH
+                            cd geocity/kubernetes
+                            helm dependency update ./helm-chart/
+                            helm install helm-release ./helm-chart/ --values ./helm-chart/values.yaml -f ./workspace_vars/dev-01-gitea.yaml
+                        '''
+                    } else if (action == 'upgrade') {
+                        sh '''
+                            export PATH=$PATH:$HELM_PATH
+                            cd geocity/kubernetes
+                            helm dependency update ./helm-chart/
+                            helm upgrade helm-release ./helm-chart/ --values ./helm-chart/values.yaml -f ./workspace_vars/dev-01-gitea.yaml
+                        '''
+                    } else if (action == 'delete') {
+                        sh '''
+                            export PATH=$PATH:$HELM_PATH
+                            cd geocity/kubernetes
+                            helm uninstall helm-release
+                            kubectl delete pvc gitea-shared-storage
+                            kubectl delete secret regcred
+                        '''
+                    } else {
+                        error "Invalid action: ${action}"
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Cleaning up workspace...'
+            cleanWs()
+        }
+        success {
+            echo 'Success!'
+        }
+        failure {
+            echo 'Fail!'
+        }
+    }
+}
