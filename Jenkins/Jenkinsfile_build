@@ -44,6 +44,7 @@ pipeline {
                     tee('search_output.txt') {
                         jf 'rt s maven-repository/'
                     }
+                    sh 'ls -al'
                 // jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"
                 }
             }
@@ -51,7 +52,6 @@ pipeline {
         stage('Pipeline Step') {
             steps {
                 script {
-                    sh 'ls -al'
                     sh "cat search_output.txt | grep '.war' | cut -d: -f 2 "
                 }
             }
