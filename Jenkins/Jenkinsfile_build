@@ -40,7 +40,7 @@ pipeline {
                 echo 'Push to jfrog repository'
                 dir("${WORKING_DIR }/target") {
                     sh "echo ${NAME_ARTIFACT}"
-                    sh 'touch search_output.txt'
+                    // sh 'touch search_output.txt'
                     tee('search_output.txt') {
                         jf 'rt s maven-repository/'
                     }
@@ -51,15 +51,16 @@ pipeline {
         stage('Pipeline Step') {
             steps {
                 script {
+                    sh 'ls -al'
                     sh "cat search_output.txt | grep '.war' | cut -d: -f 2 "
                 }
             }
         }
     }
 
-    // post {
-    //     always {
-    //         cleanWs()
-    //     }
-    // }
+// post {
+//     always {
+//         cleanWs()
+//     }
+// }
 }
