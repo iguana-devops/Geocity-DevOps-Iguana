@@ -40,7 +40,7 @@ pipeline {
                 echo 'Push to jfrog repository'
                 dir("${WORKING_DIR }/target") {
                     sh "echo ${NAME_ARTIFACT}"
-                    jf 'rt s --props maven-repository/'}
+                    jf 'rt s --props=all maven-repository/'}
         // jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"}
         }
     }
