@@ -17,13 +17,13 @@ data "google_compute_network" "vpc_network" {
 }
 
 resource "google_compute_network_peering" "peering-gitea-geo" {
-  name         = "peering1"
+  name         = "${local.full_name}-${var.app_additional}-peering"
   network      = google_compute_network.vpc.self_link
   peer_network = data.google_compute_network.vpc_network.self_link
 }
 
 resource "google_compute_network_peering" "peering-geo-gitea" {
-  name         = "peering2"
+  name         = "${local.name_of_vpc_additional_app}-${var.app}-peering"
   network      = data.google_compute_network.vpc_network.self_link
   peer_network = google_compute_network.vpc.self_link
 }
