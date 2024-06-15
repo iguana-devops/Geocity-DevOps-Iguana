@@ -35,24 +35,22 @@ pipeline {
         //                 sh 'mvn clean install'}
         //     }
         // }
-        stage('Push') {
-            steps {
-                echo 'Push to jfrog repository'
-                dir("${WORKING_DIR }/target") {
-                    sh "echo ${NAME_ARTIFACT}"
-                    // sh 'touch search_output.txt'
-                    tee('search_output.txt') {
-                        jf 'rt s maven-repository/'
-                    }
-                    sh 'ls -al'
-                // jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"
-                }
-            }
-        }
+        // stage('Push') {
+        //     steps {
+        //         echo 'Push to jfrog repository'
+        //         dir("${WORKING_DIR }/target") {
+        //             sh "echo ${NAME_ARTIFACT}"
+        //             jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"
+        //         }
+        //     }
+        // }
         stage('Pipeline Step') {
             steps {
                 script {
-                    sh "cat search_output.txt | grep '.war' | cut -d: -f 2 "
+                    tee('search_output.txt') {
+                        jf 'rt s maven-repository/'}
+                    sh 'names.sh search_output.txt'
+                    sh 'cat names.txt'
                 }
             }
         }
