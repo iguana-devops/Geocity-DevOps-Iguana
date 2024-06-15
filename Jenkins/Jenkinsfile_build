@@ -50,7 +50,7 @@ pipeline {
         stage('Pipeline Step') {
             steps {
                 script {
-                    sh 'cat search_output.txt | grep ".war" | cut -d: -f 2 | cut -d\" -f 2'
+                    sh "cat search_output.txt | grep '.war' | cut -d: -f 2 "
                 }
             }
         }
