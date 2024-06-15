@@ -49,7 +49,7 @@ pipeline {
                 script {
                     tee('search_output.txt') {
                         jf 'rt s maven-repository/'}
-                    sh 'Jenkins/names.sh search_output.txt'
+                    sh 'bash Jenkins/names.sh search_output.txt'
                     sh 'cat names.txt'
                 }
             }
