@@ -40,6 +40,7 @@ pipeline {
                 echo 'Push to jfrog repository'
                 dir("${WORKING_DIR }/target") {
                     sh "echo ${NAME_ARTIFACT}"
+                    sh 'touch search_output.txt'
                     tee('search_output.txt') {
                         jf 'rt s maven-repository/'
                     }
