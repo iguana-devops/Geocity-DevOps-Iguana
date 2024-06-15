@@ -41,7 +41,7 @@ pipeline {
                 dir("${WORKING_DIR }/target") {
                     sh "echo ${NAME_ARTIFACT}"
                     // jf 'rt s maven-repository/' | jq - er '.[0].path'
-                    list = jf(script: 'rt s maven-repository/', returnStdout: true).trim()
+                    def list = jf(script: 'rt s maven-repository/', returnStdout: true).trim()
                     sh "echo ${list}"
                 }
         // jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"}
