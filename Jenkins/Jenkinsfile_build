@@ -15,7 +15,6 @@ pipeline {
         stage('add credentials') {
             steps {
                 script {
-                    def list = jf(script: 'rt s maven-repository/', returnStdout: true).trim()
                     dir("${WORKING_DIR }/src/main/resources/") {
                         withCredentials([
                         file(
@@ -41,9 +40,8 @@ pipeline {
                 echo 'Push to jfrog repository'
                 dir("${WORKING_DIR }/target") {
                     sh "echo ${NAME_ARTIFACT}"
-                    // jf 'rt s maven-repository/' | jq - er '.[0].path'
-                    sh "echo ${list}"
-                }
+                    jf 'rt s maven-repository/'
+                    }
         // jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"}
         }
     }
