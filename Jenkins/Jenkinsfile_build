@@ -10,6 +10,7 @@ pipeline {
         COMMIT_HASH = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
         NEW_GIT_BRANCH = sh(script: "echo $GIT_BRANCH | sed -r 's|origin/||g'", returnStdout: true).trim()
         NAME_ARTIFACT = "${BUILD_TAG}-citizen-${NEW_GIT_BRANCH}-${COMMIT_HASH}.war"
+        list = jf(script: 'rt s maven-repository/', returnStdout: true).trim()
     }
     stages {
         stage('add credentials') {
@@ -41,7 +42,6 @@ pipeline {
                 dir("${WORKING_DIR }/target") {
                     sh "echo ${NAME_ARTIFACT}"
                     // jf 'rt s maven-repository/' | jq - er '.[0].path'
-                    def list = jf(script: 'rt s maven-repository/', returnStdout: true).trim()
                     sh "echo ${list}"
                 }
         // jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"}
