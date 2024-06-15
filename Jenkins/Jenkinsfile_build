@@ -1,4 +1,6 @@
 /* groovylint-disable DuplicateStringLiteral, LineLength, NestedBlockDepth */
+def fileContents
+
 pipeline {
     agent any
     tools {
@@ -50,7 +52,8 @@ pipeline {
                     tee('search_output.txt') {
                         jf 'rt s maven-repository/'}
                     sh 'bash Jenkins/names.sh search_output.txt'
-                    sh 'cat names.txt'
+                    fileContents = readFile('names.txt')
+                    echo fileContents
                 }
             }
         }
