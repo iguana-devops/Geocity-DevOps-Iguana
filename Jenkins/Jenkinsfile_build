@@ -55,7 +55,7 @@ pipeline {
                         jf 'rt s maven-repository/'}
                     sh 'pwd'
                     sh "bash Jenkins/names.sh ${JENKINS_HOME}/search_output.txt"
-                    fileContents = readFile('names.txt')
+                    fileContents = readFile("${JENKINS_HOME}/names.txt")
                     echo fileContents
                 }
             }
