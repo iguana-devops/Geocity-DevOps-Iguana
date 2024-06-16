@@ -51,10 +51,10 @@ pipeline {
                 script {
                     echo "${JENKINS_HOME}"
                     echo "${WORKING_DIR}"
-                    tee('search_output.txt') {
+                    tee("${JENKINS_HOME }/search_output.txt") {
                         jf 'rt s maven-repository/'}
                     sh 'pwd'
-                    sh 'bash Jenkins/names.sh search_output.txt'
+                    sh "bash Jenkins/names.sh ${JENKINS_HOME}/search_output.txt"
                     fileContents = readFile('names.txt')
                     echo fileContents
                 }

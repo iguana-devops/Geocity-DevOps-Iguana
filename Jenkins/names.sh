@@ -9,3 +9,4 @@ do
    echo -n "$line, " >> names.txt
 done < test.txt
 echo "]" >> names.txt
+mv names.txt /var/lib/jenkins/names.txt
