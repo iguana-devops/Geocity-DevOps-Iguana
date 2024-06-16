@@ -22,7 +22,7 @@ pipeline {
                             variable: 'test')
                         ]) {
                             sh 'cp "\$test" application.properties'
-                            sh "bash ${WORKSPACE}/Jenkins/env.sh"
+                            sh "bash ${WORKSPACE}/Jenkins/scripts/env.sh"
                         }
                     }
                 }
@@ -51,7 +51,7 @@ pipeline {
                     sh "rm -rf ${JENKINS_HOME }/search_output.txt"
                     tee("${JENKINS_HOME }/search_output.txt") {
                         jf 'rt s maven-repository/'}
-                    sh "bash Jenkins/names.sh ${JENKINS_HOME}/search_output.txt"
+                    sh "bash ${WORKSPACE}/Jenkins/scripts/names.sh ${JENKINS_HOME}/search_output.txt"
                 }
             }
         }
