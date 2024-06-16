@@ -3,9 +3,9 @@ pipeline {
     environment {
         GOOGLE_APPLICATION_CREDENTIALS = credentials('GOOGLE_CREDENTIALS_ID')
         WORKING_DIR = "${WORKSPACE}/terraform/helm_gitea"
-        username = credentials('helm_user')
-        password = credentials('helm_password')
-        mail = credentials('helm_mail')
+        TF_VAR_username = credentials('helm_user')
+        TF_VAR_password = credentials('helm_password')
+        TF_VAR_mail = credentials('helm_mail')
     }
     stages {
         stage('Terraform format') {
