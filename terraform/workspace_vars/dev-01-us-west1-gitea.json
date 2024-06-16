@@ -1,0 +1,9 @@
+{
+    "env": "dev-01",
+    "app": "gitea",
+    "project": "amplified-grail-423921-n7",
+    "region": "us-east1",
+    "zone": "us-east1-b",
+    "app_additional": "geo",
+    "region_additional": "us-central1"
+}
