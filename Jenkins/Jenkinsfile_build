@@ -53,7 +53,7 @@ pipeline {
                     tee("${JENKINS_HOME }/search_output.txt") {
                         jf 'rt s maven-repository/'}
                     sh "bash Jenkins/names.sh ${JENKINS_HOME}/search_output.txt"
-                    fileContents = readFile("${JENKINS_HOME}/names.txt")
+                    fileContents = readFile("${JENKINS_HOME}/names.groovy")
                     echo fileContents
                 }
             }
