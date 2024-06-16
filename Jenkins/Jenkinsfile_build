@@ -14,22 +14,22 @@ pipeline {
         NAME_ARTIFACT = "${BUILD_TAG}-citizen-${NEW_GIT_BRANCH}-${COMMIT_HASH}.war"
     }
     stages {
-        stage('add credentials') {
-            steps {
-                script {
-                    dir("${WORKING_DIR }/src/main/resources/") {
-                        withCredentials([
-                        file(
-                            credentialsId: 'properties',
-                            variable: 'test')
-                        ]) {
-                            sh 'cp "\$test" application.properties'
-                            sh "bash ${WORKSPACE}/Jenkins/env.sh"
-                        }
-                    }
-                }
-            }
-        }
+        // stage('add credentials') {
+        //     steps {
+        //         script {
+        //             dir("${WORKING_DIR }/src/main/resources/") {
+        //                 withCredentials([
+        //                 file(
+        //                     credentialsId: 'properties',
+        //                     variable: 'test')
+        //                 ]) {
+        //                     sh 'cp "\$test" application.properties'
+        //                     sh "bash ${WORKSPACE}/Jenkins/env.sh"
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         // stage('Build artifact') {
         //     steps {
         //         echo 'Maven build'
@@ -72,9 +72,9 @@ pipeline {
         // }
     }
 
-    post {
-        always {
-            cleanWs()
-        }
-    }
+    // post {
+    //     always {
+    //         cleanWs()
+    //     }
+    // }
 }
