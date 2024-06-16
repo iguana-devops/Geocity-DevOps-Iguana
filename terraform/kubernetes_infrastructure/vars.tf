@@ -46,6 +46,6 @@ variable "region_additional" {
 }
 
 locals {
-  full_name                  = "${var.env}-${var.region}-${var.app}"
-  additional_app_vpc_name    = "${var.env}-${var.region_additional}-${var.app_additional}"
+  full_name               = "${var.env}-${var.region}-${var.app}"
+  additional_app_vpc_name = "${var.env}-${var.region_additional}-${var.app_additional}"
 }
