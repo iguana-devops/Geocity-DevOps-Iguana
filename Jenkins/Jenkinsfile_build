@@ -49,6 +49,7 @@ pipeline {
         stage('Pipeline Step') {
             steps {
                 script {
+                    echo "${JENKINS_HOME}"
                     tee('search_output.txt') {
                         jf 'rt s maven-repository/'}
                     sh 'bash Jenkins/names.sh search_output.txt'
