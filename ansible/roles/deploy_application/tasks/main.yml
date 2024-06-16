@@ -7,7 +7,7 @@
 
 - name: Construct artifact URL
   set_fact:
-    latest_artifact_url: "https://jfrog.iguana-devops.pp.ua/artifactory/maven-repository/{{ latest_artifact_uri }}"
+    latest_artifact_url: "https://jfrog.iguana-devops.pp.ua/artifactory/{{ latest_artifact_uri }}"
 
 - name: Download the latest artifact
   uri:
