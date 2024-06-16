@@ -1,4 +1,4 @@
-GEO_ENV ?= dev-01-us-central1-gitea
+GEO_ENV ?= dev-01-us-east1-gitea
 
 init:
 	terraform init
