@@ -1,0 +1,67 @@
+pipeline {
+    agent any
+    environment {
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('GOOGLE_CREDENTIALS_ID')
+        WORKING_DIR = "${WORKSPACE}/terraform/helm_gitea"
+        TF_VAR_username = credentials('helm_user')
+        TF_VAR_password = credentials('helm_password')
+        TF_VAR_mail = credentials('helm_mail')
+        PATH = "/var/lib/jenkins/google-cloud-sdk/bin:$PATH"
+    }
+    stages {
+        stage('Terraform format') {
+            steps {
+                echo 'Terraform format'
+                dir("${WORKING_DIR}") {
+                    sh 'terraform fmt'
+                }
+            }
+        }
+        stage('Terraform init') {
+            steps {
+                echo 'Terraform init'
+                dir("${WORKING_DIR}") {
+                    sh 'make init'
+                }
+            }
+        }
+        stage('Terraform validate') {
+            steps {
+                echo 'Terraform validate'
+                dir("${WORKING_DIR}") {
+                    sh 'terraform validate'
+                }
+            }
+        }
+        stage('Terraform Plan') {
+            steps {
+                echo 'Terraform plan'
+                dir("${WORKING_DIR}") {
+                    sh 'make plan'
+                }
+            }
+        }
+        stage('Terraform apply') {
+            input {
+                message 'Do you want to apply infrastructure?'
+                ok 'Yes'
+                parameters {
+                    booleanParam(defaultValue: false, description: 'Do you really want to destroy infrastructure (By default "No")?', name: 'DESTROY')
+                }
+            }
+            steps {
+                script {
+                    echo 'Terraform apply'
+                    dir("${WORKING_DIR}") {
+                        sh 'make destroy'
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
