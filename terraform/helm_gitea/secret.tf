@@ -13,7 +13,7 @@ resource "kubernetes_secret" "gitea" {
           "username" = var.username,
           "password" = var.password,
           "email"    = var.mail,
-          "auth"     = ("${var.username}:${var.password}")
+          "auth"     = base64encode("${var.username}:${var.password}")
         }
       }
     }))
