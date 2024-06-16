@@ -18,11 +18,13 @@ pipeline {
         }
         stage('Test kubectl') {
             steps {
-                script {
-                    sh '''
-                        gcloud container clusters get-credentials dev-01-us-east1-gitea-gke --zone us-east1-b --project amplified-grail-423921-n7
-                        kubectl get nodes
-                    '''
+                withCredentials([string(credentialsId: 'gcloud-credentials-command', variable: 'GCLOUD_CMD')]) {
+                    script {
+                        sh '''
+                            $GCLOUD_CMD
+                            kubectl get nodes
+                        '''
+                    }
                 }
             }
         }
