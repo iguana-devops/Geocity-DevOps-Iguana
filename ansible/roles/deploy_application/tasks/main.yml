@@ -4,38 +4,10 @@
     path: /tmp/jfrog-distribution-artifact
     state: directory
     mode: "0755"
-    
-- name: Get the list of artifacts
-  uri:
-    url: "https://jfrog.iguana-devops.pp.ua/artifactory/api/storage/maven-repository"
-    method: GET
-    user: "{{ jfrog_username }}"
-    password: "{{ jfrog_password }}"
-    force_basic_auth: yes
-    return_content: yes
-  register: artifacts_list
 
-- name: Extract artifact URIs
+- name: Construct artifact URL
   set_fact:
-    artifact_uris: "{{ artifacts_list.json.children | selectattr('folder', 'equalto', false) | map(attribute='uri') | list }}"
-
-- name: Extract version numbers and URIs
-  set_fact:
-    artifacts_with_versions: >-
-      {{
-        artifact_uris | map('regex_search', '(?<=citizen-jenkins-artifact-)(\\d+)(?=\\.war)') | zip(artifact_uris) | list
-      }}
-
-- name: Find the latest artifact
-  set_fact:
-    latest_artifact_uri: >-
-      {{
-        artifacts_with_versions | map('first') | map('int') | zip(artifact_uris) | sort(reverse=True) | first | last
-      }}
-
-- name: Construct latest artifact URL
-  set_fact:
-    latest_artifact_url: "https://jfrog.iguana-devops.pp.ua/artifactory/maven-repository{{ latest_artifact_uri }}"
+    latest_artifact_url: "https://jfrog.iguana-devops.pp.ua/artifactory/maven-repository/{{ latest_artifact_uri }}"
 
 - name: Download the latest artifact
   uri:
