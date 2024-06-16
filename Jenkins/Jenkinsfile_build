@@ -49,11 +49,9 @@ pipeline {
         stage('Pipeline Step') {
             steps {
                 script {
-                    echo "${JENKINS_HOME}"
-                    echo "${WORKING_DIR}"
+                    sh "rm -rf ${JENKINS_HOME }/search_output.txt"
                     tee("${JENKINS_HOME }/search_output.txt") {
                         jf 'rt s maven-repository/'}
-                    sh 'pwd'
                     sh "bash Jenkins/names.sh ${JENKINS_HOME}/search_output.txt"
                     fileContents = readFile("${JENKINS_HOME}/names.txt")
                     echo fileContents
