@@ -6,7 +6,6 @@ pipeline {
         TF_VAR_username = credentials('helm_user')
         TF_VAR_password = credentials('helm_password')
         TF_VAR_mail = credentials('helm_mail')
-        PATH = "/var/lib/jenkins/google-cloud-sdk/bin:$PATH"
     }
     stages {
         stage('Terraform format') {
