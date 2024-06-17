@@ -4,5 +4,4 @@ resource "helm_release" "gitea" {
 
   repository = "gitea-repo"
   chart      = "gitea"
-  version    = "0.0.2"
 }
