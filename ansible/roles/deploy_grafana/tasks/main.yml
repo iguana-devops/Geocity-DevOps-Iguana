@@ -120,10 +120,16 @@
     group: root
     mode: "0644"
 
+- name: Enable Nginx default site
+  file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+
 - name: Create Nginx configuration file
   template:
     src: templates/nginx.conf.j2
-    dest: /etc/nginx/sites-available/default
+    dest: /etc/nginx/conf.d/config.conf
     owner: root
     group: root
     mode: "0644"
