@@ -7,8 +7,9 @@ pipeline {
     }
     environment {
         WORKING_DIR = "${WORKSPACE}/java-app"
-        NAME_ARTIFACT = sh(script: 'echo "citizen-${GIT_BRANCH}-${HASH_COMMIT}.war"', returnStdout: true)
-        // NAME_ARTIFACT = "citizen-${GIT_BRANCH}-${HASH_COMMIT}.war"
+        COMMIT_HASH = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+        NEW_GIT_BRANCH = sh(script: "echo $GIT_BRANCH | sed -r 's|origin/||g'", returnStdout: true).trim()
+        NAME_ARTIFACT = "${BUILD_TAG}-citizen-${NEW_GIT_BRANCH}-${COMMIT_HASH}.war"
     }
     stages {
         stage('add credentials') {
@@ -21,8 +22,7 @@ pipeline {
                             variable: 'test')
                         ]) {
                             sh 'cp "\$test" application.properties'
-                            sh "bash ${WORKSPACE}/Jenkins/env.sh"
-                            sh "echo ${NAME_ARTIFACT}"
+                            sh "bash ${WORKSPACE}/Jenkins/scripts/env.sh"
                         }
                     }
                 }
@@ -40,10 +40,23 @@ pipeline {
                 echo 'Push to jfrog repository'
                 dir("${WORKING_DIR }/target") {
                     sh "echo ${NAME_ARTIFACT}"
-                    jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"}
+                    jf "rt u  citizen.war maven-repository/${NAME_ARTIFACT}"
+                }
+            }
+        }
+        stage('List of artifacts') {
+            steps {
+                script {
+                    echo 'List of artifacts'
+                    sh "rm -rf ${JENKINS_HOME }/search_output.txt"
+                    tee("${JENKINS_HOME }/search_output.txt") {
+                        jf 'rt s maven-repository/'}
+                    sh "bash ${WORKSPACE}/Jenkins/scripts/names.sh ${JENKINS_HOME}/search_output.txt"
+                }
             }
         }
     }
+
     post {
         always {
             cleanWs()

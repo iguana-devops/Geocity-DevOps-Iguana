@@ -18,4 +18,3 @@ resource "google_compute_subnetwork" "geocitizen-proxy" {
   purpose       = "REGIONAL_MANAGED_PROXY"
   role          = "ACTIVE"
 }
-

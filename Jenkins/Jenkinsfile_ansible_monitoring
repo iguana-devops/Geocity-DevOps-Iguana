@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo 'Ansible'
                 dir("${WORKING_DIR }") {
-                        sh "ansible-playbook -i inventory.ini playbook.yml -e 'latest_artifact_url=${CHOICE}' -l node_exporters --vault-password-file ${ANSIBLE_VAULT_PASSWORD_FILE}"
+                        sh "ansible-playbook -i inventory.ini -l monitoring --vault-password-file ${ANSIBLE_VAULT_PASSWORD_FILE} playbook_monitor.yml"
                         }
             }
         }
