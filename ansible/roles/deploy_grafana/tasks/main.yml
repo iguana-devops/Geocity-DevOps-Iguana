@@ -89,6 +89,14 @@
     group: grafana
     mode: "0644"
 
+- name: Copy second dashboard JSON file
+  copy:
+    src: dashboard/node_dashboard.json
+    dest: /var/lib/grafana/dashboards/node_dashboard.json
+    owner: grafana
+    group: grafana
+    mode: "0644"
+
 - name: Deploy dashboards configuration
   template:
     src: templates/dashboards.yml.j2
