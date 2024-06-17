@@ -6,6 +6,10 @@ pipeline {
         TF_VAR_username = credentials('helm_user')
         TF_VAR_password = credentials('helm_password')
         TF_VAR_mail = credentials('helm_mail')
+        TF_VAR_registry_url = credentials('helm-url')
+        TF_VAR_helm_repo = credentials('helm-chart-repo')
+        TF_VAR_helm_chart = credentials('helm-chart-name')
+        TF_VAR_registry_domain = credentials('helm-domain')
     }
     stages {
         stage('Terraform format') {
