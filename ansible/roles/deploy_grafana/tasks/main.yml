@@ -112,13 +112,15 @@
     name: grafana-server
     state: restarted
 
-- name: Create Nginx default file
+- name: Create Nginx site configuration file
   template:
     src: templates/nginx.default.j2
     dest: /etc/nginx/sites-available/default
     owner: root
     group: root
     mode: "0644"
+  vars_files:
+    - data.yml
 
 - name: Enable Nginx default site
   file:
@@ -126,15 +128,13 @@
     dest: /etc/nginx/sites-enabled/default
     state: link
 
-- name: Create Nginx configuration file
+- name: Create Nginx main configuration file
   template:
     src: templates/nginx.conf.j2
-    dest: /etc/nginx/conf.d/config.conf
+    dest: /etc/nginx/nginx.conf
     owner: root
     group: root
     mode: "0644"
-  vars_files:
-    - data.yml
 
 - name: Ensure Nginx is running
   systemd:
