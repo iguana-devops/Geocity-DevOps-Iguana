@@ -1,110 +1,145 @@
 ---
-    - name: Update apt packages
-      apt:
-        upgrade: yes
-        update_cache: yes
+- name: Update apt packages
+  apt:
+    upgrade: yes
+    update_cache: yes
 
-    - name: Install packages
-      apt:
-        name: 
-          - apt-transport-https
-          - software-properties-common
-          - wget
-        state: present
+- name: Install packages
+  apt:
+    name:
+      - apt-transport-https
+      - software-properties-common
+      - wget
+      - nginx
+      - certbot
+      - python3-certbot-nginx
+    state: present
 
-    - name: Create directory for Grafana keyring
-      file:
-        path: /etc/apt/keyrings/
-        state: directory
-        mode: '0755'
+- name: Create directory for Grafana keyring
+  file:
+    path: /etc/apt/keyrings/
+    state: directory
+    mode: "0755"
 
-    - name: Download Grafana GPG key
-      get_url:
-        url: https://apt.grafana.com/gpg.key
-        dest: /tmp/grafana.gpg.key
+- name: Download Grafana GPG key
+  get_url:
+    url: https://apt.grafana.com/gpg.key
+    dest: /tmp/grafana.gpg.key
 
-    - name: Add Grafana GPG key
-      apt_key:
-        file: /tmp/grafana.gpg.key
-        state: present
-        keyring: /etc/apt/keyrings/grafana.gpg
+- name: Add Grafana GPG key
+  apt_key:
+    file: /tmp/grafana.gpg.key
+    state: present
+    keyring: /etc/apt/keyrings/grafana.gpg
 
-    - name: Add Grafana APT repository
-      copy:
-        dest: /etc/apt/sources.list.d/grafana.list
-        content: "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main\n"
-        owner: root
-        group: root
-        mode: '0644'
+- name: Add Grafana APT repository
+  copy:
+    dest: /etc/apt/sources.list.d/grafana.list
+    content: "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main\n"
+    owner: root
+    group: root
+    mode: "0644"
 
-    - name: Update apt-repository after installing Grafana
-      apt:
-        update_cache: yes
+- name: Update apt-repository after installing Grafana
+  apt:
+    update_cache: yes
 
-    - name: Install Grafana
-      apt:
-        name: grafana
-        state: present
+- name: Install Grafana
+  apt:
+    name: grafana
+    state: present
 
-    - name: Start Grafana server
-      systemd:
-        name: grafana-server
-        state: started
+- name: Start and enable Grafana server
+  systemd:
+    name: grafana-server
+    state: started
+    enabled: yes
 
-    - name: Enable Grafana server to start on boot
-      systemd:
-        name: grafana-server
-        enabled: yes
+- name: Create Grafana configuration directory for datasources
+  file:
+    path: /etc/grafana/provisioning/datasources
+    state: directory
+    mode: "0755"
 
-    - name: Ensure Grafana server is running
-      systemd:
-        name: grafana-server
-        state: started
-        enabled: yes
+- name: Create datasource configuration file from template
+  template:
+    src: templates/datasource.j2
+    dest: /etc/grafana/provisioning/datasources/datasource.yml
+    owner: grafana
+    group: grafana
+    mode: "0644"
 
-    - name: Create Grafana configuration directory for datasources
-      file:
-        path: /etc/grafana/provisioning/datasources
-        state: directory
-        mode: '0755'
+- name: Create directory for Grafana dashboards
+  file:
+    path: /var/lib/grafana/dashboards
+    state: directory
+    mode: "0755"
 
-    - name: Create datasource configuration file from template
-      template:
-        src: templates/datasource.j2
-        dest: /etc/grafana/provisioning/datasources/datasource.yml
-        owner: grafana
-        group: grafana
-        mode: '0644'
+- name: Create directory for Grafana provisioning
+  file:
+    path: /etc/grafana/provisioning/dashboards
+    state: directory
+    mode: "0755"
 
-    - name: Create directory for Grafana dashboards
-      file:
-        path: /var/lib/grafana/dashboards
-        state: directory
-        mode: '0755'
+- name: Copy dashboard JSON file
+  copy:
+    src: dashboard/node_dashboard.json
+    dest: /var/lib/grafana/dashboards/node_dashboard.json
+    owner: grafana
+    group: grafana
+    mode: "0644"
 
-    - name: Create directory for Grafana provisioning
-      file:
-        path: /etc/grafana/provisioning/dashboards
-        state: directory
-        mode: '0755'
+- name: Deploy dashboards configuration
+  template:
+    src: templates/dashboards.yml.j2
+    dest: /etc/grafana/provisioning/dashboards/dashboards.yml
+    owner: grafana
+    group: grafana
+    mode: "0644"
 
-    - name: Deploy dashboard JSON template
-      template:
-        src: templates/dashboard.json.j2
-        dest: /var/lib/grafana/dashboards/node_exporter_dashboard.json
-        owner: grafana
-        group: grafana
-        mode: '0644'
+- name: Restart Grafana to apply changes
+  systemd:
+    name: grafana-server
+    state: restarted
 
-    - name: Deploy dashboards configuration
-      template:
-        src: templates/dashboards.yml.j2
-        dest: /etc/grafana/provisioning/dashboards/dashboards.yml
-        owner: grafana
-        group: grafana
-        mode: '0644'
+- name: Load variables from data.yml
+  include_vars:
+    file: data.yml
 
-    - name: Restart Grafana to apply changes
-      systemd:
-        name: grafana-server
-        state: restarted
+- name: Create Nginx site configuration file
+  template:
+    src: templates/nginx.default.j2
+    dest: /etc/nginx/sites-available/default
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Enable Nginx default site
+  file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+
+- name: Create Nginx main configuration file
+  template:
+    src: templates/nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Ensure Nginx is running
+  systemd:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Obtain SSL certificates from Let's Encrypt
+  command: "certbot --nginx -d {{ domain_name }} --non-interactive --agree-tos -m {{ letsencrypt_email }}"
+  args:
+    creates: "/etc/letsencrypt/live/{{ domain_name }}/fullchain.pem"
+
+- name: Restart Nginx after obtaining certificates
+  systemd:
+    name: nginx
+    state: restarted
