@@ -28,3 +28,11 @@ resource "google_container_node_pool" "primary_nodes" {
     }
   }
 }
+
+resource "terraform_data" "update_kubeconfig" {
+  depends_on = [google_container_cluster.primary]
+
+  provisioner "local-exec" {
+    command = "gcloud container clusters get-credentials ${google_container_cluster.primary.name} --zone ${var.zone} --project ${var.project}"
+  }
+}
