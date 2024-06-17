@@ -3,5 +3,5 @@ resource "helm_release" "gitea" {
   namespace = kubernetes_namespace.gitea.metadata[0].name
 
   repository = "gitea-repo"
-  chart      = "gitea"
+  chart      = "gitea-0.0.2"
 }
