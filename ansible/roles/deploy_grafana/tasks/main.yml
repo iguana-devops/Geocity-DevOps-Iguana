@@ -83,14 +83,6 @@
 
 - name: Copy dashboard JSON file
   copy:
-    src: dashboard/node_exporter_dashboard.json
-    dest: /var/lib/grafana/dashboards/node_exporter_dashboard.json
-    owner: grafana
-    group: grafana
-    mode: "0644"
-
-- name: Copy second dashboard JSON file
-  copy:
     src: dashboard/node_dashboard.json
     dest: /var/lib/grafana/dashboards/node_dashboard.json
     owner: grafana
