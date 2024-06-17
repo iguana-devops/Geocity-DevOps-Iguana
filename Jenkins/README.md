@@ -18,4 +18,4 @@ In folder [Jenkins](./Jenkins) placed jenkinsfiles:
 [env.sh](./env.sh) script used for replacing mutable variables, which is created by Terraform.
 
 [names.sh](./names.sh) script used for creating list of Jfrog artifactory artifacts 
->>>>>>> main
+
