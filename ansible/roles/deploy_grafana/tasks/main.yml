@@ -81,13 +81,13 @@
     state: directory
     mode: "0755"
 
-#- name: Deploy dashboard JSON template
-#  template:
-#    src: templates/dashboard.json.j2
-#    dest: /var/lib/grafana/dashboards/node_exporter_dashboard.json
-#    owner: grafana
-#    group: grafana
-#    mode: "0644"
+- name: Copy dashboard JSON file
+  copy:
+    src: dashboard/node_exporter_dashboard.json
+    dest: /var/lib/grafana/dashboards/node_exporter_dashboard.json
+    owner: grafana
+    group: grafana
+    mode: "0644"
 
 - name: Deploy dashboards configuration
   template:
