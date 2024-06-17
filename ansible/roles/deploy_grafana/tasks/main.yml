@@ -49,17 +49,7 @@
     name: grafana
     state: present
 
-- name: Start Grafana server
-  systemd:
-    name: grafana-server
-    state: started
-
-- name: Enable Grafana server to start on boot
-  systemd:
-    name: grafana-server
-    enabled: yes
-
-- name: Ensure Grafana server is running
+- name: Start and enable Grafana server
   systemd:
     name: grafana-server
     state: started
@@ -112,6 +102,10 @@
     name: grafana-server
     state: restarted
 
+- name: Load variables from data.yml
+  include_vars:
+    file: data.yml
+
 - name: Create Nginx site configuration file
   template:
     src: templates/nginx.default.j2
@@ -119,8 +113,6 @@
     owner: root
     group: root
     mode: "0644"
-  vars_files:
-    - data.yml
 
 - name: Enable Nginx default site
   file:
