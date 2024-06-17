@@ -9,7 +9,7 @@ resource "kubernetes_secret" "gitea" {
   data = {
     ".dockerconfigjson" = (jsonencode({
       "auths" = {
-        "registry.iguana-devops.pp.ua" = {
+        "${var.registry_domain}" = {
           "username" = var.username,
           "password" = var.password,
           "email"    = var.mail,

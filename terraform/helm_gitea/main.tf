@@ -24,4 +24,9 @@ provider "helm" {
   kubernetes {
     config_path = "~/.kube/config"
   }
+  registry {
+    url      = var.registry_url
+    username = var.username
+    password = var.password
+  }
 }

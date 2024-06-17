@@ -28,3 +28,23 @@ variable "region" {
   description = "The default region to deploy infrastructure"
   type        = string
 }
+
+variable "registry_url" {
+  description = "The url of Jfrog registry"
+  type        = string
+}
+
+variable "helm_repo" {
+  description = "The chart repository"
+  type        = string
+}
+
+variable "helm_chart" {
+  description = "The helm chart from repo"
+  type        = string
+}
+
+variable "registry_domain" {
+  description = "URL of the Docker registry"
+  type        = string
+}
