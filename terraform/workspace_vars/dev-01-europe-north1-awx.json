@@ -1,0 +1,7 @@
+{
+    "env": "dev-01",
+    "app": "awx",
+    "project": "amplified-grail-423921-n7",
+    "region": "europe-north1",
+    "zone": "europe-north1-a"
+}
