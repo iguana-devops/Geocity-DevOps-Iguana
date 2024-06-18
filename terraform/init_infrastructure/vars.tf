@@ -34,3 +34,8 @@ variable "instance_type" {
   type        = string
   default     = "e2-medium"
 }
+
+variable "allowed_ips" {
+  type        = list(string)
+  description = "List of IP addresses allowed for iguana traffic"
+}
