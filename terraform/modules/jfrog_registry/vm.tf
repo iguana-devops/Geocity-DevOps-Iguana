@@ -22,7 +22,7 @@ resource "google_compute_instance" "frog_artifactory_instance" {
     source      = google_compute_disk.disk_jfrog_artifactory.id
   }
 
-  metadata_startup_script = file("${path.module}/jfrog-artifactory_startup.sh")
+  metadata_startup_script = file("${path.module}/jfrog-registry_startup.sh")
 
   metadata = {
     ssh-keys = "${var.env}-${var.region}-${var.app}-jfrog-artifactory:${tls_private_key.ssh_key_jfrog_artifactory.public_key_openssh}"
