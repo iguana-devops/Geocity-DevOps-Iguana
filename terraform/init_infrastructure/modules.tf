@@ -43,8 +43,8 @@ module "prometheus_vm" {
   deletion_protection   = false
 }
 
-module "jfrog_artifactory_vm" {
-  source                = "../modules/jfrog_artifactory"
+module "jfrog_registry_vm" {
+  source                = "../modules/jfrog_registry"
   instance_type         = var.instance_type
   image_type            = var.image_type
   disk_size             = 20
