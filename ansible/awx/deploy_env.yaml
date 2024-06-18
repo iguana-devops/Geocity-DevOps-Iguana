@@ -1,20 +1,21 @@
 ---
-hosts:
-  - monitoring
-  - servers
-remote_user: ubuntu
-become: true
+- name: deploy_env
+  hosts:
+    - monitoring
+    - servers
+  remote_user: ubuntu
+  become: true
 
-tasks:
-  - name: Update apt packages
-    apt:
-      upgrade: yes
-      update_cache: yes
+  tasks:
+    - name: Update apt packages
+      apt:
+        upgrade: yes
+        update_cache: yes
 
-  - name: Install packages
-    apt:
-      name:
-        - openjdk-8-jdk
-        - tomcat9
-      state: present
-      update_cache: true
+    - name: Install packages
+      apt:
+        name:
+          - openjdk-8-jdk
+          - tomcat9
+        state: present
+        update_cache: true
