@@ -1,8 +1,6 @@
 ---
 - name: deploy_env
-  hosts:
-    - monitoring
-    - servers
+  hosts: servers
   remote_user: ubuntu
   become: true
 
